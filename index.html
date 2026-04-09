@@ -45,7 +45,7 @@
 			left: 0;
 			right: 0;
 			z-index: 1000;
-			padding: 2rem 4rem;
+			padding: 1.5rem 4rem 1.5rem 6rem;
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
@@ -56,7 +56,7 @@
 
 		.logo {
 			font-family: var(--font-display);
-			font-size: 1.8rem;
+			font-size: 1.4rem;
 			font-weight: 300;
 			letter-spacing: 0.1em;
 			color: var(--color-charcoal);
@@ -108,7 +108,7 @@
 		}
 
 		.hero-content {
-			padding: 12rem 4rem 6rem 4rem;
+			padding: 12rem 4rem 6rem 6rem;
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
@@ -248,7 +248,7 @@
 
 		/* Features Section */
 		.features {
-			padding: 8rem 4rem;
+			padding: 8rem 6rem;
 			background: var(--color-sand);
 		}
 
@@ -348,7 +348,7 @@
 			gap: 2rem;
 			max-width: 1400px;
 			margin: 0 auto;
-			padding: 0 4rem;
+			padding: 0 6rem;
 		}
 
 		.gallery-item {
@@ -387,7 +387,7 @@
 
 		/* Contact Section */
 		.contact {
-			padding: 8rem 4rem;
+			padding: 8rem 6rem;
 			background: var(--color-charcoal);
 			color: var(--color-white);
 		}
@@ -497,7 +497,7 @@
 
 		/* Footer */
 		footer {
-			padding: 3rem 4rem;
+			padding: 3rem 6rem;
 			background: var(--color-charcoal);
 			color: var(--color-sand);
 			text-align: center;
@@ -593,25 +593,111 @@
 		}
 
 		@media (max-width: 768px) {
+
+			/* Navigation - Logo com espaço do topo */
 			nav {
-				padding: 1.5rem 2rem;
+				padding: 1.2rem 2rem 0.6rem 2rem;
+				background: transparent;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				position: relative;
+			}
+
+			.logo {
+				font-size: 1.5rem;
+				text-align: center;
+				font-weight: 300;
+				letter-spacing: 0.15em;
+			}
+
+			/* Hero Section - Layout Mobile */
+			.hero {
+				grid-template-columns: 1fr;
+				min-height: auto;
 			}
 
 			.hero-content {
-				padding: 8rem 2rem 4rem;
+				padding: 2rem 2rem 2rem;
+				order: 2;
+				/* Conteúdo vem depois da imagem */
+			}
+
+			.hero-image {
+				order: 1;
+				/* Imagem vem primeiro */
+				aspect-ratio: 1/1;
+				/* Imagem quadrada */
+				height: auto;
+				margin-top: 25px;
+				/* 50% do anterior - muito mais próxima */
+			}
+
+			.hero-label {
+				font-size: 0.7rem;
+				margin-bottom: 1rem;
 			}
 
 			.hero-title {
 				font-size: 3rem;
+				margin-bottom: 1.5rem;
 			}
 
+			.hero-subtitle {
+				font-size: 1rem;
+				margin-bottom: 2rem;
+			}
+
+			/* Stats em 3 colunas lado a lado */
 			.hero-stats {
-				flex-direction: column;
-				gap: 2rem;
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 1.5rem;
+				margin-bottom: 2rem;
 			}
 
+			.stat {
+				text-align: center;
+			}
+
+			.stat-value {
+				font-size: 2rem;
+			}
+
+			.stat-label {
+				font-size: 0.65rem;
+				margin-top: 0.3rem;
+			}
+
+			.cta-button {
+				width: 100%;
+				justify-content: center;
+				padding: 1rem 2rem;
+				font-size: 0.8rem;
+			}
+
+			/* Price tag - Ajuste para mobile */
+			.price-tag {
+				bottom: 1.5rem;
+				right: 1.5rem;
+				padding: 1.2rem 1.5rem;
+			}
+
+			.price-label {
+				font-size: 0.65rem;
+			}
+
+			.price-value {
+				font-size: 1.8rem;
+			}
+
+			/* Features */
 			.features {
 				padding: 4rem 2rem;
+			}
+
+			.section-title {
+				font-size: 2.5rem;
 			}
 
 			.features-grid {
@@ -619,19 +705,32 @@
 				gap: 3rem;
 			}
 
+			/* Gallery */
+			.gallery {
+				padding: 4rem 0;
+			}
+
 			.gallery-grid {
 				grid-template-columns: 1fr;
 				padding: 0 2rem;
 			}
 
+			/* Contact */
 			.contact {
 				padding: 4rem 2rem;
 			}
 
-			.price-tag {
-				bottom: 2rem;
-				right: 2rem;
-				padding: 1.5rem 2rem;
+			.contact-info h2 {
+				font-size: 2.5rem;
+			}
+
+			/* Footer */
+			footer {
+				padding: 2rem;
+			}
+
+			footer p {
+				font-size: 0.75rem;
 			}
 		}
 	</style>
@@ -792,7 +891,8 @@
 					</div>
 					<div class="contact-item">
 						<span class="contact-item-icon">✉️</span>
-						<span>contato@imobiliariapremium.com.br</span>
+						<span><a href="/cdn-cgi/l/email-protection" class="__cf_email__"
+								data-cfemail="f2919d9c8693869db29b9f9d909b9e9b93809b938280979f9b879fdc919d9fdc9080">[email&#160;protected]</a></span>
 					</div>
 					<div class="contact-item">
 						<span class="contact-item-icon">📍</span>
@@ -833,6 +933,7 @@
 		<p>© 2026 Imobiliária Premium. Todos os direitos reservados. | CRECI SP 12345-J</p>
 	</footer>
 
+	<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 	<script>
 		// Smooth scroll for navigation links
 		document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -857,15 +958,4 @@
 		const observer = new IntersectionObserver((entries) => {
 			entries.forEach(entry => {
 				if (entry.isIntersecting) {
-					entry.target.style.opacity = '1';
-				}
-			});
-		}, observerOptions);
-
-		document.querySelectorAll('.feature').forEach(feature => {
-			observer.observe(feature);
-		});
-	</script>
-</body>
-
-</html>
+					en
