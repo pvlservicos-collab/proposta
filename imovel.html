@@ -38,7 +38,8 @@
 			box-sizing: border-box;
 		}
 
-		html, body {
+		html,
+		body {
 			font-family: var(--font-main);
 			color: var(--text-main);
 			background: var(--bg-dark);
@@ -905,17 +906,17 @@
 			<section class="details-section" data-aos="fade-up">
 				<h2 class="section-title">Detalhes do Imóvel</h2>
 				<table class="details-table">
-					<tr>
+					<tr id="row-finalidade">
 						<td class="td-label">Finalidade</td>
-						<td class="td-val">Venda Exclusiva</td>
+						<td class="td-val" id="table-finalidade">Venda Exclusiva</td>
 					</tr>
-					<tr>
+					<tr id="row-land">
 						<td class="td-label">Tamanho do Terreno</td>
 						<td class="td-val" id="table-land">-</td>
 					</tr>
-					<tr>
+					<tr id="row-zonamento">
 						<td class="td-label">Zonamento</td>
-						<td class="td-val">Residencial Premium</td>
+						<td class="td-val" id="table-zonamento">Residencial Premium</td>
 					</tr>
 				</table>
 			</section>

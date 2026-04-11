@@ -40,7 +40,8 @@
 			box-sizing: border-box;
 		}
 
-		html, body {
+		html,
+		body {
 			font-family: var(--font-main);
 			color: var(--text-main);
 			background: var(--bg-dark);
@@ -136,7 +137,8 @@
 			background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('b1.png');
 			background-size: cover;
 			background-position: center;
-			background-attachment: fixed; /* Volta para o estável "foto presa" */
+			background-attachment: fixed;
+			/* Volta para o estável "foto presa" */
 			z-index: 1;
 		}
 
@@ -171,7 +173,8 @@
 			position: relative;
 			z-index: 10;
 			background: var(--bg-dark);
-			box-shadow: 0 -50px 100px rgba(0, 0, 0, 0.95); /* Sombra externa profunda que sobe sobre o hero */
+			box-shadow: 0 -50px 100px rgba(0, 0, 0, 0.95);
+			/* Sombra externa profunda que sobe sobre o hero */
 			margin-top: -60px;
 			padding-bottom: 20px;
 		}
@@ -257,14 +260,16 @@
 			position: relative;
 			overflow: hidden;
 			box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
-			animation: mexedegradebotao 4s infinite, piscaLuxo 3s infinite; /* Acelerado para 4s */
+			animation: mexedegradebotao 4s infinite, piscaLuxo 3s infinite;
+			/* Acelerado para 4s */
 		}
 
 		.btn-visit {
 			background: linear-gradient(135deg, #D4AF37 0%, #F5E6A5 100%);
 			color: #000;
 			border: none;
-			padding: 18px 60px; /* Maior altura e largura conforme solicitado */
+			padding: 18px 60px;
+			/* Maior altura e largura conforme solicitado */
 			border-radius: 12px;
 			font-weight: 700;
 			font-size: 1.1rem;
@@ -356,7 +361,8 @@
 			gap: 10px;
 			margin-bottom: 40px;
 			padding-bottom: 20px;
-			border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* Linha divisória fina solicitada */
+			border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+			/* Linha divisória fina solicitada */
 			position: relative;
 		}
 
@@ -395,7 +401,9 @@
 			display: grid;
 			grid-template-columns: repeat(3, 1fr);
 			gap: 30px;
-		}.section-title {
+		}
+
+		.section-title {
 			font-family: var(--font-title);
 			font-size: 2.5rem;
 			font-weight: 700;
@@ -518,7 +526,8 @@
 		}
 
 		.process-steps::before {
-			display: none; /* Linha pontilhada removida conforme solicitado */
+			display: none;
+			/* Linha pontilhada removida conforme solicitado */
 		}
 
 		.step {
@@ -542,7 +551,7 @@
 			font-size: 1.8rem;
 			color: var(--accent);
 			transition: all 0.3s ease;
-			box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+			box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 		}
 
 		.step:hover .step-icon {
@@ -635,10 +644,11 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			color: #FFFFFF; /* Voltando para branco para melhor contraste */
+			color: #FFFFFF;
+			/* Voltando para branco para melhor contraste */
 			text-decoration: none;
 			transition: all 0.3s ease;
-			box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+			box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 		}
 
 		.social-btn svg {
@@ -819,7 +829,8 @@
 			}
 
 			.hero {
-				background-attachment: scroll; /* Fix do bug de imagem no iOS (Safari) */
+				background-attachment: scroll;
+				/* Fix do bug de imagem no iOS (Safari) */
 				padding-top: 25vh;
 			}
 
@@ -831,10 +842,12 @@
 			.hero-title {
 				font-size: clamp(1.8rem, 7vw, 2.4rem);
 			}
+
 			.hero-subtitle {
 				font-size: 0.95rem;
 				margin-bottom: 2.5rem;
 			}
+
 			.section-title {
 				font-size: clamp(1.6rem, 7vw, 2.2rem);
 			}
@@ -914,18 +927,11 @@
 						<option value="casa">Casa</option>
 						<option value="apartamento">Apartamento</option>
 						<option value="terreno">Terreno</option>
+						<option value="sala">Sala Comercial</option>
+						<option value="mansao">Mansão</option>
 					</select>
 				</div>
-				<div class="search-item">
-					<i data-lucide="dollar-sign"></i>
-					<select id="filtro-precos">
-						<option value="">Qualquer Preço</option>
-						<option value="500000">Até R$ 500k</option>
-						<option value="1000000">Até R$ 1M</option>
-						<option value="5000000">Até R$ 5M</option>
-					</select>
-				</div>
-				<button class="btn-search" onclick="filtrarImoveis()">
+				<button class="btn-search" onclick="redirecionarBusca()">
 					<i data-lucide="search"></i>
 					Buscar
 				</button>
@@ -995,7 +1001,8 @@
 		</div>
 
 		<div style="text-align: center; margin-top: 50px;" data-aos="fade-up">
-			<a href="https://wa.me/5592996126865?text=Quero%20agendar%20uma%20visita" class="btn-visit" target="_blank">Agende uma Visita</a>
+			<a href="https://wa.me/5592996126865?text=Quero%20agendar%20uma%20visita" class="btn-visit"
+				target="_blank">Agende uma Visita</a>
 		</div>
 	</section>
 
@@ -1005,15 +1012,22 @@
 			<div class="footer-logo-side">
 				<div class="logo" style="margin-bottom: 20px;"><img src="logo.png" alt="Flórida Logo"
 						style="height: 60px;"></div>
-				<p style="text-align: left; max-width: 350px; line-height: 1.6;">Excelência em administração imobiliária em Manaus,<br>conectando você ao seu refúgio ideal.</p>
+				<p style="text-align: left; max-width: 350px; line-height: 1.6;">Excelência em administração imobiliária
+					em Manaus,<br>conectando você ao seu refúgio ideal.</p>
 				<div class="footer-socials">
 					<!-- Instagram SVG -->
 					<a href="#" class="social-btn" title="Instagram">
-						<svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+						<svg viewBox="0 0 24 24">
+							<path
+								d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+						</svg>
 					</a>
 					<!-- WhatsApp SVG -->
 					<a href="#" class="social-btn" title="WhatsApp">
-						<svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.893-1.997-.001-3.951-.5-5.688-1.448l-6.305 1.653zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.886.002-5.444-4.435-9.885-9.888-9.885-5.448 0-9.886 4.438-9.889 9.886-.001 2.151.533 3.856 1.584 5.498l-.999 3.648 3.911-.953zm11.381-4.427c-.3-.15-1.774-.875-2.048-.976-.275-.1-.475-.15-.675.15-.2.3-.775 1.05-.95 1.25-.175.2-.35.225-.65.075-.3-.15-1.265-.467-2.41-1.488-.89-.793-1.49-1.773-1.665-2.074-.175-.3-.019-.461.13-.611.135-.134.3-.35.45-.525.15-.175.2-.3.3-.5s.05-.375-.025-.525c-.075-.15-.675-1.625-.925-2.225-.244-.589-.491-.51-.675-.52-.174-.01-.374-.012-.574-.012s-.525.075-.8.375c-.275.3-1.05 1.025-1.05 2.5s1.075 2.9 1.225 3.1c.15.2 2.115 3.23 5.125 4.535.715.311 1.275.496 1.71.635.72.23 1.375.197 1.89.121.575-.085 1.774-.725 2.024-1.425.25-.7.25-1.299.175-1.425-.076-.125-.275-.2-.575-.35z"/></svg>
+						<svg viewBox="0 0 24 24">
+							<path
+								d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.893-1.997-.001-3.951-.5-5.688-1.448l-6.305 1.653zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.886.002-5.444-4.435-9.885-9.888-9.885-5.448 0-9.886 4.438-9.889 9.886-.001 2.151.533 3.856 1.584 5.498l-.999 3.648 3.911-.953zm11.381-4.427c-.3-.15-1.774-.875-2.048-.976-.275-.1-.475-.15-.675.15-.2.3-.775 1.05-.95 1.25-.175.2-.35.225-.65.075-.3-.15-1.265-.467-2.41-1.488-.89-.793-1.49-1.773-1.665-2.074-.175-.3-.019-.461.13-.611.135-.134.3-.35.45-.525.15-.175.2-.3.3-.5s.05-.375-.025-.525c-.075-.15-.675-1.625-.925-2.225-.244-.589-.491-.51-.675-.52-.174-.01-.374-.012-.574-.012s-.525.075-.8.375c-.275.3-1.05 1.025-1.05 2.5s1.075 2.9 1.225 3.1c.15.2 2.115 3.23 5.125 4.535.715.311 1.275.496 1.71.635.72.23 1.375.197 1.89.121.575-.085 1.774-.725 2.024-1.425.25-.7.25-1.299.175-1.425-.076-.125-.275-.2-.575-.35z" />
+						</svg>
 					</a>
 				</div>
 			</div>
@@ -1037,8 +1051,11 @@
 			</div>
 			<div>
 				<h4 class="footer-heading">Atendimento</h4>
-				<p style="color: #FFFFFF; font-size: 0.95rem; margin-bottom: 20px;">Tem alguma dúvida? Fale conosco agora mesmo.</p>
-				<a href="https://wa.me/5592996126865?text=Quero%20saber%20mais%20sobre%20imoveis" class="btn-visit" style="padding: 15px 30px; font-size: 0.9rem; width: 100%; text-align: center; box-sizing: border-box;" target="_blank">Falar no WhatsApp</a>
+				<p style="color: #FFFFFF; font-size: 0.95rem; margin-bottom: 20px;">Tem alguma dúvida? Fale conosco
+					agora mesmo.</p>
+				<a href="https://wa.me/5592996126865?text=Quero%20saber%20mais%20sobre%20imoveis" class="btn-visit"
+					style="padding: 15px 30px; font-size: 0.9rem; width: 100%; text-align: center; box-sizing: border-box;"
+					target="_blank">Falar no WhatsApp</a>
 			</div>
 		</div>
 		<div class="copy">

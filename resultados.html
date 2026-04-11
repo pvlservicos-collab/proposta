@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados da Busca | Flórida Imobiliária</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --bg-dark: #121212;
+            --bg-card: #1E1E1E;
+            --accent: #D4AF37;
+            --accent-hover: #C5A028;
+            --text-main: #FFFFFF;
+            --text-muted: rgba(255, 255, 255, 0.65);
+            --glass: rgba(0, 0, 0, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --font-main: 'Outfit', sans-serif;
+            --font-title: 'Cormorant Garamond', serif;
+            --margin-x: 12%;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            font-family: var(--font-main);
+            color: var(--text-main);
+            background: var(--bg-dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 0.8rem var(--margin-x);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(145deg, rgba(45, 45, 45, 0.92), rgba(5, 5, 5, 0.92));
+            backdrop-filter: blur(25px);
+            border-bottom: 1px solid var(--glass-border);
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+            display: block;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-cta {
+            padding: 0.55rem 1.5rem;
+            border: 0.5px solid var(--accent);
+            color: var(--accent);
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: all 0.3s;
+        }
+
+        .nav-cta:hover {
+            background: var(--accent);
+            color: #000;
+        }
+
+        /* PAGE HEADER */
+        .page-header {
+            padding: 90px var(--margin-x) 28px;
+            background: linear-gradient(180deg, #181818, var(--bg-dark));
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        .breadcrumb a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            opacity: 0.75;
+        }
+
+        .page-title {
+            font-family: var(--font-title);
+            font-size: 2.1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .page-title span {
+            color: var(--accent);
+        }
+
+        .result-count {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 18px;
+        }
+
+        /* FILTER TAGS */
+        .filter-tags-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tags-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 6px 13px;
+            border-radius: 100px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .tag-tipo {
+            background: rgba(212, 175, 55, 0.12);
+            border: 1px solid rgba(212, 175, 55, 0.45);
+            color: var(--accent);
+        }
+
+        .tag-bairro {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            color: #fff;
+        }
+
+        .tag-remove {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .tag-remove:hover {
+            background: rgba(255, 255, 255, 0.28);
+        }
+
+        .tag-remove svg {
+            width: 9px;
+            height: 9px;
+            stroke: currentColor;
+        }
+
+        .tag-clear-all {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 12px;
+            border-radius: 100px;
+            font-size: 0.73rem;
+            font-weight: 500;
+            cursor: pointer;
+            background: transparent;
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+            color: var(--text-muted);
+            transition: all 0.2s;
+            font-family: var(--font-main);
+        }
+
+        .tag-clear-all:hover {
+            border-color: rgba(255, 255, 255, 0.4);
+            color: #fff;
+        }
+
+        /* RESULTS */
+        .results-section {
+            padding: 36px var(--margin-x) 60px;
+        }
+
+        .section-divider {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .divider-title {
+            font-family: var(--font-title);
+            font-size: 1.3rem;
+            font-weight: 500;
+            white-space: nowrap;
+            color: var(--text-muted);
+        }
+
+        .divider-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, var(--glass-border), transparent);
+        }
+
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        /* CARD */
+        .property-card {
+            background: linear-gradient(145deg, rgba(35, 35, 35, 0.98), rgba(15, 15, 15, 0.98));
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.35s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .property-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(212, 175, 55, 0.15);
+        }
+
+        .property-image-container {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .property-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.55s ease;
+        }
+
+        .property-card:hover .property-image {
+            transform: scale(1.07);
+        }
+
+        .property-badge {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(10px);
+            padding: 4px 12px;
+            border-radius: 5px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .property-tipo-tag {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            background: rgba(212, 175, 55, 0.18);
+            backdrop-filter: blur(10px);
+            padding: 4px 10px;
+            border-radius: 5px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--accent);
+            border: 1px solid rgba(212, 175, 55, 0.28);
+        }
+
+        .property-info {
+            padding: 18px 20px;
+        }
+
+        .property-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+            gap: 10px;
+        }
+
+        .property-name {
+            font-size: 1.05rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .property-price {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1rem;
+            white-space: nowrap;
+        }
+
+        .property-location {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-bottom: 14px;
+        }
+
+        .property-location svg {
+            width: 12px;
+            height: 12px;
+            stroke: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .property-details {
+            display: flex;
+            gap: 14px;
+            padding-top: 14px;
+            border-top: 1px solid var(--glass-border);
+            flex-wrap: wrap;
+        }
+
+        .property-detail {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        .property-detail svg {
+            width: 13px;
+            height: 13px;
+            stroke: var(--accent);
+        }
+
+        /* SKELETON */
+        .skeleton {
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.04) 25%, rgba(255, 255, 255, 0.08) 50%, rgba(255, 255, 255, 0.04) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.4s infinite;
+            border-radius: 5px;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        .skeleton-card {
+            background: linear-gradient(145deg, rgba(35, 35, 35, 0.98), rgba(15, 15, 15, 0.98));
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .skeleton-img {
+            height: 220px;
+            width: 100%;
+        }
+
+        .skeleton-body {
+            padding: 18px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .skeleton-line {
+            height: 12px;
+        }
+
+        .skeleton-line.w-70 {
+            width: 70%;
+        }
+
+        .skeleton-line.w-50 {
+            width: 50%;
+        }
+
+        .skeleton-line.w-40 {
+            width: 40%;
+        }
+
+        /* EMPTY STATE */
+        .empty-state-wrapper {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 60px 20px;
+            animation: fadeUp 0.5s ease forwards;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .empty-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.02));
+            border: 1px solid rgba(212, 175, 55, 0.18);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .empty-icon::before {
+            content: '';
+            position: absolute;
+            inset: -7px;
+            border-radius: 50%;
+            border: 1px dashed rgba(212, 175, 55, 0.14);
+            animation: spinSlow 12s linear infinite;
+        }
+
+        @keyframes spinSlow {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .empty-icon svg {
+            width: 34px;
+            height: 34px;
+            stroke: var(--accent);
+            opacity: 0.65;
+        }
+
+        .empty-state-title {
+            font-family: var(--font-title);
+            font-size: 2rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .empty-state-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            max-width: 420px;
+            line-height: 1.7;
+            margin-bottom: 28px;
+        }
+
+        .empty-actions {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 28px;
+            background: linear-gradient(135deg, #D4AF37, #F5E6A5, #D4AF37);
+            background-size: 200%;
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-family: var(--font-main);
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-position: right;
+            box-shadow: 0 8px 22px rgba(212, 175, 55, 0.35);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 28px;
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            font-weight: 500;
+            font-family: var(--font-main);
+            font-size: 0.82rem;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* RECOMMENDATIONS */
+        .recommendations-section {
+            padding: 0 var(--margin-x) 70px;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .rec-header {
+            padding: 36px 0 28px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+        }
+
+        .rec-label {
+            display: inline-block;
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--accent);
+            margin-bottom: 6px;
+        }
+
+        .rec-title {
+            font-family: var(--font-title);
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .rec-subtitle {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 4px;
+        }
+
+        .rec-cta {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: gap 0.25s;
+            white-space: nowrap;
+        }
+
+        .rec-cta:hover {
+            gap: 12px;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #0A0A0A;
+            padding: 70px var(--margin-x) 36px;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 2fr;
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-logo-side p {
+            color: var(--text-muted);
+            margin: 18px 0;
+            max-width: 300px;
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-btn {
+            width: 44px;
+            height: 44px;
+            background: rgba(40, 40, 40, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        .social-btn:hover {
+            background: var(--accent);
+            color: #000;
+            transform: translateY(-2px);
+        }
+
+        .footer-heading {
+            font-weight: 700;
+            margin-bottom: 24px;
+            font-size: 1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.88rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .btn-visit {
+            background: linear-gradient(135deg, #D4AF37, #F5E6A5);
+            color: #000;
+            padding: 13px 24px;
+            font-size: 0.85rem;
+            font-family: var(--font-main);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            border-radius: 10px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            box-sizing: border-box;
+            transition: all 0.3s;
+        }
+
+        .btn-visit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px rgba(212, 175, 55, 0.3);
+        }
+
+        .copy {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            padding-top: 36px;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        @media (max-width: 1024px) {
+            :root {
+                --margin-x: 6%;
+            }
+
+            .properties-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --margin-x: 5%;
+            }
+
+            .nav-links,
+            .nav-cta {
+                display: none;
+            }
+
+            .page-title {
+                font-size: 1.6rem;
+            }
+
+            .properties-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .rec-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo"><a href="index.html"><img src="logo.png" alt="Flórida Imobiliária"></a></div>
+        <ul class="nav-links">
+            <li><a href="index.html#residenciais">Residencial</a></li>
+            <li><a href="index.html#comerciais">Comercial</a></li>
+            <li><a href="index.html#agendar">Como Agendar</a></li>
+        </ul>
+        <a href="https://wa.me/5592961268651" class="nav-cta">Fale conosco</a>
+    </nav>
+
+    <div class="page-header">
+        <div class="breadcrumb">
+            <a href="index.html">Início</a>
+            <i data-lucide="chevron-right" style="width:11px;height:11px;stroke:var(--text-muted)"></i>
+            <span>Resultados</span>
+        </div>
+        <h1 class="page-title" id="pageTitle">Imóveis encontrados</h1>
+        <p class="result-count" id="resultCount">Carregando...</p>
+        <div class="filter-tags-area" id="filterTagsArea"></div>
+    </div>
+
+    <section class="results-section">
+        <div class="section-divider">
+            <h2 class="divider-title" id="dividerTitle">Resultados</h2>
+            <div class="divider-line"></div>
+        </div>
+
+        <div class="properties-grid" id="skeletonGrid">
+            <div class="skeleton-card">
+                <div class="skeleton skeleton-img"></div>
+                <div class="skeleton-body">
+                    <div class="skeleton skeleton-line w-70"></div>
+                    <div class="skeleton skeleton-line w-50"></div>
+                    <div class="skeleton skeleton-line w-40"></div>
+                </div>
+            </div>
+            <div class="skeleton-card">
+                <div class="skeleton skeleton-img"></div>
+                <div class="skeleton-body">
+                    <div class="skeleton skeleton-line w-70"></div>
+                    <div class="skeleton skeleton-line w-50"></div>
+                    <div class="skeleton skeleton-line w-40"></div>
+                </div>
+            </div>
+            <div class="skeleton-card">
+                <div class="skeleton skeleton-img"></div>
+                <div class="skeleton-body">
+                    <div class="skeleton skeleton-line w-70"></div>
+                    <div class="skeleton skeleton-line w-50"></div>
+                    <div class="skeleton skeleton-line w-40"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="properties-grid" id="resultsGrid" style="display:none;"></div>
+
+        <div class="empty-state-wrapper" id="emptyState">
+            <div class="empty-icon"><i data-lucide="search-x"></i></div>
+            <h2 class="empty-state-title">Nenhum imóvel encontrado</h2>
+            <p class="empty-state-subtitle" id="emptyMsg">Não encontramos imóveis com os filtros selecionados. Tente
+                ajustar os critérios de busca.</p>
+            <div class="empty-actions">
+                <a href="index.html" class="btn-primary"><i data-lucide="refresh-cw"
+                        style="width:15px;height:15px;"></i> Nova Busca</a>
+                <a href="https://wa.me/5592996126865?text=Quero%20encontrar%20um%20imóvel" target="_blank"
+                    class="btn-secondary"><i data-lucide="message-circle"
+                        style="width:15px;height:15px;stroke:#fff;"></i> Falar com Especialista</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="recommendations-section" id="recommendationsSection" style="display:none;">
+        <div class="rec-header">
+            <div>
+                <span class="rec-label">✦ Curadoria exclusiva</span>
+                <h2 class="rec-title">Você também pode gostar</h2>
+                <p class="rec-subtitle">Outros imóveis selecionados para você</p>
+            </div>
+            <a href="index.html" class="rec-cta">Ver todos <i data-lucide="arrow-right"
+                    style="width:15px;height:15px;stroke:var(--accent);"></i></a>
+        </div>
+        <div class="properties-grid" id="recommendationsGrid"></div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-logo-side">
+                <div class="logo" style="margin-bottom:16px;"><img src="logo.png" alt="Flórida Logo"
+                        style="height:55px;"></div>
+                <p>Excelência em administração imobiliária em Manaus,<br>conectando você ao seu refúgio ideal.</p>
+                <div class="footer-socials">
+                    <a href="#" class="social-btn" title="Instagram"><svg viewBox="0 0 24 24">
+                            <path
+                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                        </svg></a>
+                    <a href="#" class="social-btn" title="WhatsApp"><svg viewBox="0 0 24 24">
+                            <path
+                                d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.893-1.997-.001-3.951-.5-5.688-1.448l-6.305 1.653zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.886.002-5.444-4.435-9.885-9.888-9.885-5.448 0-9.886 4.438-9.889 9.886-.001 2.151.533 3.856 1.584 5.498l-.999 3.648 3.911-.953zm11.381-4.427c-.3-.15-1.774-.875-2.048-.976-.275-.1-.475-.15-.675.15-.2.3-.775 1.05-.95 1.25-.175.2-.35.225-.65.075-.3-.15-1.265-.467-2.41-1.488-.89-.793-1.49-1.773-1.665-2.074-.175-.3-.019-.461.13-.611.135-.134.3-.35.45-.525.15-.175.2-.3.3-.5s.05-.375-.025-.525c-.075-.15-.675-1.625-.925-2.225-.244-.589-.491-.51-.675-.52-.174-.01-.374-.012-.574-.012s-.525.075-.8.375c-.275.3-1.05 1.025-1.05 2.5s1.075 2.9 1.225 3.1c.15.2 2.115 3.23 5.125 4.535.715.311 1.275.496 1.71.635.72.23 1.375.197 1.89.121.575-.085 1.774-.725 2.024-1.425.25-.7.25-1.299.175-1.425-.076-.125-.275-.2-.575-.35z" />
+                        </svg></a>
+                </div>
+            </div>
+            <div>
+                <h4 class="footer-heading">Empresa</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Sobre Nós</a></li>
+                    <li><a href="#">Carreiras</a></li>
+                    <li><a href="#">Agentes</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer-heading">Suporte</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Contato</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Privacidade</a></li>
+                    <li><a href="#">Termos</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer-heading">Atendimento</h4>
+                <p style="color:#fff;font-size:0.88rem;margin-bottom:18px;">Tem alguma dúvida? Fale conosco agora mesmo.
+                </p>
+                <a href="https://wa.me/5592996126865?text=Quero%20saber%20mais%20sobre%20imoveis" class="btn-visit"
+                    target="_blank">Falar no WhatsApp</a>
+            </div>
+        </div>
+        <div class="copy">
+            <p>© 2026 Flórida Administração imobiliária. Todos os direitos reservados. | Excelência Imobiliária</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js"></script>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const filtroTipo = (params.get('tipo') || '').trim().toLowerCase();
+        const filtroBairro = (params.get('bairro') || '').trim().toLowerCase();
+
+        function formatarValor(v) {
+            return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 0 }).format(v);
+        }
+        function capitalize(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : ''; }
+
+        function criarCard(imovel) {
+            const card = document.createElement('a');
+            card.className = 'property-card';
+            card.href = `imovel.html?id=${imovel.id}`;
+
+            const img = imovel.imagens && imovel.imagens.length > 0
+                ? imovel.imagens[0]
+                : 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=800&q=80';
+
+            // Exibe o subtipo (casa, apartamento etc) ou o tipo geral como badge
+            const badgeCategoria = imovel.detalhes?.subtipo || imovel.tipo || '';
+
+            card.innerHTML = `
+				<div class="property-image-container">
+					<img src="${img}" alt="${imovel.nome}" class="property-image" loading="lazy">
+					<div class="property-badge">${imovel.negocio || 'À Venda'}</div>
+					${badgeCategoria ? `<span class="property-tipo-tag">${capitalize(badgeCategoria)}</span>` : ''}
+				</div>
+				<div class="property-info">
+					<div class="property-header">
+						<h3 class="property-name">${imovel.nome}</h3>
+						<div class="property-price">${formatarValor(imovel.valor)}</div>
+					</div>
+					<div class="property-location">
+						<i data-lucide="map-pin"></i>
+						${imovel.localizacao || '—'}
+					</div>
+					${imovel.detalhes ? `
+					<div class="property-details">
+						${imovel.detalhes.quartos ? `<span class="property-detail"><i data-lucide="bed"></i> ${imovel.detalhes.quartos} Qts</span>` : ''}
+						${imovel.detalhes.banheiros ? `<span class="property-detail"><i data-lucide="bath"></i> ${imovel.detalhes.banheiros} Banh.</span>` : ''}
+						${imovel.detalhes.areaConstruida ? `<span class="property-detail"><i data-lucide="maximize"></i> ${imovel.detalhes.areaConstruida}m²</span>` : ''}
+					</div>` : ''}
+				</div>
+			`;
+            setTimeout(() => lucide.createIcons(), 50);
+            return card;
+        }
+
+        function renderizarTags() {
+            const area = document.getElementById('filterTagsArea');
+            if (!filtroTipo && !filtroBairro) return;
+
+            const label = document.createElement('span');
+            label.className = 'tags-label';
+            label.textContent = 'Filtros ativos:';
+            area.appendChild(label);
+
+            if (filtroTipo) area.appendChild(criarTag(capitalize(filtroTipo), 'tipo', () => removerFiltro('tipo')));
+            if (filtroBairro) area.appendChild(criarTag(filtroBairro, 'bairro', () => removerFiltro('bairro')));
+
+            const clearBtn = document.createElement('button');
+            clearBtn.className = 'tag-clear-all';
+            clearBtn.innerHTML = `<i data-lucide="x" style="width:10px;height:10px;stroke:currentColor;"></i> Limpar filtros`;
+            clearBtn.onclick = () => window.location.href = 'index.html';
+            area.appendChild(clearBtn);
+            lucide.createIcons();
+        }
+
+        function criarTag(texto, tipo, onRemove) {
+            const tag = document.createElement('span');
+            tag.className = `tag tag-${tipo}`;
+            tag.innerHTML = `${texto}<span class="tag-remove"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>`;
+            tag.querySelector('.tag-remove').onclick = onRemove;
+            return tag;
+        }
+
+        function removerFiltro(qual) {
+            const p = new URLSearchParams(window.location.search);
+            p.delete(qual);
+            const qs = p.toString();
+            window.location.href = qs ? `resultados.html?${qs}` : 'index.html';
+        }
+
+        function montarTitulo() {
+            const title = document.getElementById('pageTitle');
+            const divTitle = document.getElementById('dividerTitle');
+            const partes = [];
+            if (filtroTipo) partes.push(capitalize(filtroTipo));
+            if (filtroBairro) partes.push(`em ${filtroBairro}`);
+            if (partes.length) {
+                title.innerHTML = `Imóveis <span>${partes.join(' ')}</span>`;
+                divTitle.textContent = partes.join(' · ');
+            }
+        }
+
+        async function carregarResultados() {
+            try {
+                // Carrega TUDO e filtra no cliente — método robusto
+                const { data: todos, error } = await window.supabase
+                    .from('imoveis')
+                    .select('*')
+                    .eq('ativo', true)
+                    .order('datacriacao', { ascending: false });
+
+                if (error) throw error;
+
+                let imoveis = todos || [];
+
+                // ★ FILTRO POR TIPO: só bate em imóveis com detalhes.subtipo definido
+                if (filtroTipo) {
+                    imoveis = imoveis.filter(i =>
+                        (i.detalhes?.subtipo || '').toLowerCase() === filtroTipo
+                    );
+                }
+
+                // FILTRO POR BAIRRO: dentro do campo localizacao
+                if (filtroBairro) {
+                    imoveis = imoveis.filter(i =>
+                        i.localizacao && i.localizacao.toLowerCase().includes(filtroBairro)
+                    );
+                }
+
+                document.getElementById('skeletonGrid').style.display = 'none';
+
+                const grid = document.getElementById('resultsGrid');
+                const empty = document.getElementById('emptyState');
+                const count = document.getElementById('resultCount');
+
+                if (imoveis.length === 0) {
+                    empty.style.display = 'flex';
+                    count.textContent = 'Nenhum resultado encontrado.';
+                    const desc = [filtroTipo ? capitalize(filtroTipo) : '', filtroBairro].filter(Boolean).join(' em ');
+                    document.getElementById('emptyMsg').textContent = desc
+                        ? `Não encontramos "${desc}" com esses critérios. Ajuste os filtros ou fale com um especialista.`
+                        : 'Não encontramos imóveis no momento.';
+                    carregarRecomendacoes(todos || [], []);
+                } else {
+                    grid.style.display = 'grid';
+                    imoveis.forEach(im => grid.appendChild(criarCard(im)));
+                    const qtd = imoveis.length;
+                    count.textContent = `${qtd} imóv${qtd === 1 ? 'el encontrado' : 'eis encontrados'}`;
+                    carregarRecomendacoes(todos || [], imoveis.map(i => i.id));
+                }
+
+                lucide.createIcons();
+
+            } catch (err) {
+                console.error('Erro:', err);
+                document.getElementById('skeletonGrid').style.display = 'none';
+                document.getElementById('emptyState').style.display = 'flex';
+                document.getElementById('resultCount').textContent = 'Erro ao carregar dados.';
+            }
+        }
+
+        function carregarRecomendacoes(todos, idsExcluir) {
+            const outros = todos.filter(im => !idsExcluir.includes(im.id)).slice(0, 3);
+            if (outros.length === 0) return;
+            document.getElementById('recommendationsSection').style.display = 'block';
+            const grid = document.getElementById('recommendationsGrid');
+            outros.forEach(im => grid.appendChild(criarCard(im)));
+            lucide.createIcons();
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            montarTitulo();
+            renderizarTags();
+            carregarResultados();
+            lucide.createIcons();
+        });
+    </script>
+</body>
+
+</html>

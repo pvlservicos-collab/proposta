@@ -72,8 +72,8 @@ function popularFiltros(imoveis) {
 
     // Extrair bairros únicos (considerando que localizacao pode conter o bairro)
     // Se houver um campo específico de bairro no BD seria melhor, mas vamos inferir ou usar localizacao
-    const bairros = [...new Set(imoveis.map(i => i.bairro || i.localizacao.split(',')[0].trim()))].sort();
-    
+    const bairros = [...new Set(imoveis.map(i => i.localizacao ? i.localizacao.split(',')[0].trim() : '').filter(Boolean))].sort();
+
     bairros.forEach(bairro => {
         const option = document.createElement('option');
         option.value = bairro;
@@ -109,29 +109,15 @@ function renderizarGrids(imoveis) {
 }
 
 // Função de filtragem chamada pelo botão Buscar
-function filtrarImoveis() {
+function redirecionarBusca() {
     const bairro = document.getElementById('filtro-bairros').value;
     const tipo = document.getElementById('filtro-tipos').value;
-    const precoMax = document.getElementById('filtro-precos').value;
 
-    let filtrados = todosImoveis;
+    const params = new URLSearchParams();
+    if (bairro) params.append('bairro', bairro);
+    if (tipo) params.append('tipo', tipo);
 
-    if (bairro) {
-        filtrados = filtrados.filter(i => (i.bairro || i.localizacao).includes(bairro));
-    }
-
-    if (tipo) {
-        filtrados = filtrados.filter(i => i.subtipo?.toLowerCase() === tipo.toLowerCase() || i.nome.toLowerCase().includes(tipo.toLowerCase()));
-    }
-
-    if (precoMax) {
-        filtrados = filtrados.filter(i => i.valor <= parseFloat(precoMax));
-    }
-
-    renderizarGrids(filtrados);
-    
-    // Scroll suave para os resultados
-    document.getElementById('residenciais').scrollIntoView({ behavior: 'smooth' });
+    window.location.href = `resultados.html?${params.toString()}`;
 }
 
 // Carregar imóveis do Supabase

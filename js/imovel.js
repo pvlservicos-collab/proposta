@@ -55,7 +55,7 @@ async function carregarImovel() {
         .select('*')
         .eq('id', 1)
         .single();
-      
+
       if (perfilData) perfil = perfilData;
     } catch (e) {
       console.warn('Perfil não encontrado, usando padrão.');
@@ -79,16 +79,16 @@ function renderizarPagina(imovel, perfil) {
   // 1. Galeria e Preço
   const displayPrice = document.getElementById('display-price');
   displayPrice.innerText = formatarValor(imovel.valor);
-  
+
   const wrapper = document.getElementById('imageWrapper');
   const thumbWrapper = document.getElementById('thumbWrapper');
-  
+
   if (imovel.imagens && imovel.imagens.length > 0) {
     // Galeria Principal
     wrapper.innerHTML = imovel.imagens.map(img => `
       <div class="swiper-slide"><img src="${img}"></div>
     `).join('');
-    
+
     // Miniaturas
     thumbWrapper.innerHTML = imovel.imagens.map(img => `
       <div class="swiper-slide thumbs-slide"><img src="${img}"></div>
@@ -125,34 +125,35 @@ function renderizarPagina(imovel, perfil) {
     }
   });
 
-  // 1.5 Vídeo do YouTube
+  // 1.5 Vídeo do YouTube — esconde a seção se não tiver URL válida
   const videoUrl = imovel.detalhes?.video_url;
   const videoSection = document.getElementById('video-section');
   const videoEmbed = document.getElementById('youtube-embed');
 
-  if (videoUrl && videoUrl.includes('youtube.com') || videoUrl.includes('youtu.be')) {
-    let videoId = "";
+  if (videoUrl && (videoUrl.includes('youtube.com') || videoUrl.includes('youtu.be'))) {
+    let videoId = '';
     if (videoUrl.includes('v=')) {
       videoId = videoUrl.split('v=')[1].split('&')[0];
     } else {
-      videoId = videoUrl.split('/').pop();
+      videoId = videoUrl.split('/').pop().split('?')[0];
     }
-    
+
     if (videoId) {
       videoSection.style.display = 'block';
       videoEmbed.innerHTML = `
-        <iframe src="https://www.youtube.com/embed/${videoId}" 
-                title="YouTube video player" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        <iframe src="https://www.youtube.com/embed/${videoId}"
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen></iframe>
       `;
     }
   }
+  // se não tiver vídeo, a seção já começa hidden pelo CSS — não faz nada
 
   // 2. Info Básica
   document.getElementById('prop-name').innerText = imovel.nome;
   document.getElementById('prop-loc').innerText = imovel.localizacao;
-  
+
   document.getElementById('spec-quarters').innerText = imovel.detalhes?.quartos || '-';
   document.getElementById('spec-bathrooms').innerText = imovel.detalhes?.banheiros || '-';
   document.getElementById('spec-area').innerText = imovel.detalhes?.areaConstruida ? `${imovel.detalhes.areaConstruida} m²` : '-';
@@ -160,7 +161,28 @@ function renderizarPagina(imovel, perfil) {
 
   // 3. Descrição e Detalhes Extras
   document.getElementById('prop-desc').innerText = imovel.descricao || 'Este exemplar único de arquitetura oferece o máximo em conforto e exclusividade.';
-  document.getElementById('table-land').innerText = imovel.detalhes?.tamanhoTerreno ? `${imovel.detalhes.tamanhoTerreno} m²` : '---';
+
+  // Tamanho do Terreno — esconde a linha se não tiver valor
+  const tamanhoTerreno = imovel.detalhes?.tamanhoTerreno;
+  if (tamanhoTerreno) {
+    document.getElementById('table-land').innerText = `${tamanhoTerreno} m²`;
+  } else {
+    const rowLand = document.getElementById('row-land');
+    if (rowLand) rowLand.style.display = 'none';
+  }
+
+  // Finalidade — usa negocio salvo em detalhes, ou esconde se não tiver
+  const finalidade = imovel.detalhes?.negocio || imovel.negocio;
+  if (finalidade) {
+    document.getElementById('table-finalidade').innerText = finalidade;
+  } else {
+    const rowFinalidade = document.getElementById('row-finalidade');
+    if (rowFinalidade) rowFinalidade.style.display = 'none';
+  }
+
+  // Zonamento — esconde se vazio (campo estático por enquanto)
+  const rowZonamento = document.getElementById('row-zonamento');
+  if (rowZonamento) rowZonamento.style.display = 'none';
 
   // 4. Comodidades
   const amenitiesContainer = document.getElementById('amenities-list');
@@ -196,10 +218,10 @@ function renderizarVendedora(imovel, perfil) {
   const msgSaberMais = encodeURIComponent(`Quero saber mais sobre imoveis (Ref: ${imovel.nome})`);
   const msgAgendar = encodeURIComponent(`Quero agendar uma visita (Ref: ${imovel.nome})`);
   const numeroUnico = '5592996126865';
-  
+
   document.getElementById('btn-schedule').href = `https://wa.me/${numeroUnico}?text=${msgAgendar}`;
   document.getElementById('btn-whatsapp').href = `https://wa.me/${numeroUnico}?text=${msgSaberMais}`;
-  
+
   const btnBottom = document.getElementById('btn-schedule-bottom');
   if (btnBottom) btnBottom.href = `https://wa.me/${numeroUnico}?text=${msgAgendar}`;
 }
@@ -214,7 +236,7 @@ async function carregarOutrosImoveis(idAtual) {
       .limit(3);
 
     if (error) throw error;
-    
+
     const grid = document.getElementById('outros-grid');
     if (imoveis && imoveis.length > 0) {
       grid.innerHTML = imoveis.map(im => {

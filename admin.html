@@ -5,15 +5,12 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Dashboard Admin | Flórida Imobiliária</title>
-
-	<!-- Fonts -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
-
-	<!-- Icons -->
+	<link
+		href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Outfit:wght@300;400;600;800&display=swap"
+		rel="stylesheet">
 	<script src="https://unpkg.com/lucide@latest"></script>
-
 	<style>
 		:root {
 			--bg-dark: #0a0a0a;
@@ -44,14 +41,12 @@
 			line-height: 1.6;
 		}
 
-		/* Layout Container */
 		.dashboard-container {
 			max-width: 1400px;
 			margin: 40px auto;
 			padding: 0 4%;
 		}
 
-		/* Header */
 		header {
 			display: flex;
 			justify-content: space-between;
@@ -75,7 +70,6 @@
 			color: var(--text-muted);
 		}
 
-		/* Global Buttons */
 		.btn {
 			padding: 12px 24px;
 			border-radius: 8px;
@@ -90,6 +84,7 @@
 			transition: all 0.3s;
 			border: none;
 			text-decoration: none;
+			font-family: var(--font-main);
 		}
 
 		.btn-gold {
@@ -110,7 +105,7 @@
 
 		.btn-outline:hover {
 			border-color: var(--accent);
-			background: rgba(255,255,255,0.05);
+			background: rgba(255, 255, 255, 0.05);
 		}
 
 		.btn-danger {
@@ -124,7 +119,6 @@
 			color: white;
 		}
 
-		/* List View */
 		.card-list {
 			background: var(--bg-card);
 			border-radius: 16px;
@@ -142,7 +136,7 @@
 		}
 
 		.imovel-item:hover {
-			background: rgba(255,255,255,0.02);
+			background: rgba(255, 255, 255, 0.02);
 		}
 
 		.imovel-item:last-child {
@@ -164,7 +158,20 @@
 			gap: 10px;
 		}
 
-		/* Form Container */
+		.cat-badge {
+			display: inline-block;
+			padding: 2px 10px;
+			border-radius: 100px;
+			font-size: 0.68rem;
+			font-weight: 700;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			background: rgba(212, 175, 55, 0.1);
+			border: 1px solid rgba(212, 175, 55, 0.25);
+			color: var(--accent);
+			margin-left: 6px;
+		}
+
 		.form-section {
 			background: var(--bg-card);
 			border-radius: 20px;
@@ -179,8 +186,15 @@
 		}
 
 		@keyframes fadeIn {
-			from { opacity: 0; transform: translateY(20px); }
-			to { opacity: 1; transform: translateY(0); }
+			from {
+				opacity: 0;
+				transform: translateY(20px);
+			}
+
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
 		}
 
 		.section-header {
@@ -196,7 +210,6 @@
 			color: var(--accent);
 		}
 
-		/* Form Controls */
 		.form-grid {
 			display: grid;
 			grid-template-columns: repeat(2, 1fr);
@@ -222,7 +235,9 @@
 			font-weight: 600;
 		}
 
-		input, textarea, select {
+		input,
+		textarea,
+		select {
 			background: var(--bg-input);
 			border: 1px solid var(--glass-border);
 			padding: 14px;
@@ -233,12 +248,85 @@
 			transition: border-color 0.3s;
 		}
 
-		input:focus, textarea:focus {
+		select option {
+			background: #1a1a1a;
+			color: white;
+		}
+
+		input:focus,
+		textarea:focus,
+		select:focus {
 			border-color: var(--accent);
 			outline: none;
 		}
 
-		/* Custom Checkbox Grid */
+		/* ── Seletor visual de categoria ── */
+		.categoria-grid {
+			display: grid;
+			grid-template-columns: repeat(5, 1fr);
+			gap: 10px;
+			margin-top: 8px;
+		}
+
+		.cat-option {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 8px;
+			padding: 16px 8px;
+			border-radius: 10px;
+			background: rgba(255, 255, 255, 0.03);
+			border: 1.5px solid var(--glass-border);
+			cursor: pointer;
+			transition: all 0.2s;
+			font-size: 0.76rem;
+			color: var(--text-muted);
+			font-weight: 500;
+			text-align: center;
+		}
+
+		.cat-option svg {
+			width: 22px;
+			height: 22px;
+			stroke: var(--text-muted);
+			transition: stroke 0.2s;
+		}
+
+		.cat-option:hover {
+			border-color: rgba(212, 175, 55, 0.4);
+			background: rgba(212, 175, 55, 0.05);
+			color: var(--accent);
+		}
+
+		.cat-option:hover svg {
+			stroke: var(--accent);
+		}
+
+		.cat-option.selected {
+			border-color: var(--accent);
+			background: rgba(212, 175, 55, 0.12);
+			color: var(--accent);
+			font-weight: 700;
+		}
+
+		.cat-option.selected svg {
+			stroke: var(--accent);
+		}
+
+		.tipo-info {
+			margin-top: 10px;
+			padding: 10px 14px;
+			border-radius: 8px;
+			font-size: 0.8rem;
+			color: var(--text-muted);
+			background: rgba(255, 255, 255, 0.03);
+			border: 1px solid var(--glass-border);
+		}
+
+		.tipo-info strong {
+			color: var(--accent);
+		}
+
 		.features-grid {
 			display: grid;
 			grid-template-columns: repeat(3, 1fr);
@@ -251,7 +339,7 @@
 			align-items: center;
 			gap: 10px;
 			padding: 12px;
-			background: rgba(255,255,255,0.03);
+			background: rgba(255, 255, 255, 0.03);
 			border-radius: 6px;
 			cursor: pointer;
 			font-size: 0.85rem;
@@ -259,7 +347,7 @@
 		}
 
 		.feature-check:hover {
-			background: rgba(255,255,255,0.06);
+			background: rgba(255, 255, 255, 0.06);
 		}
 
 		.feature-check input {
@@ -268,7 +356,6 @@
 			accent-color: var(--accent);
 		}
 
-		/* Success Message */
 		.toast {
 			position: fixed;
 			bottom: 30px;
@@ -277,7 +364,7 @@
 			border-left: 4px solid var(--accent);
 			padding: 20px 30px;
 			border-radius: 12px;
-			box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 			z-index: 2000;
 			transform: translateX(120%);
 			transition: transform 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
@@ -287,14 +374,14 @@
 			transform: translateX(0);
 		}
 
-		/* Upload Area */
 		.upload-box {
 			border: 2px dashed var(--glass-border);
 			padding: 30px;
 			border-radius: 12px;
 			text-align: center;
-			background: rgba(255,255,255,0.02);
+			background: rgba(255, 255, 255, 0.02);
 			transition: 0.3s;
+			cursor: pointer;
 		}
 
 		.upload-box:hover {
@@ -302,25 +389,31 @@
 			background: rgba(212, 175, 55, 0.05);
 		}
 
-		/* Loading */
 		.loading-overlay {
 			text-align: center;
 			padding: 60px;
 			color: var(--accent);
 		}
 
-		/* Responsive */
 		@media (max-width: 900px) {
-			.form-grid, .features-grid {
+
+			.form-grid,
+			.features-grid {
 				grid-template-columns: 1fr;
 			}
+
 			.form-group.full {
 				grid-column: span 1;
 			}
+
 			.imovel-item {
 				flex-direction: column;
 				align-items: flex-start;
 				gap: 20px;
+			}
+
+			.categoria-grid {
+				grid-template-columns: repeat(3, 1fr);
 			}
 		}
 	</style>
@@ -328,35 +421,32 @@
 
 <body>
 	<div class="dashboard-container">
+
 		<header>
 			<div class="brand">
 				<h1>Elite Panel</h1>
 				<p>Administração de Luxo</p>
 			</div>
 			<div class="nav-actions">
-				<button class="btn btn-gold" onclick="mostrarFormulario()">
-					<i data-lucide="plus"></i> Novo Imóvel
-				</button>
-				<button class="btn btn-outline" onclick="mostrarPerfil()" style="margin-left:10px;">
-					<i data-lucide="user"></i> Perfil
-				</button>
+				<button class="btn btn-gold" onclick="mostrarFormulario()"><i data-lucide="plus"></i> Novo
+					Imóvel</button>
+				<button class="btn btn-outline" onclick="mostrarPerfil()" style="margin-left:10px;"><i
+						data-lucide="user"></i> Perfil</button>
 			</div>
 		</header>
 
-		<div id="toast" class="toast">
-			<span id="toast-message">Salvo com sucesso!</span>
-		</div>
+		<div id="toast" class="toast"><span id="toast-message">Salvo!</span></div>
 
-		<!-- Listagem de Imóveis -->
+		<!-- Lista -->
 		<div id="lista-painel">
 			<div class="card-list" id="listaImoveis">
 				<div class="loading-overlay">
-					<p>Carregando catálogo exclusivo...</p>
+					<p>Sincronizando catálogo...</p>
 				</div>
 			</div>
 		</div>
 
-		<!-- FORMULÁRIO DE PERFIL -->
+		<!-- PERFIL -->
 		<div id="formPerfil" class="form-section">
 			<div class="section-header">
 				<h2>Meu Perfil Premium</h2>
@@ -364,46 +454,36 @@
 			</div>
 			<form id="perfilForm">
 				<div class="form-grid">
-					<div class="form-group">
-						<label>Nome Completo</label>
-						<input type="text" id="perfilNome" required placeholder="Ex: Victoria Sterling">
-					</div>
-					<div class="form-group">
-						<label>Cargo / Especialidade</label>
-						<input type="text" id="perfilCargo" required placeholder="Ex: Diretora de Vendas">
-					</div>
-					<div class="form-group">
-						<label>WhatsApp (DDD + Número)</label>
-						<input type="text" id="perfilWhatsapp" required placeholder="Ex: 5592961268651">
-					</div>
+					<div class="form-group"><label>Nome Completo</label><input type="text" id="perfilNome" required
+							placeholder="Ex: Victoria Sterling"></div>
+					<div class="form-group"><label>Cargo / Especialidade</label><input type="text" id="perfilCargo"
+							required placeholder="Ex: Diretora de Vendas"></div>
+					<div class="form-group"><label>WhatsApp (DDD + Número)</label><input type="text" id="perfilWhatsapp"
+							required placeholder="5592961268651"></div>
 					<div class="form-group">
 						<label>Foto do Perfil (URL)</label>
 						<input type="url" id="perfilFotoUrl">
 						<div style="margin-top:10px;">
-							<input type="file" id="profileImageUpload" hidden accept="image/*" onchange="handleProfileImageUpload(event)">
-							<button type="button" class="btn btn-outline" style="width:100%;" onclick="document.getElementById('profileImageUpload').click()">
-								<i data-lucide="upload"></i> Subir Nova Foto
-							</button>
+							<input type="file" id="profileImageUpload" hidden accept="image/*"
+								onchange="handleProfileImageUpload(event)">
+							<button type="button" class="btn btn-outline" style="width:100%;"
+								onclick="document.getElementById('profileImageUpload').click()"><i
+									data-lucide="upload"></i> Subir Nova Foto</button>
 						</div>
 					</div>
 				</div>
 				<div class="form-grid">
-					<div class="form-group">
-						<label>Avaliações Recebidas</label>
-						<input type="number" id="perfilAvaliacoes">
-					</div>
-					<div class="form-group">
-						<label>Média de Estrelas (1-5)</label>
-						<input type="number" id="perfilEstrelas" step="0.1" max="5">
-					</div>
+					<div class="form-group"><label>Avaliações Recebidas</label><input type="number"
+							id="perfilAvaliacoes"></div>
+					<div class="form-group"><label>Média de Estrelas (1-5)</label><input type="number"
+							id="perfilEstrelas" step="0.1" max="5"></div>
 				</div>
-				<button type="submit" class="btn btn-gold" style="width:100%; margin-top:20px; height:60px;">
-					SALVAR PERFIL PREMIUM
-				</button>
+				<button type="submit" class="btn btn-gold" style="width:100%; margin-top:20px; height:60px;">SALVAR
+					PERFIL PREMIUM</button>
 			</form>
 		</div>
 
-		<!-- FORMULÁRIO DE IMÓVEL -->
+		<!-- FORMULÁRIO IMÓVEL -->
 		<div id="formulario" class="form-section">
 			<div class="section-header">
 				<h2 id="formTitle">Novo Imóvel de Luxo</h2>
@@ -411,29 +491,80 @@
 			</div>
 			<form id="imovelForm">
 				<input type="hidden" id="imovelId">
+				<!-- Guarda 'residencial' ou 'comercial' para o banco (derivado da categoria) -->
+				<input type="hidden" id="tipoSelect" value="residencial">
 
-				<div class="form-grid">
-					<div class="form-group">
-						<label>Finalidade</label>
-						<select id="tipoSelect">
-							<option value="residencial">Residencial</option>
-							<option value="comercial">Comercial</option>
-						</select>
+				<!-- ★ CATEGORIA — campo principal de busca -->
+				<div class="form-group full" style="margin-bottom:30px;">
+					<label>★ Categoria do Imóvel — usado na busca do site</label>
+					<div class="categoria-grid" id="categoriaGrid">
+						<div class="cat-option selected" data-valor="casa" data-tipo="residencial"
+							onclick="selecionarCategoria(this)">
+							<svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round"
+								stroke-linejoin="round">
+								<path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z" />
+								<path d="M9 21V12h6v9" />
+							</svg>
+							Casa
+						</div>
+						<div class="cat-option" data-valor="apartamento" data-tipo="residencial"
+							onclick="selecionarCategoria(this)">
+							<svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round"
+								stroke-linejoin="round">
+								<rect x="3" y="2" width="18" height="20" rx="1" />
+								<path d="M9 22V12h6v10M9 6h.01M15 6h.01M9 10h.01M15 10h.01" />
+							</svg>
+							Apartamento
+						</div>
+						<div class="cat-option" data-valor="terreno" data-tipo="residencial"
+							onclick="selecionarCategoria(this)">
+							<svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round"
+								stroke-linejoin="round">
+								<path d="M2 20h20M6 20V10l6-7 6 7v10" />
+								<path d="M10 20v-6h4v6" />
+							</svg>
+							Terreno
+						</div>
+						<div class="cat-option" data-valor="sala" data-tipo="comercial"
+							onclick="selecionarCategoria(this)">
+							<svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round"
+								stroke-linejoin="round">
+								<rect x="2" y="4" width="20" height="16" rx="2" />
+								<path d="M8 4v16M16 4v16M2 12h20" />
+							</svg>
+							Sala Comercial
+						</div>
+						<div class="cat-option" data-valor="mansao" data-tipo="residencial"
+							onclick="selecionarCategoria(this)">
+							<svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round"
+								stroke-linejoin="round">
+								<path d="M3 9h18v10a2 2 0 01-2 2H5a2 2 0 01-2-2V9zM3 9l2-5h14l2 5M12 9v12" />
+							</svg>
+							Mansão
+						</div>
 					</div>
-					<div class="form-group">
-						<label>Nome da Propriedade</label>
-						<input type="text" id="nome" required placeholder="Ex: Cobertura Diamond">
+					<div class="tipo-info">
+						Categoria: <strong id="tipoInfoTexto">Casa (Residencial)</strong> — aparece como filtro no site
 					</div>
 				</div>
 
 				<div class="form-grid">
+					<div class="form-group"><label>Nome da Propriedade</label><input type="text" id="nome" required
+							placeholder="Ex: Cobertura Diamond"></div>
+					<div class="form-group"><label>Valor (R$)</label><input type="number" id="valor" required
+							placeholder="5000000"></div>
+				</div>
+
+				<div class="form-grid">
+					<div class="form-group"><label>Localização (Bairro, Cidade)</label><input type="text"
+							id="localizacao" required placeholder="Adrianópolis, Manaus"></div>
 					<div class="form-group">
-						<label>Valor (R$)</label>
-						<input type="number" id="valor" required placeholder="5.000.000">
-					</div>
-					<div class="form-group">
-						<label>Localização (Bairro, Cidade)</label>
-						<input type="text" id="localizacao" required placeholder="Adrianópolis, Manaus">
+						<label>Finalidade</label>
+						<select id="negocioSelect">
+							<option value="À Venda">À Venda</option>
+							<option value="Para Alugar">Para Alugar</option>
+							<option value="Temporada">Temporada</option>
+						</select>
 					</div>
 				</div>
 
@@ -443,22 +574,12 @@
 				</div>
 
 				<div class="form-grid" style="margin-bottom:24px;">
-					<div class="form-group">
-						<label>Quartos</label>
-						<input type="number" id="quartos">
-					</div>
-					<div class="form-group">
-						<label>Banheiros</label>
-						<input type="number" id="banheiros">
-					</div>
-					<div class="form-group">
-						<label>Área Útil (m²)</label>
-						<input type="number" id="areaConstruida">
-					</div>
-					<div class="form-group">
-						<label>Área Total (m²)</label>
-						<input type="number" id="tamanhoTerreno">
-					</div>
+					<div class="form-group"><label>Quartos</label><input type="number" id="quartos" min="0"></div>
+					<div class="form-group"><label>Banheiros</label><input type="number" id="banheiros" min="0"></div>
+					<div class="form-group"><label>Área Útil (m²)</label><input type="number" id="areaConstruida"
+							min="0"></div>
+					<div class="form-group"><label>Área Total (m²)</label><input type="number" id="tamanhoTerreno"
+							min="0"></div>
 				</div>
 
 				<div class="form-group full" style="margin-bottom:24px;">
@@ -474,7 +595,8 @@
 						<label class="feature-check"><input type="checkbox" value="Jardim"> Jardim</label>
 						<label class="feature-check"><input type="checkbox" value="Garagem"> Garagem</label>
 						<label class="feature-check"><input type="checkbox" value="Varanda"> Varanda</label>
-						<label class="feature-check"><input type="checkbox" value="Cozinha Gourmet"> Cozinha Gourmet</label>
+						<label class="feature-check"><input type="checkbox" value="Cozinha Gourmet"> Cozinha
+							Gourmet</label>
 						<label class="feature-check"><input type="checkbox" value="Academia"> Academia</label>
 						<label class="feature-check"><input type="checkbox" value="Suíte Master"> Suíte Master</label>
 						<label class="feature-check"><input type="checkbox" value="Closet"> Closet</label>
@@ -485,36 +607,54 @@
 					<label>Galeria de Imagens</label>
 					<div class="upload-box" onclick="document.getElementById('fileUpload').click()">
 						<i data-lucide="image-plus" style="width:30px; color:var(--accent); margin-bottom:10px;"></i>
-						<p>Clique para subir fotos direto do seu computador</p>
-						<input type="file" id="fileUpload" multiple accept="image/*" hidden onchange="handleFileUpload(event)">
+						<p>Clique para subir fotos do seu computador</p>
+						<input type="file" id="fileUpload" multiple accept="image/*" hidden
+							onchange="handleFileUpload(event)">
 					</div>
 					<div id="uploadProgress" style="font-size:0.8rem; margin-top:10px; color:var(--accent);"></div>
 					<div id="imageUrlsContainer" style="margin-top:15px; display:flex; flex-direction:column; gap:8px;">
-						<!-- JS Populated URLs -->
 					</div>
 				</div>
 
-				<button type="submit" class="btn btn-gold" style="width:100%; margin-top:40px; height:60px;">
-					PUBLICAR IMÓVEL PREMIUM
-				</button>
+				<button type="submit" class="btn btn-gold" style="width:100%; margin-top:40px; height:60px;">PUBLICAR
+					IMÓVEL PREMIUM</button>
 			</form>
 		</div>
 	</div>
 
-	<!-- SDKs -->
 	<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 	<script src="js/supabase-config.js"></script>
 	<script src="js/admin.js"></script>
-
 	<script>
 		lucide.createIcons();
-		
-		// Custom Toast logic
+
 		window.mostrarToast = (msg) => {
 			const t = document.getElementById('toast');
 			document.getElementById('toast-message').innerText = msg;
 			t.classList.add('active');
 			setTimeout(() => t.classList.remove('active'), 4000);
+		};
+
+		const categoriaLabels = {
+			casa: 'Casa (Residencial)', apartamento: 'Apartamento (Residencial)',
+			terreno: 'Terreno (Residencial)', sala: 'Sala Comercial', mansao: 'Mansão (Residencial)'
+		};
+
+		function selecionarCategoria(el) {
+			document.querySelectorAll('.cat-option').forEach(o => o.classList.remove('selected'));
+			el.classList.add('selected');
+			document.getElementById('tipoSelect').value = el.dataset.tipo;
+			document.getElementById('tipoInfoTexto').textContent = categoriaLabels[el.dataset.valor] || el.dataset.valor;
+		}
+
+		function getCategoriaSelecionada() {
+			const sel = document.querySelector('.cat-option.selected');
+			return sel ? sel.dataset.valor : 'casa';
+		}
+
+		function selecionarCategoriaByValor(valor) {
+			const el = document.querySelector(`.cat-option[data-valor="${valor}"]`);
+			if (el) selecionarCategoria(el);
 		}
 	</script>
 </body>
