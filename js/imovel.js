@@ -154,10 +154,22 @@ function renderizarPagina(imovel, perfil) {
   document.getElementById('prop-name').innerText = imovel.nome;
   document.getElementById('prop-loc').innerText = imovel.localizacao;
 
-  document.getElementById('spec-quarters').innerText = imovel.detalhes?.quartos || '-';
-  document.getElementById('spec-bathrooms').innerText = imovel.detalhes?.banheiros || '-';
-  document.getElementById('spec-area').innerText = imovel.detalhes?.areaConstruida ? `${imovel.detalhes.areaConstruida} m²` : '-';
-  document.getElementById('spec-year').innerText = imovel.detalhes?.anoConstrucao || imovel.detalhes?.ano || '2023';
+  // Specs — esconde o bloco inteiro se não tiver valor (sem buraco na grid)
+  function setSpec(elId, valor) {
+    const el = document.getElementById(elId);
+    if (!el) return;
+    const item = el.closest('.spec-item');
+    if (valor) {
+      el.innerText = valor;
+    } else if (item) {
+      item.style.display = 'none';
+    }
+  }
+
+  setSpec('spec-quarters', imovel.detalhes?.quartos ? `${imovel.detalhes.quartos}` : null);
+  setSpec('spec-bathrooms', imovel.detalhes?.banheiros ? `${imovel.detalhes.banheiros}` : null);
+  setSpec('spec-area', imovel.detalhes?.areaConstruida ? `${imovel.detalhes.areaConstruida} m²` : null);
+  setSpec('spec-year', imovel.detalhes?.anoConstrucao || imovel.detalhes?.ano || null);
 
   // 3. Descrição e Detalhes Extras
   document.getElementById('prop-desc').innerText = imovel.descricao || 'Este exemplar único de arquitetura oferece o máximo em conforto e exclusividade.';
