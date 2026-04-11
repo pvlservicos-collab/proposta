@@ -130,10 +130,8 @@
 			border-left: 1px solid var(--glass-border);
 		}
 
-		/* Garante que as imagens dentro das thumbs preencham corretamente */
+		/* Garante que as imagens dentro das thumbs preencham corretamente, mas NÃO trave o slider */
 		#thumbSwiper .swiper-slide {
-			width: 100% !important;
-			height: auto !important;
 			display: block !important;
 			overflow: hidden;
 		}
@@ -282,7 +280,6 @@
 
 			#thumbSwiper .swiper-slide {
 				height: 88px !important;
-				width: auto !important;
 			}
 
 			.price-overlay {
