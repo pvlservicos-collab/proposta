@@ -827,11 +827,36 @@
 
 			.process-steps {
 				flex-direction: column;
+				align-items: center;
 				gap: 50px;
 			}
 
 			.process-steps::before {
 				display: none;
+			}
+
+			.search-container {
+				width: 90%;
+				margin: 0 auto;
+			}
+
+			.search-item {
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				padding: 25px;
+				gap: 12px;
+			}
+
+			.search-item select,
+			.search-item input {
+				text-align: center;
+				text-align-last: center;
+			}
+
+			.btn-search {
+				width: 100%;
+				padding: 20px;
 			}
 
 			.properties-grid {
