@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Dashboard Admin | Flórida Imobiliária</title>
+
+	<!-- Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+	<!-- Icons -->
+	<script src="https://unpkg.com/lucide@latest"></script>
+
+	<style>
+		:root {
+			--bg-dark: #0a0a0a;
+			--bg-card: #141414;
+			--bg-input: #1a1a1a;
+			--accent: #D4AF37;
+			--accent-hover: #C5A028;
+			--text-main: #FFFFFF;
+			--text-muted: rgba(255, 255, 255, 0.6);
+			--glass-border: rgba(255, 255, 255, 0.1);
+			--font-main: 'Outfit', sans-serif;
+			--font-title: 'Cormorant Garamond', serif;
+			--error: #ff4d4d;
+			--success: #00e676;
+		}
+
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: var(--font-main);
+			color: var(--text-main);
+			background: var(--bg-dark);
+			min-height: 100vh;
+			line-height: 1.6;
+		}
+
+		/* Layout Container */
+		.dashboard-container {
+			max-width: 1400px;
+			margin: 40px auto;
+			padding: 0 4%;
+		}
+
+		/* Header */
+		header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 50px;
+			padding-bottom: 20px;
+			border-bottom: 1px solid var(--glass-border);
+		}
+
+		.brand h1 {
+			font-family: var(--font-title);
+			font-size: 2.5rem;
+			font-weight: 300;
+			color: var(--accent);
+		}
+
+		.brand p {
+			font-size: 0.8rem;
+			text-transform: uppercase;
+			letter-spacing: 3px;
+			color: var(--text-muted);
+		}
+
+		/* Global Buttons */
+		.btn {
+			padding: 12px 24px;
+			border-radius: 8px;
+			font-weight: 600;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			font-size: 0.8rem;
+			cursor: pointer;
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			transition: all 0.3s;
+			border: none;
+			text-decoration: none;
+		}
+
+		.btn-gold {
+			background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+			color: #000;
+		}
+
+		.btn-gold:hover {
+			transform: scale(1.03);
+			box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+		}
+
+		.btn-outline {
+			background: transparent;
+			border: 1px solid var(--glass-border);
+			color: white;
+		}
+
+		.btn-outline:hover {
+			border-color: var(--accent);
+			background: rgba(255,255,255,0.05);
+		}
+
+		.btn-danger {
+			background: rgba(255, 77, 77, 0.1);
+			color: var(--error);
+			border: 1px solid rgba(255, 77, 77, 0.2);
+		}
+
+		.btn-danger:hover {
+			background: var(--error);
+			color: white;
+		}
+
+		/* List View */
+		.card-list {
+			background: var(--bg-card);
+			border-radius: 16px;
+			border: 1px solid var(--glass-border);
+			overflow: hidden;
+		}
+
+		.imovel-item {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 24px;
+			border-bottom: 1px solid var(--glass-border);
+			transition: background 0.3s;
+		}
+
+		.imovel-item:hover {
+			background: rgba(255,255,255,0.02);
+		}
+
+		.imovel-item:last-child {
+			border-bottom: none;
+		}
+
+		.imovel-info h3 {
+			font-size: 1.2rem;
+			margin-bottom: 4px;
+		}
+
+		.imovel-info p {
+			font-size: 0.85rem;
+			color: var(--text-muted);
+		}
+
+		.actions-row {
+			display: flex;
+			gap: 10px;
+		}
+
+		/* Form Container */
+		.form-section {
+			background: var(--bg-card);
+			border-radius: 20px;
+			border: 1px solid var(--glass-border);
+			padding: 40px;
+			display: none;
+			animation: fadeIn 0.4s ease-out;
+		}
+
+		.form-section.active {
+			display: block;
+		}
+
+		@keyframes fadeIn {
+			from { opacity: 0; transform: translateY(20px); }
+			to { opacity: 1; transform: translateY(0); }
+		}
+
+		.section-header {
+			margin-bottom: 40px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.section-header h2 {
+			font-family: var(--font-title);
+			font-size: 2.2rem;
+			color: var(--accent);
+		}
+
+		/* Form Controls */
+		.form-grid {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 24px;
+			margin-bottom: 30px;
+		}
+
+		.form-group {
+			display: flex;
+			flex-direction: column;
+			gap: 8px;
+		}
+
+		.form-group.full {
+			grid-column: span 2;
+		}
+
+		label {
+			font-size: 0.75rem;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			color: var(--text-muted);
+			font-weight: 600;
+		}
+
+		input, textarea, select {
+			background: var(--bg-input);
+			border: 1px solid var(--glass-border);
+			padding: 14px;
+			border-radius: 8px;
+			color: white;
+			font-family: var(--font-main);
+			font-size: 0.95rem;
+			transition: border-color 0.3s;
+		}
+
+		input:focus, textarea:focus {
+			border-color: var(--accent);
+			outline: none;
+		}
+
+		/* Custom Checkbox Grid */
+		.features-grid {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 12px;
+			margin-top: 10px;
+		}
+
+		.feature-check {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			padding: 12px;
+			background: rgba(255,255,255,0.03);
+			border-radius: 6px;
+			cursor: pointer;
+			font-size: 0.85rem;
+			transition: 0.3s;
+		}
+
+		.feature-check:hover {
+			background: rgba(255,255,255,0.06);
+		}
+
+		.feature-check input {
+			width: 18px;
+			height: 18px;
+			accent-color: var(--accent);
+		}
+
+		/* Success Message */
+		.toast {
+			position: fixed;
+			bottom: 30px;
+			right: 30px;
+			background: var(--bg-card);
+			border-left: 4px solid var(--accent);
+			padding: 20px 30px;
+			border-radius: 12px;
+			box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+			z-index: 2000;
+			transform: translateX(120%);
+			transition: transform 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+		}
+
+		.toast.active {
+			transform: translateX(0);
+		}
+
+		/* Upload Area */
+		.upload-box {
+			border: 2px dashed var(--glass-border);
+			padding: 30px;
+			border-radius: 12px;
+			text-align: center;
+			background: rgba(255,255,255,0.02);
+			transition: 0.3s;
+		}
+
+		.upload-box:hover {
+			border-color: var(--accent);
+			background: rgba(212, 175, 55, 0.05);
+		}
+
+		/* Loading */
+		.loading-overlay {
+			text-align: center;
+			padding: 60px;
+			color: var(--accent);
+		}
+
+		/* Responsive */
+		@media (max-width: 900px) {
+			.form-grid, .features-grid {
+				grid-template-columns: 1fr;
+			}
+			.form-group.full {
+				grid-column: span 1;
+			}
+			.imovel-item {
+				flex-direction: column;
+				align-items: flex-start;
+				gap: 20px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div class="dashboard-container">
+		<header>
+			<div class="brand">
+				<h1>Elite Panel</h1>
+				<p>Administração de Luxo</p>
+			</div>
+			<div class="nav-actions">
+				<button class="btn btn-gold" onclick="mostrarFormulario()">
+					<i data-lucide="plus"></i> Novo Imóvel
+				</button>
+				<button class="btn btn-outline" onclick="mostrarPerfil()" style="margin-left:10px;">
+					<i data-lucide="user"></i> Perfil
+				</button>
+			</div>
+		</header>
+
+		<div id="toast" class="toast">
+			<span id="toast-message">Salvo com sucesso!</span>
+		</div>
+
+		<!-- Listagem de Imóveis -->
+		<div id="lista-painel">
+			<div class="card-list" id="listaImoveis">
+				<div class="loading-overlay">
+					<p>Carregando catálogo exclusivo...</p>
+				</div>
+			</div>
+		</div>
+
+		<!-- FORMULÁRIO DE PERFIL -->
+		<div id="formPerfil" class="form-section">
+			<div class="section-header">
+				<h2>Meu Perfil Premium</h2>
+				<button class="btn btn-outline" onclick="voltarLista()">Cancelar</button>
+			</div>
+			<form id="perfilForm">
+				<div class="form-grid">
+					<div class="form-group">
+						<label>Nome Completo</label>
+						<input type="text" id="perfilNome" required placeholder="Ex: Victoria Sterling">
+					</div>
+					<div class="form-group">
+						<label>Cargo / Especialidade</label>
+						<input type="text" id="perfilCargo" required placeholder="Ex: Diretora de Vendas">
+					</div>
+					<div class="form-group">
+						<label>WhatsApp (DDD + Número)</label>
+						<input type="text" id="perfilWhatsapp" required placeholder="Ex: 5592961268651">
+					</div>
+					<div class="form-group">
+						<label>Foto do Perfil (URL)</label>
+						<input type="url" id="perfilFotoUrl">
+						<div style="margin-top:10px;">
+							<input type="file" id="profileImageUpload" hidden accept="image/*" onchange="handleProfileImageUpload(event)">
+							<button type="button" class="btn btn-outline" style="width:100%;" onclick="document.getElementById('profileImageUpload').click()">
+								<i data-lucide="upload"></i> Subir Nova Foto
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="form-grid">
+					<div class="form-group">
+						<label>Avaliações Recebidas</label>
+						<input type="number" id="perfilAvaliacoes">
+					</div>
+					<div class="form-group">
+						<label>Média de Estrelas (1-5)</label>
+						<input type="number" id="perfilEstrelas" step="0.1" max="5">
+					</div>
+				</div>
+				<button type="submit" class="btn btn-gold" style="width:100%; margin-top:20px; height:60px;">
+					SALVAR PERFIL PREMIUM
+				</button>
+			</form>
+		</div>
+
+		<!-- FORMULÁRIO DE IMÓVEL -->
+		<div id="formulario" class="form-section">
+			<div class="section-header">
+				<h2 id="formTitle">Novo Imóvel de Luxo</h2>
+				<button class="btn btn-outline" onclick="voltarLista()">Cancelar</button>
+			</div>
+			<form id="imovelForm">
+				<input type="hidden" id="imovelId">
+
+				<div class="form-grid">
+					<div class="form-group">
+						<label>Finalidade</label>
+						<select id="tipoSelect">
+							<option value="residencial">Residencial</option>
+							<option value="comercial">Comercial</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label>Nome da Propriedade</label>
+						<input type="text" id="nome" required placeholder="Ex: Cobertura Diamond">
+					</div>
+				</div>
+
+				<div class="form-grid">
+					<div class="form-group">
+						<label>Valor (R$)</label>
+						<input type="number" id="valor" required placeholder="5.000.000">
+					</div>
+					<div class="form-group">
+						<label>Localização (Bairro, Cidade)</label>
+						<input type="text" id="localizacao" required placeholder="Adrianópolis, Manaus">
+					</div>
+				</div>
+
+				<div class="form-group full" style="margin-bottom:24px;">
+					<label>Descrição Exclusiva</label>
+					<textarea id="descricao" rows="5" placeholder="Descreva os diferenciais deste imóvel..."></textarea>
+				</div>
+
+				<div class="form-grid" style="margin-bottom:24px;">
+					<div class="form-group">
+						<label>Quartos</label>
+						<input type="number" id="quartos">
+					</div>
+					<div class="form-group">
+						<label>Banheiros</label>
+						<input type="number" id="banheiros">
+					</div>
+					<div class="form-group">
+						<label>Área Útil (m²)</label>
+						<input type="number" id="areaConstruida">
+					</div>
+					<div class="form-group">
+						<label>Área Total (m²)</label>
+						<input type="number" id="tamanhoTerreno">
+					</div>
+				</div>
+
+				<div class="form-group full" style="margin-bottom:24px;">
+					<label>Vídeo do YouTube (Link)</label>
+					<input type="url" id="video_url" placeholder="https://www.youtube.com/watch?v=...">
+				</div>
+
+				<div class="form-group full">
+					<label>Comodidades Premium</label>
+					<div class="features-grid">
+						<label class="feature-check"><input type="checkbox" value="Piscina"> Piscina</label>
+						<label class="feature-check"><input type="checkbox" value="Churrasqueira"> Churrasqueira</label>
+						<label class="feature-check"><input type="checkbox" value="Jardim"> Jardim</label>
+						<label class="feature-check"><input type="checkbox" value="Garagem"> Garagem</label>
+						<label class="feature-check"><input type="checkbox" value="Varanda"> Varanda</label>
+						<label class="feature-check"><input type="checkbox" value="Cozinha Gourmet"> Cozinha Gourmet</label>
+						<label class="feature-check"><input type="checkbox" value="Academia"> Academia</label>
+						<label class="feature-check"><input type="checkbox" value="Suíte Master"> Suíte Master</label>
+						<label class="feature-check"><input type="checkbox" value="Closet"> Closet</label>
+					</div>
+				</div>
+
+				<div class="form-group full" style="margin-top:30px;">
+					<label>Galeria de Imagens</label>
+					<div class="upload-box" onclick="document.getElementById('fileUpload').click()">
+						<i data-lucide="image-plus" style="width:30px; color:var(--accent); margin-bottom:10px;"></i>
+						<p>Clique para subir fotos direto do seu computador</p>
+						<input type="file" id="fileUpload" multiple accept="image/*" hidden onchange="handleFileUpload(event)">
+					</div>
+					<div id="uploadProgress" style="font-size:0.8rem; margin-top:10px; color:var(--accent);"></div>
+					<div id="imageUrlsContainer" style="margin-top:15px; display:flex; flex-direction:column; gap:8px;">
+						<!-- JS Populated URLs -->
+					</div>
+				</div>
+
+				<button type="submit" class="btn btn-gold" style="width:100%; margin-top:40px; height:60px;">
+					PUBLICAR IMÓVEL PREMIUM
+				</button>
+			</form>
+		</div>
+	</div>
+
+	<!-- SDKs -->
+	<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+	<script src="js/supabase-config.js"></script>
+	<script src="js/admin.js"></script>
+
+	<script>
+		lucide.createIcons();
+		
+		// Custom Toast logic
+		window.mostrarToast = (msg) => {
+			const t = document.getElementById('toast');
+			document.getElementById('toast-message').innerText = msg;
+			t.classList.add('active');
+			setTimeout(() => t.classList.remove('active'), 4000);
+		}
+	</script>
+</body>
+
+</html>

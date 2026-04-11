@@ -1,0 +1,208 @@
+[
+  {
+    "nome": "Cobertura Duplex Itaim",
+    "localizacao": "Itaim Bibi, São Paulo - SP",
+    "valor": 12500000,
+    "tipo": "residencial",
+    "descricao": "Espetacular cobertura duplex no coração do Itaim. Vista 360º para a cidade, piscina privativa aquecida, living integrado para 4 ambientes e automação completa.",
+    "detalhes": {
+      "quartos": 4,
+      "banheiros": 6,
+      "areaConstruida": 480,
+      "video_url": "https://www.youtube.com/watch?v=ScMzIvxBSi4"
+    },
+    "caracteristicas": ["Piscina", "Academia", "Varanda", "Suíte Master", "Cozinha Gourmet"],
+    "imagens": [
+      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1600607687931-cebfad149fbc?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1628611225249-6c476f4e17fd?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "ativo": true,
+    "slug": "cobertura-duplex-itaim"
+  },
+  {
+    "nome": "Casa Moderna Morumbi",
+    "localizacao": "Morumbi, São Paulo - SP",
+    "valor": 8900000,
+    "tipo": "residencial",
+    "descricao": "Casa em condomínio fechado com projeto arquitetônico premiado. Cercada por muito verde, possui pé direito duplo, espelho d'água e acabamentos impecáveis.",
+    "detalhes": {
+      "quartos": 5,
+      "banheiros": 7,
+      "areaConstruida": 650,
+      "tamanhoTerreno": 1200
+    },
+    "caracteristicas": ["Jardim", "Garagem", "Churrasqueira", "Piscina", "Closet"],
+    "imagens": [
+      "https://images.unsplash.com/photo-1613545325278-f24b0cae1224?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502672260266-1c1de2d9d0cb?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "ativo": true,
+    "slug": "casa-moderna-morumbi"
+  },
+  {
+    "nome": "Apto de Luxo Jardins",
+    "localizacao": "Jardins, São Paulo - SP",
+    "valor": 6800000,
+    "tipo": "residencial",
+    "descricao": "Um por andar nos Jardins. Totalmente reformado e mobiliado com peças assinadas. Próximo aos melhores restaurantes e grifes da cidade.",
+    "detalhes": {
+      "quartos": 3,
+      "banheiros": 4,
+      "areaConstruida": 280,
+      "video_url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    },
+    "caracteristicas": ["Varanda", "Ar Condicionado", "Despensa", "Suíte Master"],
+    "imagens": [
+      "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "ativo": true,
+    "slug": "apto-de-luxo-jardins"
+  },
+  {
+    "nome": "Mansão Tamboré",
+    "localizacao": "Tamboré, Santana de Parnaíba - SP",
+    "valor": 15000000,
+    "tipo": "residencial",
+    "descricao": "Suntuosa mansão cinematográfica. Cinema privado, quadra de tênis, adega subterrânea, heliponto homologado e decoração estilo neoclássico.",
+    "detalhes": {
+      "quartos": 6,
+      "banheiros": 9,
+      "areaConstruida": 1400,
+      "tamanhoTerreno": 2500,
+      "video_url": "https://www.youtube.com/watch?v=ScMzIvxBSi4"
+    },
+    "caracteristicas": ["Piscina", "Academia", "Jardim", "Varanda", "Garagem", "Área de Serviço"],
+    "imagens": [
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "ativo": true,
+    "slug": "mansao-tambore"
+  },
+  {
+    "nome": "Sítio de Alto Padrão - Interior",
+    "localizacao": "Porto Feliz, SP",
+    "valor": 9500000,
+    "tipo": "residencial",
+    "descricao": "Refúgio de luxo no interior de São Paulo. Sítio cinematográfico com lago contemplativo, cocheira premium, casa de hóspedes e área de lazer comparável a resorts.",
+    "detalhes": {
+      "quartos": 8,
+      "banheiros": 10,
+      "areaConstruida": 2000,
+      "tamanhoTerreno": 50000
+    },
+    "caracteristicas": ["Piscina", "Jardim", "Churrasqueira", "Varanda"],
+    "imagens": [
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "ativo": true,
+    "slug": "sitio-alto-padrao"
+  },
+  {
+    "nome": "Laje Corporativa Faria Lima",
+    "localizacao": "Faria Lima, São Paulo - SP",
+    "valor": 45000000,
+    "tipo": "comercial",
+    "descricao": "Meia laje corporativa no endereço de negócios mais prestigiado do Brasil. Edifício padrão AAA com certificação LEED Gold, heliponto e segurança nível internacional.",
+    "detalhes": {
+      "banheiros": 12,
+      "areaConstruida": 950,
+      "video_url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    },
+    "caracteristicas": ["Ar Condicionado", "Garagem", "Lavabo"],
+    "imagens": [
+      "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "ativo": true,
+    "slug": "laje-corporativa-faria-lima"
+  },
+  {
+    "nome": "Loja Conceito Oscar Freire",
+    "localizacao": "Oscar Freire, São Paulo - SP",
+    "valor": 28000000,
+    "tipo": "comercial",
+    "descricao": "Ponto imbatível em uma das ruas mais caras do mundo. Loja com grande vitrine envidraçada, três pavimentos e elevador interno.",
+    "detalhes": {
+      "banheiros": 4,
+      "areaConstruida": 400
+    },
+    "caracteristicas": ["Ar Condicionado", "Despensa", "Lavabo"],
+    "imagens": [
+      "https://images.unsplash.com/photo-1534452203293-494d7ddbf7e0?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "ativo": true,
+    "slug": "loja-conceito-oscar-freire"
+  },
+  {
+    "nome": "Prédio Comercial Berrini",
+    "localizacao": "Berrini, São Paulo - SP",
+    "valor": 85000000,
+    "tipo": "comercial",
+    "descricao": "Edifício monousuário completo, perfeito para uma sede de multinacional corporativa. Infraestrutura inteligente, fachada ativa e área externa privativa.",
+    "detalhes": {
+      "banheiros": 40,
+      "areaConstruida": 3200,
+      "tamanhoTerreno": 1500,
+      "video_url": "https://www.youtube.com/watch?v=ScMzIvxBSi4"
+    },
+    "caracteristicas": ["Garagem", "Ar Condicionado", "Jardim"],
+    "imagens": [
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1554522617-64b150912165?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1577416412292-747c6607f055?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "ativo": true,
+    "slug": "predio-comercial-berrini"
+  },
+  {
+    "nome": "Galpão Logístico Premium",
+    "localizacao": "Cajamar - SP",
+    "valor": 55000000,
+    "tipo": "comercial",
+    "descricao": "Localizado num dos maiores hubs de logística do país. Galpão classe A com pé-direito de 12m, resistência de piso estruturado e dezenas de docas de escoamento cross-docking.",
+    "detalhes": {
+      "banheiros": 15,
+      "areaConstruida": 15000,
+      "tamanhoTerreno": 35000
+    },
+    "caracteristicas": ["Garagem", "Área de Serviço"],
+    "imagens": [
+      "https://images.unsplash.com/photo-1586528116311-ad8ed745efe3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1505672678657-cc7037095e60?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "ativo": true,
+    "slug": "galpao-logistico-premium"
+  },
+  {
+    "nome": "Edifício Médico Paulista",
+    "localizacao": "Bela Vista, São Paulo - SP",
+    "valor": 18000000,
+    "tipo": "comercial",
+    "descricao": "Ideal para clínicas de alto padrão, laboratórios e centros estéticos. Andar inteiro voltado para área da saúde, estrutura blindada radiológica em pontos estratégicos.",
+    "detalhes": {
+      "banheiros": 8,
+      "areaConstruida": 620,
+      "video_url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    },
+    "caracteristicas": ["Ar Condicionado", "Garagem", "Despensa"],
+    "imagens": [
+      "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1629904853716-f0bc54eea481?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "ativo": true,
+    "slug": "edificio-medico-paulista"
+  }
+]
