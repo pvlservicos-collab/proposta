@@ -1,0 +1,1584 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Yuri Palheiros | Estruturação Financeira e Tributária</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&display=swap"
+		rel="stylesheet">
+	<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+	<style>
+		:root {
+			--bg: #0A0A0A;
+			--bg-card: #111111;
+			--bg-card2: #141414;
+			--green: #7DC85A;
+			--green-dim: rgba(125, 200, 90, 0.10);
+			--green-border: rgba(125, 200, 90, 0.22);
+			--silver: #ffffff;
+			--text: rgba(255, 255, 255, 0.96);
+			--muted: rgba(255, 255, 255, 0.82);
+			--border: rgba(255, 255, 255, 0.07);
+			--red: #D05050;
+			--font: 'Outfit', sans-serif;
+			--serif: 'Cormorant Garamond', serif;
+			--w: 520px;
+		}
+
+		*,
+		*::before,
+		*::after {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		html,
+		body {
+			font-family: var(--font);
+			background: var(--bg);
+			color: var(--text);
+			overflow-x: hidden;
+			-webkit-font-smoothing: antialiased;
+			line-height: 1.6;
+		}
+
+		/* ─── SLIDE WRAPPER ─── */
+		.slide {
+			width: 100%;
+			min-height: 100vh;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			padding: 72px 24px;
+			position: relative;
+			overflow: hidden;
+			border-bottom: 1px solid var(--border);
+		}
+
+		.inner {
+			width: 100%;
+			max-width: var(--w);
+			margin: 0 auto;
+		}
+
+		/* ─── TYPOGRAPHY ─── */
+		.label {
+			font-size: 0.65rem;
+			font-weight: 400;
+			letter-spacing: 3px;
+			text-transform: uppercase;
+			color: var(--green);
+			margin-bottom: 18px;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.label::before {
+			content: '';
+			display: inline-block;
+			width: 22px;
+			height: 1px;
+			background: var(--green);
+			opacity: 0.6;
+		}
+
+		.h-display {
+			font-family: var(--serif);
+			font-size: clamp(2.8rem, 9vw, 4.2rem);
+			font-weight: 300;
+			line-height: 1.1;
+			letter-spacing: -1px;
+			color: var(--silver);
+			margin-bottom: 18px;
+		}
+
+		.h-display span {
+			color: var(--green);
+		}
+
+		.h-section {
+			font-family: var(--serif);
+			font-size: clamp(2rem, 7vw, 2.8rem);
+			font-weight: 300;
+			line-height: 1.15;
+			letter-spacing: -0.5px;
+			color: var(--silver);
+			margin-bottom: 12px;
+		}
+
+		.h-section span {
+			color: var(--green);
+		}
+
+		.body-lg {
+			font-size: 1rem;
+			color: var(--muted);
+			font-weight: 300;
+			line-height: 1.8;
+			margin-bottom: 32px;
+		}
+
+		.body-sm {
+			font-size: 0.84rem;
+			color: var(--muted);
+			font-weight: 300;
+			line-height: 1.7;
+		}
+
+		/* ─── CARD ─── */
+		.card {
+			background: var(--bg-card);
+			border: 1px solid var(--green-border);
+			border-radius: 4px;
+			padding: 28px 26px;
+			position: relative;
+			overflow: hidden;
+			margin-bottom: 14px;
+			width: 100%;
+		}
+
+		.card::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 160px;
+			height: 160px;
+			background: radial-gradient(circle at 0% 0%, rgba(125, 200, 90, 0.12) 0%, transparent 70%);
+			pointer-events: none;
+		}
+
+		.card::after {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			right: 0;
+			width: 120px;
+			height: 120px;
+			background: radial-gradient(circle at 100% 100%, rgba(125, 200, 90, 0.07) 0%, transparent 70%);
+			pointer-events: none;
+		}
+
+		.card-icon {
+			width: 44px;
+			height: 44px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: var(--green-dim);
+			border: 1px solid var(--green-border);
+			border-radius: 4px;
+			margin-bottom: 18px;
+		}
+
+		.card-icon svg {
+			width: 20px;
+			height: 20px;
+			stroke: var(--green);
+			stroke-width: 1.8;
+		}
+
+		.card-num {
+			font-size: 0.62rem;
+			font-weight: 400;
+			letter-spacing: 3px;
+			text-transform: uppercase;
+			color: var(--green);
+			margin-bottom: 12px;
+			display: block;
+		}
+
+		.card h3 {
+			font-family: var(--font);
+			font-size: 1.05rem;
+			font-weight: 400;
+			color: var(--text);
+			margin-bottom: 8px;
+			line-height: 1.3;
+		}
+
+		.card p {
+			font-size: 0.85rem;
+			color: var(--muted);
+			line-height: 1.7;
+			font-weight: 300;
+		}
+
+		/* card variants */
+		.card-danger {
+			background: rgba(22, 8, 8, 0.9);
+			border-color: rgba(208, 80, 80, 0.3);
+		}
+
+		.card-danger::before {
+			background: radial-gradient(circle at 0% 0%, rgba(208, 80, 80, 0.1) 0%, transparent 70%);
+		}
+
+		.card-danger::after {
+			background: radial-gradient(circle at 100% 100%, rgba(208, 80, 80, 0.05) 0%, transparent 70%);
+		}
+
+		.card-highlight {
+			background: rgba(8, 20, 8, 0.9);
+			border-color: rgba(125, 200, 90, 0.35);
+		}
+
+		.card-legal {
+			display: flex;
+			gap: 20px;
+			align-items: flex-start;
+		}
+
+		/* ─── STAT ROW ─── */
+		.stat-row {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 10px;
+			margin-top: 28px;
+		}
+
+		.stat-box {
+			background: var(--bg-card);
+			border: 1px solid var(--green-border);
+			border-radius: 4px;
+			padding: 26px 16px 22px;
+			text-align: center;
+			position: relative;
+			overflow: hidden;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.stat-box::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 2px;
+			background: linear-gradient(90deg, transparent, var(--green), transparent);
+		}
+
+		.stat-number {
+			font-family: var(--serif);
+			font-size: 2rem;
+			font-weight: 300;
+			background: linear-gradient(135deg, #b8ffce 0%, #7DC85A 40%, #d4ffe8 75%, #7DC85A 100%);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+			display: block;
+			margin-bottom: 6px;
+			line-height: 1.1;
+		}
+
+		.stat-label {
+			font-size: 0.68rem;
+			color: var(--muted);
+			font-weight: 300;
+			line-height: 1.4;
+			text-align: center;
+		}
+
+		/* ─── TABLE ─── */
+		table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+
+		thead tr {
+			border-bottom: 1px solid var(--green-border);
+		}
+
+		th {
+			font-size: 0.62rem;
+			font-weight: 400;
+			letter-spacing: 3px;
+			text-transform: uppercase;
+			padding: 14px 16px;
+			text-align: left;
+			color: var(--green);
+		}
+
+		td {
+			padding: 14px 16px;
+			font-size: 0.83rem;
+			border-bottom: 1px solid var(--border);
+			color: var(--muted);
+		}
+
+		tr:last-child td {
+			border-bottom: none;
+		}
+
+		td:first-child {
+			color: var(--text);
+			font-weight: 300;
+		}
+
+		.td-red {
+			color: var(--red) !important;
+			font-weight: 700;
+		}
+
+		.td-green {
+			color: var(--green) !important;
+			font-weight: 700;
+		}
+
+		.right {
+			text-align: right;
+		}
+
+		.red-h {
+			color: var(--red) !important;
+		}
+
+		.green-h {
+			color: var(--green) !important;
+		}
+
+		/* ─── ALERTS ─── */
+		.alert {
+			border-radius: 4px;
+			padding: 16px 20px;
+			font-size: 0.84rem;
+			line-height: 1.7;
+			margin-bottom: 24px;
+			display: flex;
+			align-items: flex-start;
+			gap: 10px;
+		}
+
+		.alert svg {
+			flex-shrink: 0;
+			margin-top: 2px;
+			width: 16px;
+			height: 16px;
+		}
+
+		.alert-green {
+			background: rgba(8, 20, 8, 0.8);
+			border: 1px solid rgba(125, 200, 90, 0.3);
+			color: var(--text);
+		}
+
+		.alert-green svg {
+			stroke: var(--green);
+		}
+
+		.alert-red {
+			background: rgba(22, 8, 8, 0.8);
+			border: 1px solid rgba(208, 80, 80, 0.3);
+			color: var(--text);
+		}
+
+		.alert-red svg {
+			stroke: var(--red);
+		}
+
+		.alert-warning {
+			background: var(--green-dim);
+			border: 1px solid var(--green-border);
+			color: var(--green);
+			font-weight: 700;
+			text-align: center;
+			font-size: 0.82rem;
+			border-radius: 4px;
+			padding: 16px 20px;
+			margin-top: 24px;
+		}
+
+		.alert-stacked {
+			flex-direction: column;
+			align-items: center;
+			text-align: center;
+			gap: 12px;
+		}
+
+		.alert-stacked svg {
+			width: 26px;
+			height: 26px;
+			margin-top: 0;
+			flex-shrink: 0;
+		}
+
+		.alert-stacked span {
+			font-size: 0.76rem;
+			line-height: 1.5;
+		}
+
+		/* ─── STEP LIST ─── */
+		.step-list {
+			display: flex;
+			flex-direction: column;
+			gap: 12px;
+			margin: 28px 0;
+		}
+
+		.step-item {
+			background: var(--bg-card);
+			border: 1px solid var(--green-border);
+			border-radius: 4px;
+			padding: 22px 22px 22px 18px;
+			display: flex;
+			gap: 18px;
+			align-items: flex-start;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.step-item::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 3px;
+			height: 100%;
+			background: linear-gradient(180deg, var(--green), transparent);
+		}
+
+		.step-bullet {
+			flex-shrink: 0;
+			width: 30px;
+			height: 30px;
+			background: var(--green-dim);
+			border: 1px solid var(--green-border);
+			color: var(--green);
+			font-size: 0.78rem;
+			font-weight: 600;
+			border-radius: 4px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.step-item h4 {
+			font-size: 0.95rem;
+			font-weight: 400;
+			color: var(--text);
+			margin-bottom: 6px;
+		}
+
+		/* ─── SAVINGS ─── */
+		.saving-item {
+			background: var(--bg-card);
+			border: 1px solid var(--green-border);
+			border-radius: 4px;
+			padding: 18px 22px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 10px;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.saving-item::after {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			height: 1px;
+			background: linear-gradient(90deg, var(--green), transparent);
+		}
+
+		.saving-spend {
+			font-size: 0.82rem;
+			color: var(--muted);
+		}
+
+		.saving-days {
+			font-size: 0.68rem;
+			color: rgba(125, 200, 90, 0.45);
+			margin-top: 3px;
+		}
+
+		.saving-val {
+			font-family: var(--serif);
+			font-size: 1.35rem;
+			font-weight: 600;
+			color: var(--green);
+		}
+
+		/* ─── FAQ ─── */
+		.faq-item {
+			padding: 22px 0;
+			border-bottom: 1px solid var(--border);
+		}
+
+		.faq-item:last-child {
+			border-bottom: none;
+		}
+
+		.faq-item h4 {
+			font-size: 0.95rem;
+			font-weight: 400;
+			color: var(--text);
+			margin-bottom: 8px;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.faq-item h4::before {
+			content: '';
+			display: inline-block;
+			width: 6px;
+			height: 6px;
+			background: var(--green);
+			border-radius: 1px;
+			flex-shrink: 0;
+		}
+
+		/* ─── LEGAL ─── */
+		.legal-badge {
+			flex-shrink: 0;
+			text-align: center;
+			min-width: 44px;
+		}
+
+		.legal-badge .inst {
+			font-family: var(--serif);
+			font-size: 1.1rem;
+			font-weight: 700;
+			color: var(--green);
+			display: block;
+			line-height: 1;
+		}
+
+		.legal-badge .yr {
+			font-size: 0.6rem;
+			color: var(--muted);
+			letter-spacing: 1px;
+		}
+
+		.legal-divider {
+			width: 1px;
+			background: var(--green-border);
+			align-self: stretch;
+			flex-shrink: 0;
+		}
+
+		.legal-content h4 {
+			font-size: 0.7rem;
+			font-weight: 700;
+			letter-spacing: 2px;
+			text-transform: uppercase;
+			color: var(--green);
+			margin-bottom: 8px;
+		}
+
+		/* ─── COVER ─── */
+		.cover-pill {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			font-family: var(--serif);
+			font-size: clamp(0.72rem, 3.2vw, 0.9rem);
+			font-weight: 300;
+			font-style: italic;
+			letter-spacing: 0.02em;
+			text-transform: none;
+			white-space: nowrap;
+			color: var(--green);
+			border: 1px solid var(--green-border);
+			padding: 8px 20px;
+			border-radius: 2px;
+			margin-bottom: 44px;
+		}
+
+		.cover-pill svg {
+			width: 12px;
+			height: 12px;
+			stroke: var(--green);
+		}
+
+		.photo-wrap {
+			border-radius: 50%;
+			border: 1px solid var(--green-border);
+			background: var(--bg-card);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			overflow: hidden;
+			box-shadow: 0 0 0 5px rgba(125, 200, 90, 0.05);
+		}
+
+		.photo-wrap img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+
+		.photo-placeholder {
+			font-size: 0.46rem;
+			color: var(--muted);
+			text-align: center;
+			letter-spacing: 0.5px;
+			line-height: 1.7;
+		}
+
+		/* ─── CASES ─── */
+		.case-card {
+			background: var(--bg-card);
+			border: 1px solid var(--green-border);
+			border-radius: 4px;
+			padding: 24px;
+			display: flex;
+			align-items: center;
+			gap: 20px;
+			margin-bottom: 12px;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.case-card::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 1px;
+			background: linear-gradient(90deg, var(--green), transparent);
+		}
+
+		.case-avatar {
+			flex-shrink: 0;
+			width: 56px;
+			height: 56px;
+			border-radius: 50%;
+			background: var(--bg-card2);
+			border: 1px solid var(--green-border);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			overflow: hidden;
+		}
+
+		.case-avatar span {
+			font-size: 0.42rem;
+			color: var(--muted);
+			text-align: center;
+			line-height: 1.5;
+		}
+
+		.case-card h4 {
+			font-size: 0.95rem;
+			font-weight: 400;
+			color: var(--text);
+			margin-bottom: 4px;
+		}
+
+		/* ─── GALLERY GRID ─── */
+		.gallery-grid {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 4px;
+			margin-top: 28px;
+		}
+		.gallery-grid img {
+			width: 100%;
+			aspect-ratio: 9/16;
+			object-fit: cover;
+			object-position: top center;
+			display: block;
+			filter: grayscale(15%);
+			transition: filter .4s;
+		}
+		.gallery-grid img:hover {
+			filter: grayscale(0%);
+		}
+
+		.case-card p {
+			font-size: 0.78rem;
+			color: var(--muted);
+			line-height: 1.5;
+			font-style: italic;
+			font-weight: 300;
+		}
+
+		/* ─── DUBAI ─── */
+		.dubai-frame {
+			width: 100%;
+			height: 220px;
+			border: 1px solid var(--green-border);
+			border-radius: 4px;
+			margin: 24px 0;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.dubai-frame img {
+			position: absolute;
+			inset: 0;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			object-position: center;
+			display: block;
+		}
+
+		.dubai-frame::after {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background: linear-gradient(to top, rgba(10,10,10,0.45) 0%, transparent 60%);
+			pointer-events: none;
+		}
+
+		/* ─── CTA ─── */
+		.cta-step {
+			background: var(--bg-card);
+			border: 1px solid var(--green-border);
+			border-radius: 4px;
+			padding: 22px;
+			display: flex;
+			gap: 18px;
+			align-items: flex-start;
+			margin-bottom: 12px;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.cta-step::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 3px;
+			height: 100%;
+			background: linear-gradient(180deg, var(--green), transparent);
+		}
+
+		.cta-step-num {
+			flex-shrink: 0;
+			width: 30px;
+			height: 30px;
+			background: var(--green);
+			color: #051005;
+			font-size: 0.8rem;
+			font-weight: 600;
+			border-radius: 4px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.cta-step h4 {
+			font-size: 0.95rem;
+			font-weight: 400;
+			color: var(--text);
+			margin-bottom: 5px;
+		}
+
+		.btn-cta {
+			display: block;
+			width: 100%;
+			background: linear-gradient(135deg, #4A9A2C 0%, #7DC85A 40%, #9FDC7A 70%, #7DC85A 100%);
+			color: #041204;
+			font-family: var(--font);
+			font-size: 0.88rem;
+			font-weight: 600;
+			letter-spacing: 3px;
+			text-transform: uppercase;
+			text-align: center;
+			text-decoration: none;
+			padding: 20px 32px;
+			border-radius: 4px;
+			border: none;
+			cursor: pointer;
+			margin-top: 8px;
+		}
+
+		/* ─── SHARED ─── */
+		.green-footer {
+			text-align: center;
+			font-size: 0.78rem;
+			color: var(--green);
+			font-weight: 400;
+			letter-spacing: 1px;
+			margin-top: 24px;
+			padding-top: 20px;
+			border-top: 1px solid var(--green-border);
+			line-height: 1.9;
+		}
+
+		.bg-radial-top::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 70%;
+			height: 220px;
+			background: radial-gradient(ellipse at top, rgba(125, 200, 90, 0.05) 0%, transparent 70%);
+			pointer-events: none;
+		}
+
+		.top-line::after {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 1px;
+			background: linear-gradient(90deg, transparent, rgba(125, 200, 90, 0.25), transparent);
+		}
+
+		@media (min-width: 600px) {
+			.slide {
+				padding: 88px 48px;
+			}
+		}
+
+		@media (min-width: 1024px) {
+			.slide {
+				padding: 100px 60px;
+			}
+		}
+
+		@media print {
+			.slide {
+				page-break-after: always;
+				min-height: 100vh;
+			}
+		}
+
+		/* ─── STEP FLOW ─── */
+		.step-flow {
+			display: flex;
+			align-items: flex-start;
+			justify-content: center;
+			margin-top: 48px;
+		}
+
+		.step-flow-item {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			text-align: center;
+			padding: 0 18px;
+		}
+
+		.step-flow-icon {
+			width: 64px;
+			height: 64px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: var(--green-dim);
+			border: 1px solid var(--green-border);
+			border-radius: 50%;
+			margin-bottom: 16px;
+			box-shadow: 0 0 24px rgba(125, 200, 90, 0.08);
+		}
+
+		.step-flow-icon svg {
+			width: 24px;
+			height: 24px;
+			stroke: var(--green);
+			stroke-width: 1.5;
+			fill: none;
+		}
+
+		.step-flow-n {
+			font-size: 0.58rem;
+			letter-spacing: 3px;
+			text-transform: uppercase;
+			color: var(--green);
+			opacity: 0.55;
+			margin-bottom: 10px;
+			display: block;
+		}
+
+		.step-flow-item h4 {
+			font-family: var(--serif);
+			font-size: 1.1rem;
+			font-weight: 400;
+			color: var(--text);
+			margin-bottom: 8px;
+			line-height: 1.25;
+		}
+
+		.step-flow-item .body-sm {
+			font-size: 0.8rem;
+			max-width: 190px;
+		}
+
+		.step-flow-arrow {
+			display: flex;
+			align-items: flex-start;
+			padding-top: 32px;
+			flex-shrink: 0;
+			opacity: 0.3;
+		}
+
+		.step-flow-arrow svg {
+			width: 16px;
+			height: 16px;
+			stroke: var(--green);
+			stroke-width: 1.8;
+			fill: none;
+		}
+
+		@media (max-width: 600px) {
+			.step-flow {
+				flex-direction: column;
+				align-items: center;
+			}
+
+			.step-flow-item {
+				padding: 10px 0;
+			}
+
+			.step-flow-arrow {
+				padding-top: 0;
+				transform: rotate(90deg);
+			}
+		}
+	</style>
+</head>
+
+<body>
+
+	<!-- ── SLIDE 1 — CAPA ── -->
+	<section class="slide bg-radial-top top-line" style="text-align:center; background: var(--bg);">
+		<div class="inner">
+			<div class="cover-pill">
+				<i data-lucide="shield-check"></i>
+				Estruturação Financeira e Tributária
+			</div>
+
+			<h1 class="h-display" style="margin-bottom:14px;">
+				Pague menos imposto.<br>
+				<span>Dolarize</span> e proteja<br>seu patrimônio.
+			</h1>
+
+			<p class="body-lg" style="margin-bottom:44px;">De forma 100% legal.</p>
+
+			<div class="photo-wrap" style="width:106px;height:106px;margin:0 auto 18px;">
+				<img src="../img/imgexpert.jpeg" alt="Yuri Palheiros">
+			</div>
+
+			<p
+				style="font-family:var(--serif);font-size:1.35rem;font-weight:600;color:var(--silver);margin-bottom:4px;">
+				Yuri Palheiros</p>
+			<p style="font-size:0.7rem;color:var(--muted);font-weight:300;letter-spacing:2px;">Especialista em
+				Estruturação Financeira Internacional</p>
+		</div>
+	</section>
+
+
+	<!-- ── SLIDE 2 — PROBLEMA ── -->
+	<section class="slide">
+		<div class="inner">
+			<div class="label">O que está acontecendo</div>
+			<h2 class="h-section">Você trabalha muito.<br><span>E fica com pouco.</span></h2>
+			<p class="body-sm" style="margin-bottom:32px;">Quatro forças estão corroendo sua operação agora mesmo.</p>
+
+			<div class="card">
+				<div class="card-icon"><i data-lucide="trending-down"></i></div>
+				<h3>Imposto sobre faturamento</h3>
+				<p>Entre 12% e 17,5% de cada real que entra vai direto para o governo, antes de qualquer despesa sua.
+				</p>
+			</div>
+
+			<div class="card">
+				<div class="card-icon"><i data-lucide="mouse-pointer-click"></i></div>
+				<h3>12,15% a mais no tráfego pago</h3>
+				<p>Desde janeiro de 2026, Meta, Google e TikTok cobram PIS/COFINS e ISS diretamente do anunciante
+					brasileiro.</p>
+			</div>
+
+			<div class="card">
+				<div class="card-icon"><i data-lucide="lock"></i></div>
+				<h3>Patrimônio exposto a bloqueio</h3>
+				<p>Um processo trabalhista ou fiscal pode congelar sua conta bancária da noite para o dia, sem aviso
+					prévio.</p>
+			</div>
+
+			<div class="card">
+				<div class="card-icon"><i data-lucide="bar-chart-2"></i></div>
+				<h3>Perda de poder de compra</h3>
+				<p>Guardar tudo em real significa perder poder de compra toda vez que o dólar se valoriza.</p>
+			</div>
+		</div>
+	</section>
+
+
+	<!-- ── SLIDE 3 — IMPOSTO OCULTO ── -->
+	<section class="slide">
+		<div class="inner">
+			<div class="label">O imposto que você não vê</div>
+
+			<p
+				style="font-family:var(--serif);font-size:clamp(6.5rem,22vw,9rem);font-weight:600;color:var(--green);line-height:1;letter-spacing:-4px;">
+				12,15%</p>
+			<p
+				style="font-size:0.78rem;font-weight:600;color:var(--muted);letter-spacing:3px;text-transform:uppercase;margin-bottom:28px;margin-top:4px;">
+				sai antes de você receber</p>
+
+			<p class="body-sm" style="margin-bottom:28px;">
+				Desde janeiro de 2026, as plataformas de anúncio (Meta, Google, TikTok) passaram a cobrar PIS/COFINS e
+				ISS diretamente do anunciante brasileiro. São 12,15% extras sobre cada real que você investe em mídia
+				paga.
+			</p>
+
+			<div class="card card-highlight">
+				<span class="card-num">ANTES DE 2026</span>
+				<h3 style="color:var(--green);">R$ 100.000 de anúncio rodado.</h3>
+				<p>Os 12,15% eram absorvidos pela própria plataforma. Sem custo adicional para você.</p>
+			</div>
+
+			<div class="card card-danger">
+				<span class="card-num" style="color:var(--red);">HOJE, SEM ESTRUTURA</span>
+				<h3 style="color:var(--red);">Só R$ 87.850 de anúncio rodado.</h3>
+				<p>R$ 12.150 vão direto para impostos antes de rodar qualquer anúncio — perdidos para sempre.</p>
+			</div>
+		</div>
+	</section>
+
+
+	<!-- ── SLIDE 4 — IMPACTO POR PERFIL ── -->
+	<section class="slide">
+		<div class="inner">
+			<div class="label">Quanto sai do seu bolso</div>
+			<h2 class="h-section">Veja o impacto real<br><span>por perfil.</span></h2>
+
+			<div class="card" style="padding:0;overflow:hidden;margin-top:28px;">
+				<table>
+					<thead>
+						<tr>
+							<th>Perfil</th>
+							<th class="right red-h">/ mês</th>
+							<th class="right green-h">/ ano</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><strong>Gestor de tráfego</strong><br><span
+									style="font-size:0.7rem;color:var(--muted);font-weight:300;">R$ 30K/mês em
+									anúncios</span></td>
+							<td class="td-red right">R$ 3.645</td>
+							<td class="td-green right">R$ 43.740</td>
+						</tr>
+						<tr>
+							<td><strong>Infoprodutor</strong><br><span
+									style="font-size:0.7rem;color:var(--muted);font-weight:300;">R$ 80K/mês em
+									anúncios</span></td>
+							<td class="td-red right">R$ 9.720</td>
+							<td class="td-green right">R$ 116.640</td>
+						</tr>
+						<tr>
+							<td><strong>E-commerce / Agência</strong><br><span
+									style="font-size:0.7rem;color:var(--muted);font-weight:300;">R$ 150K/mês em
+									anúncios</span></td>
+							<td class="td-red right">R$ 18.225</td>
+							<td class="td-green right">R$ 218.700</td>
+						</tr>
+						<tr>
+							<td><strong>Alto volume</strong><br><span
+									style="font-size:0.7rem;color:var(--muted);font-weight:300;">R$ 300K/mês em
+									anúncios</span></td>
+							<td class="td-red right">R$ 36.450</td>
+							<td class="td-green right">R$ 437.400</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<p class="body-sm" style="margin-top:18px;font-style:italic;">Esses valores saem antes de qualquer retorno.
+				Sem estrutura, são impostos pagos que não voltam.</p>
+		</div>
+	</section>
+
+
+	<!-- ── SLIDE 5 — QUEM É ── -->
+	<section class="slide bg-radial-top top-line" style="text-align:center; background: var(--bg);">
+		<div class="inner">
+			<div class="label" style="justify-content:center;">Quem é</div>
+
+			<div class="photo-wrap" style="width:104px;height:104px;margin:0 auto 22px;">
+				<img src="../img/imgexpert.jpeg" alt="Yuri Palheiros">
+			</div>
+
+			<h2 class="h-display" style="margin-bottom:6px;">Yuri Palheiros</h2>
+			<p
+				style="font-size:0.7rem;color:var(--muted);letter-spacing:3px;text-transform:uppercase;margin-bottom:28px;font-weight:300;">
+				Especialista em Estruturação Financeira Internacional</p>
+
+			<p class="body-lg" style="text-align:left;">
+				Especialista em estruturação financeira internacional, dolarização de patrimônio e blindagem
+				patrimonial. Autor best-seller. Mais de 45 países visitados para desenvolver e aprimorar tecnologias
+				financeiras.
+			</p>
+
+			<div class="stat-row">
+				<div class="stat-box">
+					<span class="stat-number">US$ 500M+</span>
+					<span class="stat-label">movimentados no mercado</span>
+				</div>
+				<div class="stat-box">
+					<span class="stat-number">9 anos</span>
+					<span class="stat-label">vivendo 100% em dólar digital</span>
+				</div>
+				<div class="stat-box">
+					<span class="stat-number">300+</span>
+					<span class="stat-label">mentorados formados</span>
+				</div>
+				<div class="stat-box">
+					<span class="stat-number">15.000+</span>
+					<span class="stat-label">usuários ativos na plataforma</span>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<!-- ── SLIDE 6 — 4 SOLUÇÕES ── -->
+	<section class="slide">
+		<div class="inner">
+			<div class="label">A solução completa</div>
+			<h2 class="h-section">4 estruturas que resolvem<br><span>o problema de verdade.</span></h2>
+			<p class="body-sm" style="margin-bottom:32px;">Uma arquitetura financeira completa, construída para quem
+				opera em alto volume.</p>
+
+			<div class="card">
+				<span class="card-num">01 — Tráfego sem Impostos</span>
+				<div class="card-icon"><i data-lucide="zap"></i></div>
+				<h3>LLC Americana + Plataforma NBS</h3>
+				<p>Elimina os 12,15% de impostos sobre cada real investido em Meta, Google e TikTok. Estrutura jurídica
+					real, 100% legal.</p>
+			</div>
+
+			<div class="card">
+				<span class="card-num">02 — Dólar Digital</span>
+				<div class="card-icon"><i data-lucide="credit-card"></i></div>
+				<h3>Conta e cartão internacionais</h3>
+				<p>Plataforma bancária internacional pronta para uso. Receba em dólar, gaste com cartão internacional
+					sem IOF, no Brasil e no mundo.</p>
+			</div>
+
+			<div class="card">
+				<span class="card-num">03 — Residência Dubai</span>
+				<div class="card-icon"><i data-lucide="building-2"></i></div>
+				<h3>0% de imposto de renda como PF</h3>
+				<p>Residência obtida em 3 dias úteis. Conta bancária internacional, empresa e licença para operar com
+					carga tributária mínima.</p>
+			</div>
+
+			<div class="card">
+				<span class="card-num">04 — Holding Patrimonial</span>
+				<div class="card-icon"><i data-lucide="shield"></i></div>
+				<h3>Blindagem total do seu patrimônio</h3>
+				<p>Separa seus bens da empresa operacional. Nenhum processo judicial atinge seu patrimônio pessoal.
+					Planejamento sucessório incluído.</p>
+			</div>
+		</div>
+	</section>
+
+
+	<!-- ── SLIDE 7 — TRÁFEGO SEM IMPOSTOS ── -->
+	<section class="slide">
+		<div class="inner">
+			<div class="label">Estrutura 01</div>
+			<h2 class="h-section">Pare de pagar 12,15%<br>sobre cada real que você<br><span>investe em anúncios.</span>
+			</h2>
+
+			<div class="step-list">
+				<div class="step-item">
+					<div class="step-bullet">1</div>
+					<div>
+						<h4>LLC Americana</h4>
+						<p class="body-sm">Uma empresa real nos EUA, com documentação federal ativa. Ela anuncia no Meta
+							como entidade americana. PIS/COFINS e ISS não incidem sobre empresas estrangeiras.</p>
+					</div>
+				</div>
+				<div class="step-item">
+					<div class="step-bullet">2</div>
+					<div>
+						<h4>PIX para Dólar Digital</h4>
+						<p class="body-sm">Você faz um PIX para a NBS, empresa brasileira regulada pelo Banco Central.
+							Ela converte em dólar digital. Sem remessa ao exterior, sem IOF, sem burocracia.</p>
+					</div>
+				</div>
+				<div class="step-item">
+					<div class="step-bullet">3</div>
+					<div>
+						<h4>Cartão Internacional Visa</h4>
+						<p class="body-sm">Paga Google, Meta e TikTok com seu Cartão Visa internacional emitido nos EUA,
+							debitando do seu saldo em dólar. Nenhum imposto na transação.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="label">Quanto você economiza</div>
+
+			<div class="saving-item">
+				<div>
+					<div class="saving-spend">Gasta R$ 30K / mês</div>
+					<div class="saving-days">Recupera o custo em 77 dias</div>
+				</div>
+				<div class="saving-val">R$ 3.645<span
+						style="font-size:0.62rem;color:var(--muted);font-family:var(--font);font-weight:400;">&nbsp;/mês</span>
+				</div>
+			</div>
+			<div class="saving-item">
+				<div>
+					<div class="saving-spend">Gasta R$ 100K / mês</div>
+					<div class="saving-days">Recupera o custo em 43 dias</div>
+				</div>
+				<div class="saving-val">R$ 12.150<span
+						style="font-size:0.62rem;color:var(--muted);font-family:var(--font);font-weight:400;">&nbsp;/mês</span>
+				</div>
+			</div>
+			<div class="saving-item">
+				<div>
+					<div class="saving-spend">Gasta R$ 300K / mês</div>
+					<div class="saving-days">Recupera o custo em 14 dias</div>
+				</div>
+				<div class="saving-val">R$ 36.450<span
+						style="font-size:0.62rem;color:var(--muted);font-family:var(--font);font-weight:400;">&nbsp;/mês</span>
+				</div>
+			</div>
+
+			<div class="alert alert-green" style="margin-top:20px;">
+				<i data-lucide="info"></i>
+				<span><strong style="color:var(--green);">Custo de abertura:</strong> aprox. US$ 2.000 &nbsp;·&nbsp;
+					<strong style="color:var(--green);">Estrutura pronta em até 15 dias úteis</strong></span>
+			</div>
+		</div>
+	</section>
+
+
+	<!-- ── SLIDE 8 — DÓLAR DIGITAL ── -->
+	<section class="slide">
+		<div class="inner">
+			<div class="label">Estrutura 02</div>
+			<h2 class="h-section">Receba, guarde e gaste<br>em dólar com<br><span>conta e cartão internacionais.</span>
+			</h2>
+
+			<div class="alert alert-green">
+				<i data-lucide="lock"></i>
+				<span>Somente você tem acesso à sua conta e ao seu dinheiro. Nenhum banco, plataforma ou terceiro pode
+					acessar, bloquear ou movimentar o seu saldo. Você controla tudo.</span>
+			</div>
+
+			<div class="card">
+				<div class="card-icon"><i data-lucide="landmark"></i></div>
+				<h3>Plataforma bancária internacional</h3>
+				<p>Login e senha próprios, saldo em dólar, extrato e operações. Uma interface bancária completa, sem as
+					limitações de banco tradicional.</p>
+			</div>
+
+			<div class="card">
+				<div class="card-icon"><i data-lucide="qr-code"></i></div>
+				<h3>QR Code PIX que converte em dólar</h3>
+				<p>Seu cliente paga em real pelo PIX. O dinheiro cai automaticamente em dólar para você, sem IOF e sem
+					imposto no ato.</p>
+			</div>
+
+			<div class="card">
+				<div class="card-icon"><i data-lucide="credit-card"></i></div>
+				<h3>Cartão internacional para o dia a dia</h3>
+				<p>Cartão KAST aceito em 180 países. Uber, iFood, supermercado, viagens internacionais. Sem IOF, com
+					cashback.</p>
+			</div>
+
+			<div class="card">
+				<div class="card-icon"><i data-lucide="trending-up"></i></div>
+				<h3>Rendimento automático em dólar</h3>
+				<p>Saldo parado rende de 2% a 7% ao ano em dólar, automaticamente, sem nenhuma ação sua.</p>
+			</div>
+		</div>
+	</section>
+
+
+	<!-- ── SLIDE 9 — RESIDÊNCIA DUBAI ── -->
+	<section class="slide">
+		<div class="inner">
+			<div class="label">Estrutura 03</div>
+			<h2 class="h-section">0% de imposto de renda<br>como<span> pessoa física.</span></h2>
+
+			<div class="dubai-frame">
+				<img src="../img/fotopredio.jpg" alt="Dubai">
+			</div>
+
+			<div class="card" style="padding:0;overflow:hidden;">
+				<table>
+					<thead>
+						<tr>
+							<th>Item</th>
+							<th class="right red-h">Brasil</th>
+							<th class="right green-h">Dubai</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>IR Pessoa Física</td>
+							<td class="td-red right">Até 27,5%</td>
+							<td class="td-green right">0%</td>
+						</tr>
+						<tr>
+							<td>Ganhos de capital</td>
+							<td class="td-red right">15% a 22,5%</td>
+							<td class="td-green right">0%</td>
+						</tr>
+						<tr>
+							<td>IR Corporativo</td>
+							<td class="td-red right">15% a 34%</td>
+							<td class="td-green right">3% (ZF)</td>
+						</tr>
+						<tr>
+							<td>Entrada imóvel</td>
+							<td class="td-red right">Aprox. 30%</td>
+							<td class="td-green right">15%</td>
+						</tr>
+						<tr>
+							<td>Juros financiamento</td>
+							<td class="td-red right">15–20% /ano</td>
+							<td class="td-green right">3,5% /ano</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="alert alert-green" style="margin-top:14px;">
+				<i data-lucide="clock"></i>
+				<span><strong style="color:var(--green);">Processo concluído em 3 dias úteis.</strong> Conta bancária
+					internacional, empresa e licença para operar.</span>
+			</div>
+		</div>
+	</section>
+
+
+	<!-- ── SLIDE 10 — HOLDING ── -->
+	<section class="slide">
+		<div class="inner">
+			<div class="label">Estrutura 04</div>
+			<h2 class="h-section">Seu patrimônio protegido<br>antes que o<br><span>problema apareça.</span></h2>
+
+			<div class="alert alert-red alert-stacked">
+				<i data-lucide="alert-triangle"></i>
+				<span>O sistema judiciário brasileiro pode bloquear sua conta bancária automaticamente, sem aviso prévio. Você só descobre quando tenta fazer uma transferência e o sistema recusa.</span>
+			</div>
+
+			<div class="card">
+				<div class="card-icon"><i data-lucide="shield-check"></i></div>
+				<h3>Separação patrimonial total</h3>
+				<p>Seus bens ficam na holding, não na empresa operacional. Credores da empresa não chegam ao seu
+					patrimônio pessoal.</p>
+			</div>
+
+			<div class="card">
+				<div class="card-icon"><i data-lucide="users"></i></div>
+				<h3>Planejamento sucessório</h3>
+				<p>Seus herdeiros entram como sócios ainda em vida. Sem inventário judicial, sem custos de ITCMD, sem
+					conflito familiar.</p>
+			</div>
+
+			<div class="card">
+				<div class="card-icon"><i data-lucide="percent"></i></div>
+				<h3>Eficiência tributária</h3>
+				<p>Distribuição de lucros com tratamento fiscal mais favorável, conforme a estrutura e regime tributário
+					adotados.</p>
+			</div>
+
+			<div class="card">
+				<div class="card-icon"><i data-lucide="key-round"></i></div>
+				<h3>Proteção em dólar digital</h3>
+				<p>Parte do patrimônio em dólar digital na carteira exclusiva do cliente, fora do alcance de qualquer
+					bloqueio judicial.</p>
+			</div>
+
+			<div class="alert-warning">
+				Blindagem só tem valor jurídico quando feita ANTES de qualquer processo. Depois disso, é tarde.
+			</div>
+		</div>
+	</section>
+
+
+	<!-- ── SLIDE 11 — GALERIA ── -->
+	<section class="slide">
+		<div class="inner">
+			<div class="label">A rede que você está prestes a entrar</div>
+			<h2 class="h-section">Quem já está<br><span>nessa estrutura.</span></h2>
+
+			<div class="gallery-grid">
+				<img src="../img/img1.jpeg" alt="" loading="lazy">
+				<img src="../img/img2.jpeg" alt="" loading="lazy">
+				<img src="../img/img3.jpeg" alt="" loading="lazy">
+				<img src="../img/img4.jpeg" alt="" loading="lazy">
+			</div>
+
+			<div class="green-footer">300 mentorados formados<br>Clientes em 45 países</div>
+		</div>
+	</section>
+
+
+	<!-- ── SLIDE 12 — É 100% LEGAL ── -->
+	<section class="slide bg-radial-top top-line" style="background:var(--bg);">
+		<div class="inner">
+			<div class="label">Transparência e segurança</div>
+			<h2 class="h-section">É 100% legal.</h2>
+
+			<p class="body-lg">Planejamento tributário legal, não evasão fiscal. O contribuinte organiza seus negócios
+				da forma menos onerosa, antes do fato gerador. Nada aqui é simulado.</p>
+
+			<div class="card card-legal">
+				<div class="legal-badge">
+					<span class="inst">STF</span>
+					<span class="yr">2022</span>
+				</div>
+				<div class="legal-divider"></div>
+				<div>
+					<h4
+						style="font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px;">
+						ADI 2.446/DF</h4>
+					<p class="body-sm">O contribuinte tem direito constitucional de organizar seus negócios da forma
+						menos onerosa. A lei não proíbe planejamento tributário preventivo.</p>
+				</div>
+			</div>
+
+			<div class="card card-legal">
+				<div class="legal-badge">
+					<span class="inst">CARF</span>
+					<span class="yr">2025</span>
+				</div>
+				<div class="legal-divider"></div>
+				<div>
+					<h4
+						style="font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px;">
+						Acórdão 3102-002.895</h4>
+					<p class="body-sm">Não há base legal para desconsiderar negócios jurídicos válidos apenas porque
+						resultam em economia de tributos.</p>
+				</div>
+			</div>
+
+			<div class="card card-legal">
+				<div class="legal-badge">
+					<span class="inst">BCB</span>
+					<span class="yr">2025</span>
+				</div>
+				<div class="legal-divider"></div>
+				<div>
+					<h4
+						style="font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px;">
+						Resolução 521/2025</h4>
+					<p class="body-sm">O Banco Central regulamentou as plataformas de ativos virtuais, incluindo a NBS.
+						A operação é supervisionada e autorizada pelo regulador brasileiro.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<!-- ── SLIDE 13 — FAQ ── -->
+	<section class="slide">
+		<div class="inner">
+			<div class="label">Perguntas frequentes</div>
+			<h2 class="h-section">Dúvidas que surgem<br><span>com frequência.</span></h2>
+
+			<div style="margin-top:28px;">
+				<div class="faq-item">
+					<h4>Isso é legal? Não é sonegação?</h4>
+					<p class="body-sm">É 100% legal. Chama-se elisão fiscal: planejamento tributário preventivo,
+						reconhecido pelo STF, CARF e Banco Central. Evasão exige fraude. Aqui nada é simulado.</p>
+				</div>
+				<div class="faq-item">
+					<h4>Preciso entender de tecnologia?</h4>
+					<p class="body-sm">Não. O Yuri configura tudo. Você recebe a plataforma pronta e usa como qualquer
+						aplicativo bancário. Sem necessidade de conhecimento técnico.</p>
+				</div>
+				<div class="faq-item">
+					<h4>Minha conta no Meta vai ser banida?</h4>
+					<p class="body-sm">Não. O Meta exige uma empresa legítima, sem exigir que ela seja brasileira. A LLC
+						tem documentação federal americana completa. Multinacionais fazem isso todos os dias.</p>
+				</div>
+				<div class="faq-item">
+					<h4>E se a plataforma falir?</h4>
+					<p class="body-sm">O Yuri orienta a não manter saldo parado nas plataformas operacionais. O
+						patrimônio fica na carteira exclusiva do cliente, que não é afetada por falência de terceiros.
+					</p>
+				</div>
+				<div class="faq-item">
+					<h4>Preciso morar em Dubai para sempre?</h4>
+					<p class="body-sm">Não. A residência exige 183 dias por ano. Muitos clientes mantêm base no Brasil e
+						passam temporadas em Dubai, aproveitando os benefícios fiscais.</p>
+				</div>
+				<div class="faq-item">
+					<h4>Holding é só para quem fatura muito?</h4>
+					<p class="body-sm">Não. A blindagem é mais necessária para quem não tem reserva para absorver um
+						bloqueio judicial. O custo de montar é muito menor do que o impacto de não ter.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<!-- ── SLIDE 14 — CTA FINAL ── -->
+	<section class="slide bg-radial-top top-line"
+		style="text-align:center; background: radial-gradient(ellipse 80% 50% at 50% 100%, rgba(125,200,90,0.07) 0%, transparent 60%), var(--bg);">
+		<div class="inner">
+			<div class="label" style="justify-content:center;">A pergunta é simples</div>
+			<h2 class="h-display" style="margin-bottom:12px;">Quanto tempo você ainda vai pagar imposto que não precisa
+				pagar?</h2>
+			<p class="body-sm" style="margin-bottom:36px;font-style:italic;">Cada mês sem agir é mais um ciclo pago para
+				o governo que não volta.</p>
+
+			<div class="step-flow">
+				<div class="step-flow-item">
+					<div class="step-flow-icon">
+						<i data-lucide="search"></i>
+					</div>
+					<span class="step-flow-n">01</span>
+					<h4>Diagnóstico gratuito</h4>
+					<p class="body-sm">Entenda exatamente quanto você está perdendo por mês com base no seu perfil de operação.</p>
+				</div>
+
+				<div class="step-flow-arrow">
+					<i data-lucide="arrow-right"></i>
+				</div>
+
+				<div class="step-flow-item">
+					<div class="step-flow-icon">
+						<i data-lucide="sliders-horizontal"></i>
+					</div>
+					<span class="step-flow-n">02</span>
+					<h4>Escolha sua estrutura</h4>
+					<p class="body-sm">O Yuri identifica quais serviços fazem mais sentido para o seu momento e volume de negócio.</p>
+				</div>
+
+				<div class="step-flow-arrow">
+					<i data-lucide="arrow-right"></i>
+				</div>
+
+				<div class="step-flow-item">
+					<div class="step-flow-icon">
+						<i data-lucide="shield-check"></i>
+					</div>
+					<span class="step-flow-n">03</span>
+					<h4>Estrutura funcionando</h4>
+					<p class="body-sm">Em até 15 dias úteis, sua estrutura está ativa e você já começa a economizar.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<script>lucide.createIcons();</script>
+</body>
+
+</html>
