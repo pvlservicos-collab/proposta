@@ -377,6 +377,16 @@
 			background: var(--gray-400);
 		}
 
+		/* CAROUSEL MOBILE */
+		.carousel-mobile {
+			display: none;
+		}
+
+		@keyframes marquee-slide {
+			0%   { transform: translateX(0); }
+			100% { transform: translateX(-50%); }
+		}
+
 		/* ACCORDION */
 		.accordion-track {
 			display: flex;
@@ -385,7 +395,7 @@
 		}
 
 		.a-panel {
-			flex: 0.28;
+			flex: 0.75;
 			position: relative;
 			overflow: hidden;
 			background: var(--black);
@@ -396,7 +406,7 @@
 		}
 
 		.a-panel.active {
-			flex: 5;
+			flex: 3;
 		}
 
 		.a-panel img {
@@ -406,6 +416,7 @@
 			width: 100%;
 			height: 100%;
 			object-fit: cover;
+			object-position: center top;
 			display: block;
 			opacity: 0.6;
 			transition: opacity 0.5s, transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1505,14 +1516,14 @@
 			}
 
 			.gallery-text {
-				padding: 4rem 1.8rem 3rem;
+				padding: 4rem 1.1rem 3rem;
 				text-align: center;
 				align-items: center;
 			}
 
 			.gallery-h2 {
 				font-size: clamp(2.2rem, 7vw, 3rem);
-				line-height: 1.45;
+				line-height: 1.3;
 			}
 
 			.gallery-desc {
@@ -1524,7 +1535,30 @@
 			}
 
 			.accordion-track {
-				height: clamp(280px, 75vw, 480px);
+				display: none;
+			}
+
+			.carousel-mobile {
+				display: block;
+				overflow: hidden;
+				width: 100%;
+			}
+
+			.carousel-mobile-track {
+				display: flex;
+				width: max-content;
+				gap: 4px;
+				animation: marquee-slide 18s linear infinite;
+			}
+
+			.carousel-mobile-track img {
+				width: 25vw;
+				height: 39.5vw;
+				object-fit: cover;
+				object-position: center top;
+				border-radius: 8px;
+				flex-shrink: 0;
+				display: block;
 			}
 
 			/* Section badge */
@@ -1534,7 +1568,7 @@
 
 			/* Sections */
 			.section {
-				padding: 4rem 1.8rem;
+				padding: 4rem 1.1rem;
 			}
 
 			.inner,
@@ -1827,7 +1861,7 @@
 			<div class="section-badge reveal">
 				Nos bastidores
 			</div>
-			<h2 class="gallery-h2 reveal d1">Veja onde<br>a <em>magia</em><br>acontece.</h2>
+			<h2 class="gallery-h2 reveal d1">Veja onde a <em>magia</em> acontece.</h2>
 			<p class="gallery-desc reveal d2">Bastidores reais de operações cripto, mineração Bitcoin e encontros
 				internacionais.</p>
 			<div class="gallery-hint reveal d3">
@@ -1856,6 +1890,20 @@
 					onerror="this.outerHTML='<div class=\'ph\'><span class=\'ph-n\'>img5</span><span class=\'ph-l\'>Internacional</span></div>'">
 			</div>
 		</div>
+		<div class="carousel-mobile">
+			<div class="carousel-mobile-track">
+				<img src="../img/img1.jpg" alt="Fazenda de mineração Bitcoin">
+				<img src="../img/img2.jpg" alt="Operações cripto">
+				<img src="../img/img3.jpg" alt="Mineração Bitcoin">
+				<img src="../img/img4.jpg" alt="Bastidores cripto">
+				<img src="../img/img5.jpg" alt="Yuri Palheiros internacional">
+				<img src="../img/img1.jpg" alt="Fazenda de mineração Bitcoin">
+				<img src="../img/img2.jpg" alt="Operações cripto">
+				<img src="../img/img3.jpg" alt="Mineração Bitcoin">
+				<img src="../img/img4.jpg" alt="Bastidores cripto">
+				<img src="../img/img5.jpg" alt="Yuri Palheiros internacional">
+			</div>
+		</div>
 	</section>
 
 	<!-- ══ 4. PAIN ══ -->
@@ -1864,7 +1912,7 @@
 			<div class="section-badge reveal">
 				Vamos fazer uma conta rápida
 			</div>
-			<h2 class="h2 reveal d1">Quanto dinheiro você está<br>perdendo todo mês?</h2>
+			<h2 class="h2 reveal d1">Quanto dinheiro você está perdendo todo mês?</h2>
 			<div class="pain-list">
 				<div class="pain-item reveal">
 					<div class="pain-x">✕</div>
@@ -2249,7 +2297,7 @@
 			<div class="section-badge reveal" style="margin:0 auto 2rem;">
 				Última chamada
 			</div>
-			<h2 class="final-h2 reveal d1">A cada mês que passa, você está<br>deixando <em>R$15.000+ na mesa.</em></h2>
+			<h2 class="final-h2 reveal d1">A cada mês que passa, você está deixando <em>R$15.000+ na mesa.</em></h2>
 			<p class="final-p reveal d2">A pergunta não é se você pode pagar R$40 mil pela mentoria. A pergunta é quanto
 				está custando NÃO ter esse conhecimento.</p>
 			<a href="#vaga" class="btn-gold-inline reveal d3">Garantir minha vaga →</a>
