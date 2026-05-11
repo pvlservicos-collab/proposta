@@ -1,0 +1,2382 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Yuri Palheiros — Liberdade Financeira</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap"
+		rel="stylesheet">
+	<style>
+		/* ── RESET ── */
+		*,
+		*::before,
+		*::after {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+		}
+
+		/* ── TOKENS ── */
+		:root {
+			--bg: #f8f5f0;
+			--black: #0d0d0d;
+			--text: #1a1916;
+			--gray-400: #c0bbb4;
+			--gray-500: #9a9690;
+			--gold: #a8833e;
+			--gold-light: #c9a45e;
+			--gold-pale: #e8d5a8;
+			--serif: 'Lora', Georgia, serif;
+			--sans: 'DM Sans', system-ui, sans-serif;
+			--max: 860px;
+			--max-wide: 1080px;
+			--body: 1.08rem;
+			--radius: 14px;
+		}
+
+		html {
+			scroll-behavior: smooth;
+		}
+
+		body {
+			font-family: var(--sans);
+			background: var(--bg);
+			color: var(--text);
+			overflow-x: hidden;
+			-webkit-font-smoothing: antialiased;
+		}
+
+		/* ── NAV ── */
+		nav {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			z-index: 200;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 1.5rem 4rem;
+			mix-blend-mode: difference;
+		}
+
+		.nav-logo {
+			font-family: var(--serif);
+			font-size: 1.1rem;
+			letter-spacing: 0.2em;
+			text-transform: uppercase;
+			font-weight: 400;
+			color: #fff;
+		}
+
+		.nav-cta {
+			font-size: 0.78rem;
+			letter-spacing: 0.12em;
+			text-transform: uppercase;
+			color: #fff;
+			text-decoration: none;
+			border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+			padding-bottom: 2px;
+			font-weight: 400;
+			transition: border-color 0.25s;
+		}
+
+		.nav-cta:hover {
+			border-color: #fff;
+		}
+
+		/* ── SECTION BADGE (replaces eyebrow) ── */
+		.section-badge {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.45rem;
+			background: linear-gradient(105deg, #d4af6a 0%, #a8833e 50%, #c9a45e 100%);
+			color: #1a0f00;
+			font-size: 0.62rem;
+			letter-spacing: 0.2em;
+			text-transform: uppercase;
+			padding: 0.45rem 1rem;
+			border-radius: 100px;
+			font-weight: 600;
+			margin-bottom: 1.8rem;
+			width: fit-content;
+			box-shadow: 0 2px 12px rgba(168, 131, 62, 0.35);
+		}
+
+		/* ── HERO ── */
+		.hero {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			min-height: 100vh;
+		}
+
+		.hero-left {
+			position: relative;
+			overflow: hidden;
+			background: var(--black);
+		}
+
+		.hero-left img,
+		.hero-left video {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			object-position: center top;
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+
+		.hero-left img {
+			opacity: 0.85;
+			transition: opacity 0.8s ease;
+		}
+
+		.hero-left img.vid-ready {
+			opacity: 0;
+		}
+
+		.hero-left video {
+			opacity: 0;
+			transition: opacity 0.8s ease;
+			z-index: 1;
+		}
+
+		.hero-left video.ready {
+			opacity: 1;
+		}
+
+		.hero-left::after {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background: rgba(0, 0, 0, 0.15);
+			z-index: 2;
+			pointer-events: none;
+		}
+
+		.hero-right {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: flex-start;
+			padding: 7rem 2.5rem 5rem 5rem;
+			background: var(--bg);
+		}
+
+		.hero-content {
+			max-width: 620px;
+		}
+
+		.hero-badge {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.6rem;
+			background: linear-gradient(105deg, #d4af6a, #a8833e, #c9a45e);
+			color: #1a0f00;
+			font-size: 0.62rem;
+			letter-spacing: 0.2em;
+			text-transform: uppercase;
+			padding: 0.45rem 1rem;
+			border-radius: 100px;
+			font-weight: 600;
+			margin-bottom: 2.2rem;
+			box-shadow: 0 2px 12px rgba(168, 131, 62, 0.3);
+		}
+
+		.hero-badge svg {
+			width: 11px;
+			height: 11px;
+			flex-shrink: 0;
+		}
+
+		.hero-h1 {
+			font-family: var(--serif);
+			font-size: clamp(2rem, 3.5vw, 3rem);
+			font-weight: 400;
+			line-height: 1.22;
+			margin-bottom: 1.8rem;
+		}
+
+		.hero-h1 .grad {
+			color: var(--black);
+		}
+
+		@keyframes shimmer {
+			0% {
+				background-position: 0%
+			}
+
+			100% {
+				background-position: 200%
+			}
+		}
+
+		.hero-p {
+			font-size: var(--body);
+			line-height: 1.8;
+			color: var(--text);
+			font-weight: 300;
+			margin-bottom: 1.1rem;
+		}
+
+		.hero-strong {
+			font-size: var(--body);
+			font-weight: 600;
+			line-height: 1.5;
+			margin-bottom: 2.5rem;
+			color: var(--black);
+		}
+
+		.btn-dark {
+			display: inline-block;
+			background: var(--black);
+			color: #fff;
+			font-size: 0.85rem;
+			letter-spacing: 0.1em;
+			text-transform: uppercase;
+			text-decoration: none;
+			padding: 1.1rem 2.4rem;
+			border-radius: 100px;
+			font-weight: 400;
+			transition: background 0.25s, transform 0.2s, box-shadow 0.25s;
+		}
+
+		.btn-dark:hover {
+			background: #222;
+			transform: translateY(-1px);
+			box-shadow: 0 6px 22px rgba(0, 0, 0, 0.18);
+		}
+
+		.hero-fine {
+			margin-top: 0.9rem;
+			font-size: 0.8rem;
+			color: var(--gray-500);
+		}
+
+		/* ── STATS (parallax bg) ── */
+		.stats-bar {
+			position: relative;
+			background: #0d0d0d;
+			display: flex;
+			justify-content: center;
+			padding: 0 14vw;
+		}
+
+		.stats-bar::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background: transparent;
+		}
+
+		.stat {
+			position: relative;
+			z-index: 1;
+			flex: 1;
+			text-align: center;
+			padding: 2.2rem 1rem;
+			border-right: 1px solid rgba(255, 255, 255, 0.07);
+			overflow: hidden;
+		}
+
+		.stat:last-child {
+			border-right: none;
+		}
+
+		.stat-n-wrap {
+			display: flex;
+			align-items: flex-end;
+			justify-content: center;
+			margin-bottom: 0.4rem;
+		}
+
+		.stat-n {
+			font-family: var(--serif);
+			font-size: 2.4rem;
+			font-weight: 400;
+			color: #fff;
+			letter-spacing: -0.03em;
+			line-height: 1;
+			display: block;
+			opacity: 0;
+			transform: translateY(16px);
+			transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+		}
+
+		.stat-n.counted {
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		.stat-l {
+			position: relative;
+			font-size: 0.72rem;
+			letter-spacing: 0.18em;
+			text-transform: uppercase;
+			color: #fff;
+			font-weight: 300;
+		}
+
+		/* ── GALLERY 50/50 ── */
+		.gallery-section {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			min-height: 700px;
+			background: var(--bg);
+			padding: 2.5rem 0;
+		}
+
+		.gallery-text {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			padding: 5rem 4rem 5rem max(3rem, calc((100vw - var(--max-wide)) / 2));
+		}
+
+		.gallery-h2 {
+			font-family: var(--serif);
+			font-size: clamp(2.5rem, 3.5vw, 3.5rem);
+			font-weight: 400;
+			line-height: 1.15;
+			margin-bottom: 1.2rem;
+			color: var(--black);
+		}
+
+		.gallery-h2 em {
+			font-style: italic;
+			color: var(--gold);
+		}
+
+		.gallery-desc {
+			font-size: 1.1rem;
+			color: var(--text);
+			line-height: 1.8;
+			font-weight: 300;
+			margin-bottom: 1.5rem;
+		}
+
+		.gallery-hint {
+			font-size: 0.75rem;
+			letter-spacing: 0.14em;
+			text-transform: uppercase;
+			color: var(--gray-500);
+			display: flex;
+			align-items: center;
+			gap: 0.75rem;
+		}
+
+		.gallery-hint-line {
+			width: 36px;
+			height: 1px;
+			background: var(--gray-400);
+		}
+
+		/* ACCORDION */
+		.accordion-track {
+			display: flex;
+			gap: 3px;
+			height: 736px;
+		}
+
+		.a-panel {
+			flex: 0.28;
+			position: relative;
+			overflow: hidden;
+			background: var(--black);
+			cursor: pointer;
+			transition: flex 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+			border-radius: 12px;
+			height: 100%;
+		}
+
+		.a-panel.active {
+			flex: 5;
+		}
+
+		.a-panel img {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			display: block;
+			opacity: 0.6;
+			transition: opacity 0.5s, transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+			transform: scale(1.06);
+		}
+
+		.a-panel.active img {
+			opacity: 1;
+			transform: scale(1);
+		}
+
+		.a-panel-info {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			padding: 2.5rem 2rem 2rem;
+			background: linear-gradient(to top, rgba(0, 0, 0, 0.78), transparent);
+			opacity: 0;
+			transform: translateY(10px);
+			pointer-events: none;
+			transition: opacity 0.35s 0.15s, transform 0.35s 0.15s;
+		}
+
+		.a-panel.active .a-panel-info {
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		.a-panel-tag {
+			font-size: 0.62rem;
+			letter-spacing: 0.18em;
+			text-transform: uppercase;
+			color: var(--gold-light);
+			margin-bottom: 0.4rem;
+			font-weight: 500;
+		}
+
+		.a-panel-title {
+			font-family: var(--serif);
+			font-size: 1.6rem;
+			font-weight: 400;
+			color: #fff;
+			line-height: 1.15;
+		}
+
+		.a-panel-side {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%) rotate(-90deg);
+			font-size: 0.62rem;
+			letter-spacing: 0.18em;
+			text-transform: uppercase;
+			color: rgba(255, 255, 255, 0.28);
+			white-space: nowrap;
+			pointer-events: none;
+			transition: opacity 0.3s;
+		}
+
+		.a-panel.active .a-panel-side {
+			opacity: 0;
+		}
+
+		/* ── SECTION BASE ── */
+		.section {
+			padding: 6rem 2rem;
+			background: var(--bg);
+		}
+
+		.inner {
+			max-width: var(--max);
+			margin: 0 auto;
+		}
+
+		.inner-wide {
+			max-width: var(--max-wide);
+			margin: 0 auto;
+		}
+
+		/* ── HEADINGS ── */
+		.h2 {
+			font-family: var(--serif);
+			font-size: clamp(2rem, 3vw, 2.8rem);
+			font-weight: 400;
+			line-height: 1.2;
+			margin-bottom: 1.4rem;
+			color: var(--black);
+		}
+
+		.h2 em {
+			font-style: italic;
+			color: var(--gold);
+		}
+
+		.lead {
+			font-size: var(--body);
+			line-height: 1.85;
+			color: var(--text);
+			font-weight: 300;
+			margin-bottom: 1.6rem;
+		}
+
+		/* ── PAIN ── */
+		.pain-intro-tag {
+			font-size: 0.78rem;
+			letter-spacing: 0.12em;
+			text-transform: uppercase;
+			color: var(--gray-500);
+			margin-bottom: 0.6rem;
+			font-weight: 400;
+		}
+
+		.pain-list {
+			display: flex;
+			flex-direction: column;
+			margin: 2.5rem 0;
+			gap: 0;
+		}
+
+		.pain-item {
+			display: grid;
+			grid-template-columns: auto 1fr auto;
+			gap: 2rem;
+			align-items: start;
+			padding: 2.2rem 0;
+			border-top: 1px solid var(--gray-400);
+		}
+
+		.pain-item:last-child {
+			border-bottom: 1px solid var(--gray-400);
+		}
+
+		.pain-x {
+			width: 24px;
+			height: 24px;
+			border: 1.5px solid #c0392b;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-shrink: 0;
+			margin-top: 3px;
+			font-size: 0.65rem;
+			color: #c0392b;
+			font-weight: 600;
+		}
+
+		.pain-title {
+			font-size: 1.1rem;
+			font-weight: 600;
+			margin-bottom: 0.55rem;
+			line-height: 1.3;
+			color: var(--black);
+		}
+
+		.pain-desc {
+			font-size: var(--body);
+			color: var(--text);
+			line-height: 1.82;
+			font-weight: 300;
+		}
+
+		.pain-num-card {
+			background: var(--black);
+			color: var(--gold-light);
+			border-radius: 10px;
+			padding: 1rem 1.3rem;
+			text-align: center;
+			flex-shrink: 0;
+			min-width: 110px;
+		}
+
+		.pain-num-card-n {
+			font-family: var(--serif);
+			font-size: 2rem;
+			font-weight: 400;
+			line-height: 1;
+			letter-spacing: -0.03em;
+			display: block;
+			color: #e03030;
+		}
+
+		.pain-num-card-l {
+			font-size: 0.65rem;
+			letter-spacing: 0.12em;
+			text-transform: uppercase;
+			color: rgba(255, 255, 255, 0.88);
+			display: block;
+			margin-top: 0.3rem;
+			font-weight: 300;
+		}
+
+		.pain-total-box {
+			background: var(--black);
+			padding: 3rem;
+			border-radius: var(--radius);
+			margin-top: 1.5rem;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.pain-total-box::before {
+			content: '';
+			position: absolute;
+			top: -60px;
+			right: -60px;
+			width: 240px;
+			height: 240px;
+			background: radial-gradient(circle, rgba(168, 131, 62, 0.1), transparent 70%);
+			pointer-events: none;
+		}
+
+		.pain-total-label {
+			font-size: var(--body);
+			color: #fff;
+			line-height: 1.7;
+			font-weight: 600;
+			margin-bottom: 1rem;
+		}
+
+		.pain-total-n {
+			font-family: var(--serif);
+			font-size: clamp(3rem, 6vw, 5rem);
+			font-weight: 600;
+			letter-spacing: -0.03em;
+			line-height: 1;
+			background: linear-gradient(135deg, #ff5252 0%, #e03030 40%, #b00000 100%);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+		}
+
+		.pain-total-sub {
+			font-size: 0.9rem;
+			color: rgba(255, 255, 255, 0.82);
+			margin-top: 0.75rem;
+			font-weight: 400;
+		}
+
+		/* ── QUOTE ── */
+		.quote-block {
+			background: var(--black);
+			background-image: url(../img/f3.jpg);
+			background-size: cover;
+			background-position: center;
+			padding: 5.5rem 2rem;
+			position: relative;
+		}
+
+		.quote-block::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background: rgba(5, 5, 5, 0.78);
+		}
+
+		.quote-inner {
+			max-width: 820px;
+			margin: 0 auto;
+			text-align: center;
+			position: relative;
+			z-index: 1;
+		}
+
+		.quote-text {
+			font-family: var(--serif);
+			font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+			font-weight: 300;
+			color: rgba(255, 255, 255, 0.92);
+			line-height: 1.7;
+			font-style: italic;
+			margin-bottom: 1.5rem;
+		}
+
+		.quote-cite {
+			font-size: 0.75rem;
+			letter-spacing: 0.2em;
+			text-transform: uppercase;
+			color: var(--gold-light);
+		}
+
+		/* ── SOLUTION ── */
+		.solution-grid {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 5rem;
+			align-items: stretch;
+			margin-top: 0.4rem;
+		}
+
+		.solution-left {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+		}
+
+		.solution-grid .h2 {
+			margin-bottom: 0.6rem;
+		}
+
+		.highlight-sol {
+			background: none;
+			color: var(--gold);
+			font-style: italic;
+			-webkit-text-fill-color: var(--gold);
+		}
+
+		.solution-img {
+			border-radius: var(--radius);
+			overflow: hidden;
+			min-height: 500px;
+		}
+
+		.solution-img img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			display: block;
+		}
+
+		/* ── PLAN ── */
+		.plan-list {
+			display: flex;
+			flex-direction: column;
+			margin-top: 2.5rem;
+			gap: 0;
+		}
+
+		.plan-item {
+			display: grid;
+			grid-template-columns: auto 1fr;
+			gap: 2rem;
+			align-items: start;
+			padding: 2.2rem 0;
+			border-top: 1px solid var(--gray-400);
+		}
+
+		.plan-item:last-child {
+			border-bottom: 1px solid var(--gray-400);
+		}
+
+		.plan-check {
+			width: 24px;
+			height: 24px;
+			border: 1.5px solid var(--gold);
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-shrink: 0;
+			margin-top: 3px;
+			font-size: 0.62rem;
+			color: var(--gold);
+			font-weight: 600;
+		}
+
+		.plan-title {
+			font-size: 1.1rem;
+			font-weight: 600;
+			margin-bottom: 0.55rem;
+			color: var(--black);
+		}
+
+		.plan-desc {
+			font-size: var(--body);
+			color: var(--text);
+			line-height: 1.82;
+			font-weight: 300;
+		}
+
+		/* ── MENTOR ── */
+		.mentor-section {
+			background: var(--black);
+			display: grid;
+			grid-template-columns: 1fr 1.2fr;
+			min-height: 80vh;
+		}
+
+		.mentor-img {
+			position: relative;
+			overflow: hidden;
+		}
+
+		.mentor-img img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			object-position: center top;
+			display: block;
+			opacity: 1;
+		}
+
+		.mentor-img-overlay {
+			display: none;
+		}
+
+		.mentor-content {
+			padding: 6rem 5rem 6rem 4rem;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+		}
+
+		.mentor-eyebrow {
+			display: inline-flex;
+			align-items: center;
+			background: linear-gradient(105deg, #d4af6a, #a8833e, #c9a45e);
+			color: #1a0f00;
+			font-size: 0.62rem;
+			letter-spacing: 0.2em;
+			text-transform: uppercase;
+			padding: 0.45rem 1rem;
+			border-radius: 100px;
+			font-weight: 600;
+			margin-bottom: 2.5rem;
+			box-shadow: 0 2px 12px rgba(168, 131, 62, 0.3);
+			width: fit-content;
+		}
+
+		.mentor-name {
+			font-family: var(--serif);
+			font-size: clamp(2.5rem, 3.5vw, 3.5rem);
+			font-weight: 400;
+			color: #fff;
+			line-height: 1.1;
+			letter-spacing: -0.02em;
+			margin-bottom: 2rem;
+		}
+
+		.mentor-bio {
+			font-size: var(--body);
+			color: #fff;
+			line-height: 1.85;
+			font-weight: 300;
+			margin-bottom: 1.2rem;
+			max-width: 560px;
+			letter-spacing: 0.025em;
+		}
+
+		.mentor-tags {
+			display: flex;
+			flex-direction: column;
+			gap: 0.6rem;
+			margin-top: 1.5rem;
+			margin-bottom: 2.5rem;
+		}
+
+		.mentor-tags-row {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.6rem;
+		}
+
+		.mentor-tag {
+			font-size: 0.72rem;
+			letter-spacing: 0.1em;
+			text-transform: uppercase;
+			color: #fff;
+			background: linear-gradient(105deg, #d4af6a, #a8833e, #c9a45e);
+			border: none;
+			padding: 0.45rem 1rem;
+			border-radius: 100px;
+			font-weight: 600;
+			box-shadow: 0 2px 10px rgba(168, 131, 62, 0.3);
+		}
+
+		/* ── CURRICULUM ── */
+		.curr-list {
+			display: flex;
+			flex-direction: column;
+			margin-top: 2rem;
+		}
+
+		.curr-item {
+			display: grid;
+			grid-template-columns: 2.5rem 2rem 1fr auto;
+			gap: 1.5rem;
+			align-items: start;
+			padding: 2.2rem 0;
+			border-top: 1px solid var(--gray-400);
+		}
+
+		.curr-item:last-child {
+			border-bottom: 1px solid var(--gray-400);
+		}
+
+		.curr-num {
+			font-family: var(--serif);
+			font-size: 0.85rem;
+			color: var(--gray-500);
+			padding-top: 1px;
+			letter-spacing: 0.1em;
+		}
+
+		.curr-icon {
+			color: var(--gold);
+			padding-top: 1px;
+		}
+
+		.curr-icon svg {
+			width: 20px;
+			height: 20px;
+			display: block;
+		}
+
+		.curr-title {
+			font-family: var(--serif);
+			font-size: 1.2rem;
+			font-weight: 500;
+			margin-bottom: 0.5rem;
+			color: var(--black);
+		}
+
+		.curr-desc {
+			font-size: var(--body);
+			color: var(--text);
+			line-height: 1.82;
+			font-weight: 300;
+		}
+
+		.curr-val-badge {
+			background: var(--black);
+			color: var(--gold-light);
+			font-size: 1rem;
+			font-weight: 600;
+			padding: 0.65rem 1.2rem;
+			border-radius: 8px;
+			white-space: nowrap;
+			letter-spacing: 0.04em;
+			margin-top: 2px;
+			align-self: start;
+			border: 1px solid rgba(201, 164, 94, 0.25);
+		}
+
+		.curr-total {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 1.8rem 0;
+			border-top: 2px solid var(--gray-400);
+			margin-top: 0.5rem;
+		}
+
+		.curr-total-l {
+			font-size: 1.1rem;
+			color: var(--black);
+			font-weight: 600;
+		}
+
+		.curr-total-n {
+			font-family: var(--serif);
+			font-size: 3rem;
+			font-weight: 600;
+			color: #1a9e52;
+		}
+
+		/* ── PRICING CARD WRAP (glow top/bottom only) ── */
+		.pricing-wrap {
+			margin-top: 2.5rem;
+			position: relative;
+			border-radius: 18px;
+		}
+
+		.pricing-wrap::before,
+		.pricing-wrap::after {
+			content: '';
+			position: absolute;
+			left: 6%;
+			right: 6%;
+			height: 4px;
+			background: linear-gradient(90deg, transparent 0%, var(--gold-pale) 20%, var(--gold-light) 50%, var(--gold-pale) 80%, transparent 100%);
+			box-shadow: 0 0 14px rgba(201, 164, 94, 0.9), 0 0 30px rgba(168, 131, 62, 0.55), 0 0 50px rgba(168, 131, 62, 0.25);
+			border-radius: 100px;
+			z-index: 2;
+		}
+
+		.pricing-wrap::before {
+			top: 0;
+		}
+
+		.pricing-wrap::after {
+			bottom: 0;
+		}
+
+		.pricing-badge-inside {
+			display: block;
+			width: fit-content;
+			margin: 0 auto 2rem;
+			background: linear-gradient(105deg, #d4af6a 0%, #a8833e 50%, #c9a45e 100%);
+			color: #1a0f00;
+			font-size: 0.62rem;
+			letter-spacing: 0.2em;
+			text-transform: uppercase;
+			padding: 0.45rem 1.2rem;
+			border-radius: 100px;
+			font-weight: 600;
+			box-shadow: 0 2px 12px rgba(168, 131, 62, 0.4);
+			text-align: center;
+		}
+
+		.pricing-card {
+			background: var(--black);
+			padding: 3.5rem;
+			border-radius: 16px;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.pricing-card::before {
+			content: '';
+			position: absolute;
+			top: -80px;
+			right: -80px;
+			width: 300px;
+			height: 300px;
+			background: radial-gradient(circle, rgba(168, 131, 62, 0.08), transparent 70%);
+			pointer-events: none;
+		}
+
+		.pricing-label {
+			font-size: 0.95rem;
+			letter-spacing: 0.14em;
+			text-transform: uppercase;
+			color: #fff;
+			font-weight: 600;
+			margin-bottom: 2rem;
+			display: block;
+			text-align: center;
+		}
+
+		.pricing-amount {
+			font-family: var(--serif);
+			font-size: 5.5rem;
+			color: #fff;
+			font-weight: 400;
+			line-height: 1;
+			letter-spacing: -0.04em;
+			margin-bottom: 0.4rem;
+		}
+
+		.pricing-period {
+			font-size: 1rem;
+			color: rgba(255, 255, 255, 0.6);
+			font-weight: 400;
+			margin-bottom: 0.3rem;
+		}
+
+		.pricing-vagas {
+			font-size: 0.88rem;
+			color: var(--gold-light);
+			font-weight: 500;
+			margin-bottom: 2.5rem;
+		}
+
+		.pricing-div {
+			height: 1px;
+			background: rgba(255, 255, 255, 0.12);
+			margin: 2.5rem 0;
+		}
+
+		.pricing-section-label {
+			font-size: 1.05rem;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+			color: #fff;
+			margin-bottom: 1.4rem;
+			font-weight: 700;
+		}
+
+		.pricing-features {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 1.1rem 2.5rem;
+			margin-bottom: 2.5rem;
+		}
+
+		.pf {
+			display: flex;
+			align-items: center;
+			gap: 0.75rem;
+			font-size: 1rem;
+			color: rgba(255, 255, 255, 0.88);
+			font-weight: 400;
+		}
+
+		.pf::before {
+			content: '✓';
+			color: var(--gold);
+			font-size: 0.8rem;
+			flex-shrink: 0;
+			font-weight: 700;
+		}
+
+		.form-card {
+			background: linear-gradient(145deg, #1e1e1e 0%, #161616 60%, #111 100%);
+			border: 1px solid rgba(255, 255, 255, 0.07);
+			border-radius: 18px;
+			padding: 2rem 2.5rem;
+			margin: 0 2rem;
+		}
+
+		.pricing-form {
+			display: flex;
+			flex-direction: column;
+			gap: 0.85rem;
+			margin-bottom: 1.4rem;
+		}
+
+		.pricing-form input,
+		.pricing-form select {
+			background: rgba(255, 255, 255, 0.08);
+			border: 1px solid rgba(255, 255, 255, 0.16);
+			color: #fff;
+			font-family: var(--sans);
+			font-size: 1rem;
+			font-weight: 400;
+			padding: 1rem 1.2rem;
+			border-radius: 10px;
+			outline: none;
+			width: 100%;
+			transition: border-color 0.25s, background 0.25s;
+			-webkit-appearance: none;
+			appearance: none;
+		}
+
+		.pricing-form input::placeholder {
+			color: rgba(255, 255, 255, 0.35);
+		}
+
+		.pricing-form input:focus,
+		.pricing-form select:focus {
+			border-color: rgba(201, 164, 94, 0.55);
+			background: rgba(255, 255, 255, 0.11);
+		}
+
+		.pricing-form select {
+			color: rgba(255, 255, 255, 0.35);
+			cursor: pointer;
+		}
+
+		.pricing-form select option {
+			background: #1a1a1a;
+			color: #fff;
+		}
+
+		.btn-gold {
+			display: block;
+			background: linear-gradient(105deg, #d4af6a, #a8833e, #c9a45e);
+			color: #fff;
+			font-size: 0.85rem;
+			letter-spacing: 0.12em;
+			text-transform: uppercase;
+			text-decoration: none;
+			padding: 1.2rem 2.5rem;
+			border-radius: 100px;
+			font-weight: 600;
+			text-align: center;
+			transition: opacity 0.25s, transform 0.2s, box-shadow 0.25s;
+			border: none;
+			cursor: pointer;
+			width: 100%;
+			font-family: var(--sans);
+			box-shadow: 0 4px 20px rgba(168, 131, 62, 0.4);
+		}
+
+		.btn-gold:hover {
+			opacity: 0.9;
+			transform: translateY(-1px);
+			box-shadow: 0 6px 24px rgba(168, 131, 62, 0.5);
+		}
+
+		.pricing-fine {
+			font-size: 0.78rem;
+			color: rgba(255, 255, 255, 0.2);
+			margin-top: 1rem;
+			text-align: center;
+		}
+
+		/* ── FAQ ── */
+		.faq-list {
+			margin-top: 1.8rem;
+		}
+
+		.faq-item {
+			border-top: 1px solid var(--gray-400);
+		}
+
+		.faq-item:last-child {
+			border-bottom: 1px solid var(--gray-400);
+		}
+
+		.faq-q {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			gap: 1rem;
+			padding: 1.7rem 0;
+			cursor: pointer;
+			font-family: var(--serif);
+			font-size: 1.15rem;
+			font-weight: 400;
+			list-style: none;
+			user-select: none;
+			color: var(--black);
+		}
+
+		.faq-q::-webkit-details-marker {
+			display: none;
+		}
+
+		.faq-icon {
+			flex-shrink: 0;
+			width: 24px;
+			height: 24px;
+			border: 1.5px solid var(--gray-400);
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 0.78rem;
+			color: var(--gray-500);
+			transition: all 0.3s;
+		}
+
+		details[open] .faq-icon {
+			background: var(--black);
+			border-color: var(--black);
+			color: #fff;
+			transform: rotate(45deg);
+		}
+
+		.faq-a {
+			padding: 0 0 1.7rem;
+			font-size: var(--body);
+			line-height: 1.82;
+			color: var(--text);
+			font-weight: 300;
+		}
+
+		/* ── FINAL CTA ── */
+		.final-cta {
+			background: var(--black);
+			padding: 7rem 2rem;
+			text-align: center;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.final-cta::before {
+			content: '90';
+			position: absolute;
+			font-family: var(--serif);
+			font-size: 22rem;
+			font-weight: 400;
+			color: rgba(255, 255, 255, 0.018);
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			pointer-events: none;
+			user-select: none;
+		}
+
+		.final-cta .inner {
+			position: relative;
+		}
+
+		.final-h2 {
+			font-family: var(--serif);
+			font-size: clamp(2rem, 3.8vw, 3.2rem);
+			font-weight: 400;
+			color: #fff;
+			line-height: 1.2;
+			margin-bottom: 1.4rem;
+		}
+
+		.final-h2 em {
+			font-style: italic;
+			color: var(--gold);
+		}
+
+		.final-p {
+			font-size: var(--body);
+			color: rgba(255, 255, 255, 0.65);
+			line-height: 1.82;
+			font-weight: 300;
+			max-width: 560px;
+			margin: 0 auto 3rem;
+		}
+
+		.btn-gold-inline {
+			display: inline-block;
+			background: linear-gradient(105deg, #d4af6a, #a8833e, #c9a45e);
+			color: #fff;
+			font-size: 0.85rem;
+			letter-spacing: 0.12em;
+			text-transform: uppercase;
+			text-decoration: none;
+			padding: 1.2rem 3rem;
+			border-radius: 100px;
+			font-weight: 600;
+			text-align: center;
+			transition: opacity 0.25s, transform 0.2s;
+			box-shadow: 0 4px 20px rgba(168, 131, 62, 0.4);
+		}
+
+		.btn-gold-inline:hover {
+			opacity: 0.9;
+			transform: translateY(-1px);
+		}
+
+		.final-vagas {
+			margin-top: 1.2rem;
+			font-size: 0.75rem;
+			color: rgba(255, 255, 255, 0.25);
+			letter-spacing: 0.1em;
+		}
+
+		/* ── FOOTER ── */
+		footer {
+			background: var(--black);
+			border-top: 1px solid rgba(255, 255, 255, 0.05);
+			padding: 2.5rem 4rem;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			flex-wrap: wrap;
+			gap: 1rem;
+		}
+
+		.footer-logo {
+			font-family: var(--serif);
+			font-size: 0.95rem;
+			letter-spacing: 0.2em;
+			text-transform: uppercase;
+			color: rgba(255, 255, 255, 0.22);
+		}
+
+		.footer-fine {
+			font-size: 0.75rem;
+			color: rgba(255, 255, 255, 0.15);
+			font-weight: 300;
+			max-width: 420px;
+			text-align: right;
+			line-height: 1.6;
+		}
+
+		/* ── REVEAL ── */
+		.reveal {
+			opacity: 0;
+			transform: translateY(24px);
+			transition: opacity 0.75s ease, transform 0.75s ease;
+		}
+
+		.reveal.visible {
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		.d1 {
+			transition-delay: .1s
+		}
+
+		.d2 {
+			transition-delay: .2s
+		}
+
+		.d3 {
+			transition-delay: .3s
+		}
+
+		.d4 {
+			transition-delay: .4s
+		}
+
+		/* ── PLACEHOLDER ── */
+		.ph {
+			width: 100%;
+			height: 100%;
+			background: linear-gradient(135deg, #1a1a18, #2c2c28);
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			gap: 0.5rem;
+			min-height: 200px;
+		}
+
+		.ph-n {
+			font-family: var(--serif);
+			font-size: 1.8rem;
+			color: rgba(255, 255, 255, 0.06);
+		}
+
+		.ph-l {
+			font-size: 0.65rem;
+			letter-spacing: 0.2em;
+			color: rgba(255, 255, 255, 0.2);
+			text-transform: uppercase;
+		}
+
+		/* ═══════════════════════════════════
+   MOBILE RESPONSIVE
+═══════════════════════════════════ */
+		@media (max-width: 900px) {
+			nav {
+				padding: 1.2rem 1.5rem;
+			}
+
+			.nav-logo {
+				font-size: 0.9rem;
+				letter-spacing: 0.15em;
+			}
+
+			.nav-cta {
+				font-size: 0.72rem;
+			}
+
+			/* Hero: stacked */
+			.hero {
+				grid-template-columns: 1fr;
+				min-height: auto;
+			}
+
+			.hero-left {
+				height: 80vw;
+				min-height: 360px;
+				position: relative;
+			}
+
+			.hero-left img,
+			.hero-left video {
+				position: absolute;
+			}
+
+			.hero-right {
+				padding: 3rem 1.8rem 4rem;
+				align-items: center;
+				text-align: center;
+			}
+
+			.hero-content {
+				max-width: 100%;
+			}
+
+			.hero-badge {
+				justify-content: center;
+				font-size: 0.58rem;
+				text-align: center;
+			}
+
+			.hero-h1 {
+				font-size: clamp(1.8rem, 6vw, 2.6rem);
+			}
+
+			.hero-p,
+			.hero-strong {
+				font-size: 1.05rem;
+			}
+
+			.btn-dark {
+				display: block;
+				text-align: center;
+			}
+
+			.hero-fine {
+				text-align: center;
+			}
+
+			/* Stats */
+			.stats-bar {
+				flex-wrap: wrap;
+				background-attachment: scroll;
+			}
+
+			.stat {
+				flex: 0 0 50%;
+				border-right: none;
+				border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+				padding: 2.5rem 1.5rem;
+			}
+
+			.stat:nth-child(1),
+			.stat:nth-child(3) {
+				border-right: 1px solid rgba(255, 255, 255, 0.07);
+			}
+
+			.stat-n {
+				font-size: 2.6rem;
+			}
+
+			/* Gallery: stacked */
+			.gallery-section {
+				grid-template-columns: 1fr;
+				min-height: auto;
+				padding: 1.5rem 0;
+			}
+
+			.gallery-text {
+				padding: 4rem 1.8rem 3rem;
+				text-align: center;
+				align-items: center;
+			}
+
+			.gallery-h2 {
+				font-size: clamp(2.2rem, 7vw, 3rem);
+				line-height: 1.45;
+			}
+
+			.gallery-desc {
+				font-size: 1.05rem;
+			}
+
+			.gallery-hint {
+				justify-content: center;
+			}
+
+			.accordion-track {
+				height: clamp(280px, 75vw, 480px);
+			}
+
+			/* Section badge */
+			.section-badge {
+				font-size: 0.58rem;
+			}
+
+			/* Sections */
+			.section {
+				padding: 4rem 1.8rem;
+			}
+
+			.inner,
+			.inner-wide {
+				width: 100%;
+			}
+
+			.h2 {
+				font-size: clamp(1.8rem, 6vw, 2.4rem);
+			}
+
+			.lead {
+				font-size: 1.05rem;
+			}
+
+			/* Pain */
+			.pain-item {
+				grid-template-columns: auto 1fr;
+				gap: 1.2rem;
+			}
+
+			.pain-num-card {
+				grid-column: 2;
+				width: fit-content;
+				margin-top: 0.5rem;
+			}
+
+			.pain-title {
+				font-size: 1.05rem;
+			}
+
+			.pain-desc {
+				font-size: 1rem;
+			}
+
+			.pain-total-n {
+				font-size: clamp(2.5rem, 8vw, 4rem);
+			}
+
+			.pain-total-box {
+				padding: 2rem 1.5rem;
+			}
+
+			/* Solution */
+			.solution-grid {
+				display: flex;
+				flex-direction: column;
+				gap: 1.8rem;
+			}
+
+			.solution-left {
+				display: contents;
+			}
+
+			.solution-left .section-badge { order: 1; }
+			.solution-img                 { order: 2; min-height: 320px; }
+			.solution-left .h2            { order: 3; }
+			.solution-left .lead          { order: 4; }
+			.solution-left .btn-dark      { order: 5; }
+
+			.solution-img img {
+				height: 100%;
+				min-height: 320px;
+			}
+
+			/* Plan */
+			.plan-title {
+				font-size: 1.05rem;
+			}
+
+			.plan-desc {
+				font-size: 1rem;
+			}
+
+			/* Mentor */
+			.mentor-section {
+				grid-template-columns: 1fr;
+				min-height: auto;
+			}
+
+			.mentor-img {
+				height: 85vw;
+				min-height: 400px;
+			}
+
+			.mentor-img img {
+				height: 100%;
+			}
+
+			.mentor-img-overlay {
+				display: none;
+			}
+
+			.mentor-content {
+				padding: 3rem 1.8rem 4rem;
+				text-align: left;
+				align-items: flex-start;
+			}
+
+			.mentor-bio {
+				text-align: left;
+				max-width: 100%;
+			}
+
+			.mentor-tags {
+				justify-content: center;
+			}
+
+			/* Mentor tags */
+			.mentor-tags-row {
+				justify-content: center;
+			}
+
+			/* Curriculum */
+			.curr-item {
+				grid-template-columns: auto auto 1fr;
+				gap: 1rem;
+			}
+
+			.curr-val-badge {
+				grid-column: 1 / -1;
+				width: fit-content;
+				font-size: 0.9rem;
+			}
+
+			.curr-total-n {
+				font-size: 2.2rem;
+			}
+
+			.curr-title {
+				font-size: 1.1rem;
+			}
+
+			.curr-desc {
+				font-size: 1rem;
+			}
+
+			/* Pricing */
+			.pricing-card {
+				padding: 2.5rem 1.8rem;
+			}
+
+			.pricing-amount {
+				font-size: 4rem;
+			}
+
+			.pricing-features {
+				grid-template-columns: 1fr;
+				gap: 0.8rem;
+			}
+
+			.pf {
+				font-size: 1rem;
+			}
+
+			.pricing-form input,
+			.pricing-form select {
+				font-size: 1rem;
+				padding: 1rem;
+			}
+
+			/* FAQ */
+			.faq-q {
+				font-size: 1.05rem;
+				padding: 1.4rem 0;
+			}
+
+			.faq-a {
+				font-size: 1rem;
+			}
+
+			.form-card {
+				margin: 0 0.5rem;
+				padding: 1.5rem 1.2rem;
+			}
+
+			/* Final CTA */
+			.final-cta {
+				padding: 5rem 1.8rem;
+			}
+
+			.final-h2 {
+				font-size: clamp(1.8rem, 6vw, 2.6rem);
+			}
+
+			.final-p {
+				font-size: 1.05rem;
+			}
+
+			.btn-gold-inline {
+				display: block;
+			}
+
+			/* Footer */
+			footer {
+				flex-direction: column;
+				align-items: center;
+				text-align: center;
+				padding: 2.5rem 1.8rem;
+			}
+
+			.footer-fine {
+				text-align: center;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.hero-h1 {
+				font-size: 1.8rem;
+			}
+
+			.gallery-h2 {
+				font-size: 2rem;
+				line-height: 1.45;
+			}
+
+			.stat-n {
+				font-size: 2.2rem;
+			}
+
+			.hero-left {
+				height: 70vw;
+			}
+
+			.accordion-track {
+				height: clamp(240px, 65vw, 380px);
+			}
+		}
+	</style>
+</head>
+
+<body>
+
+	<!-- NAV -->
+	<nav>
+		<div class="nav-logo">Yuri Palheiros</div>
+		<a href="#vaga" class="nav-cta">Quero minha vaga</a>
+	</nav>
+
+	<!-- ══ 1. HERO ══ -->
+	<section class="hero">
+		<div class="hero-left">
+			<img id="heroImg" src="../img/img1.webp" alt="Yuri Palheiros em fazenda de mineração Bitcoin"
+				onerror="this.outerHTML='<div class=\'ph\' style=\'position:absolute;inset:0;min-height:0\'><span class=\'ph-n\'>img1.webp</span><span class=\'ph-l\'>Foto / Vídeo</span></div>'">
+		</div>
+		<div class="hero-right">
+			<div class="hero-content">
+				<div class="hero-badge reveal">
+					Apenas 5 vagas por mês. Mentoria 100% individual.
+				</div>
+				<h1 class="hero-h1 reveal d1">
+					<span class="grad">E se você pudesse parar de pagar imposto sobre o seu faturamento a partir de
+						amanhã?</span>
+				</h1>
+				<p class="hero-p reveal d2">Não estou falando de sonegação. Estou falando de usar criptomoedas para
+					fazer legalmente o que os maiores empresários do Brasil já fazem: dolarizar, blindar e multiplicar
+					seu patrimônio.</p>
+				<p class="hero-strong reveal d3">Você não precisa entender NADA de blockchain. Só precisa de 3 meses
+					comigo.</p>
+				<a href="#vaga" class="btn-dark reveal d4">Quero minha vaga →</a>
+				<p class="hero-fine reveal d4">Sem compromisso. Preencha o formulário e receba os detalhes.</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- ══ 2. STATS (parallax img2.png) ══ -->
+	<div class="stats-bar">
+		<div class="stat">
+			<div class="stat-n-wrap"><span class="stat-n" data-to="500" data-prefix="US$" data-suffix="M+">US$0M+</span>
+			</div>
+			<span class="stat-l">Movimentado</span>
+		</div>
+		<div class="stat">
+			<div class="stat-n-wrap"><span class="stat-n" data-to="9" data-suffix="+">0+</span></div>
+			<span class="stat-l">Anos no Mercado</span>
+		</div>
+		<div class="stat">
+			<div class="stat-n-wrap"><span class="stat-n" data-to="45" data-suffix="+">0+</span></div>
+			<span class="stat-l">Países</span>
+		</div>
+		<div class="stat">
+			<div class="stat-n-wrap"><span class="stat-n" data-to="300" data-suffix="+">0+</span></div>
+			<span class="stat-l">Mentorados</span>
+		</div>
+	</div>
+
+	<!-- ══ 3. GALLERY (50/50 split) ══ -->
+	<section class="gallery-section">
+		<div class="gallery-text">
+			<div class="section-badge reveal">
+				Nos bastidores
+			</div>
+			<h2 class="gallery-h2 reveal d1">Veja onde<br>a <em>magia</em><br>acontece.</h2>
+			<p class="gallery-desc reveal d2">Bastidores reais de operações cripto, mineração Bitcoin e encontros
+				internacionais.</p>
+			<div class="gallery-hint reveal d3">
+				<span class="gallery-hint-line"></span>Role ou clique para explorar
+			</div>
+		</div>
+		<div class="accordion-track" id="accordionTrack">
+			<div class="a-panel active" data-i="0">
+				<img src="../img/img1.jpg" alt="Fazenda de mineração Bitcoin"
+					onerror="this.outerHTML='<div class=\'ph\'><span class=\'ph-n\'>img1</span><span class=\'ph-l\'>Mineração</span></div>'">
+			</div>
+			<div class="a-panel" data-i="1">
+				<img src="../img/img2.jpg" alt="Operações cripto"
+					onerror="this.outerHTML='<div class=\'ph\'><span class=\'ph-n\'>img2</span><span class=\'ph-l\'>Operações</span></div>'">
+			</div>
+			<div class="a-panel" data-i="2">
+				<img src="../img/img3.jpg" alt="Mineração Bitcoin"
+					onerror="this.outerHTML='<div class=\'ph\'><span class=\'ph-n\'>img3</span><span class=\'ph-l\'>Bitcoin</span></div>'">
+			</div>
+			<div class="a-panel" data-i="3">
+				<img src="../img/img4.jpg" alt="Bastidores cripto"
+					onerror="this.outerHTML='<div class=\'ph\'><span class=\'ph-n\'>img4</span><span class=\'ph-l\'>Bastidores</span></div>'">
+			</div>
+			<div class="a-panel" data-i="4">
+				<img src="../img/img5.jpg" alt="Yuri Palheiros internacional"
+					onerror="this.outerHTML='<div class=\'ph\'><span class=\'ph-n\'>img5</span><span class=\'ph-l\'>Internacional</span></div>'">
+			</div>
+		</div>
+	</section>
+
+	<!-- ══ 4. PAIN ══ -->
+	<section class="section">
+		<div class="inner-wide">
+			<div class="section-badge reveal">
+				Vamos fazer uma conta rápida
+			</div>
+			<h2 class="h2 reveal d1">Quanto dinheiro você está<br>perdendo todo mês?</h2>
+			<div class="pain-list">
+				<div class="pain-item reveal">
+					<div class="pain-x">✕</div>
+					<div>
+						<div class="pain-title">Imposto sobre faturamento</div>
+						<div class="pain-desc">Você fatura R$100 mil por mês. Paga entre 12% e 17.5% de imposto. Isso
+							são R$12 mil a R$17.500 por mês indo embora. Por ano? Até R$210.000.</div>
+					</div>
+					<div class="pain-num-card">
+						<span class="pain-num-card-n">R$17.500</span>
+						<span class="pain-num-card-l">por mês</span>
+					</div>
+				</div>
+				<div class="pain-item reveal d1">
+					<div class="pain-x">✕</div>
+					<div>
+						<div class="pain-title">IOF em tráfego pago internacional</div>
+						<div class="pain-desc">Cada centavo que você gasta em Google Ads, Meta Ads ou TikTok Ads tem
+							IOF. Gasta R$10k/mês? Perde R$380 só de IOF. R$50k/mês? Quase R$2.000 jogados fora.</div>
+					</div>
+					<div class="pain-num-card">
+						<span class="pain-num-card-n">R$2.000</span>
+						<span class="pain-num-card-l">por mês</span>
+					</div>
+				</div>
+				<div class="pain-item reveal d2">
+					<div class="pain-x">✕</div>
+					<div>
+						<div class="pain-title">Patrimônio exposto a bloqueio</div>
+						<div class="pain-desc">Qualquer processo judicial pode congelar sua conta bancária do dia pra
+							noite. Não importa se você está certo ou errado. Seu dinheiro fica preso até a justiça
+							decidir.</div>
+					</div>
+					<div class="pain-num-card">
+						<span class="pain-num-card-n">TUDO</span>
+						<span class="pain-num-card-l">de acesso</span>
+					</div>
+				</div>
+			</div>
+			<div class="pain-total-box reveal d3">
+				<div class="pain-total-label">Se você fatura R$1 milhão por ano, está perdendo</div>
+				<div class="pain-total-n">R$175.000+</div>
+				<div class="pain-total-sub">em impostos, taxas e IOF que poderiam ser drasticamente reduzidos com cripto
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- ══ 5. SOLUTION ══ -->
+	<section class="section" style="padding-top:1rem">
+		<div class="inner-wide">
+			<div class="solution-grid">
+				<div class="solution-left">
+					<div class="section-badge reveal" style="margin-bottom:1.2rem">
+						A solução
+					</div>
+					<h2 class="h2 reveal d1">Tudo que você faz com o real, você faz com cripto. <mark class="highlight-sol">Só que sem imposto, sem IOF e sem bloqueio.</mark></h2>
+					<p class="lead reveal d2">Você não precisa virar trader. Não precisa estudar blockchain. Não precisa
+						entender gráficos. Você só precisa saber 3 coisas: onde comprar, como usar e onde guardar. É
+						isso que eu te ensino em 3 meses.</p>
+					<a href="#vaga" class="btn-dark reveal d3">Quero minha vaga →</a>
+				</div>
+				<div class="solution-img reveal d2">
+					<img src="../img/ftexpert2.png" alt="Yuri Palheiros"
+						onerror="this.outerHTML='<div class=\'ph\' style=\'height:100%;min-height:500px\'><span class=\'ph-n\'>ftexpert2</span><span class=\'ph-l\'>Foto solução</span></div>'">
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- ══ 6. QUOTE ══ -->
+	<div class="quote-block">
+		<div class="quote-inner">
+			<p class="quote-text reveal">"Você sabe o que é uma nota de R$100? Sabe onde gastar? Onde guardar? Mas você
+				sabe qual máquina imprime essa nota? Que tinta é usada? Não, né? Então você também não precisa saber
+				nada sobre blockchain. Só precisa saber usar."</p>
+			<cite class="quote-cite reveal d1">— Yuri Palheiros</cite>
+		</div>
+	</div>
+
+	<!-- ══ 7. PLAN ══ -->
+	<section class="section">
+		<div class="inner-wide">
+			<div class="section-badge reveal">
+				Sua vida depois da mentoria
+			</div>
+			<h2 class="h2 reveal d1">Em 90 dias, você vai:</h2>
+			<div class="plan-list">
+				<div class="plan-item reveal">
+					<div class="plan-check">✓</div>
+					<div>
+						<div class="plan-title">Receber PIX e cair em dólar digital</div>
+						<div class="plan-desc">Todo PIX que você recebe pode ser convertido automaticamente em USDT
+							(dólar digital). Não passa pelo seu CNPJ, não gera imposto, não aparece em lugar nenhum.
+						</div>
+					</div>
+				</div>
+				<div class="plan-item reveal d1">
+					<div class="plan-check">✓</div>
+					<div>
+						<div class="plan-title">Pagar tudo com cartão cripto</div>
+						<div class="plan-desc">Uber, iFood, Apple Pay, supermercado, restaurante. Tudo no cartão cripto
+							com cashback, sem IOF, sem declaração. Seu dinheiro é seu.</div>
+					</div>
+				</div>
+				<div class="plan-item reveal d2">
+					<div class="plan-check">✓</div>
+					<div>
+						<div class="plan-title">Blindar seu patrimônio de vez</div>
+						<div class="plan-desc">Nenhum juiz pode bloquear cripto que está na sua carteira. Seu patrimônio
+							fica protegido e acessível 24h, de qualquer lugar do mundo.</div>
+					</div>
+				</div>
+				<div class="plan-item reveal d3">
+					<div class="plan-check">✓</div>
+					<div>
+						<div class="plan-title">Pagar tráfego pago sem IOF</div>
+						<div class="plan-desc">Google, Meta, TikTok. Pague em cripto e elimine o IOF de cada campanha.
+							Se você gasta R$50k/mês, isso são <strong>R$24.000/ano no seu bolso.</strong></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- ══ 8. MENTOR ══ -->
+	<section class="mentor-section">
+		<div class="mentor-img">
+			<img src="../img/ftexpert.jpg" alt="Yuri Palheiros"
+				onerror="this.parentElement.innerHTML='<div class=\'ph\' style=\'height:100%\'><span class=\'ph-n\'>imgexpert</span><span class=\'ph-l\'>Mentor</span></div>'">
+			<div class="mentor-img-overlay"></div>
+		</div>
+		<div class="mentor-content">
+			<div class="mentor-eyebrow reveal">
+				Seu mentor
+			</div>
+			<h2 class="mentor-name reveal d1">Yuri<br>Palheiros</h2>
+			<p class="mentor-bio reveal d2">Autor best seller. Vivo de cripto há mais de 9 anos. Já movimentei mais de
+				US$500 milhões no mercado. Especialista em mineração de Bitcoin, estruturação financeira internacional e
+				blindagem patrimonial.</p>
+			<p class="mentor-bio reveal d2">Viajei para mais de 45 países estudando, usando e desenvolvendo novas
+				tecnologias. Vivo 100% só de criptomoedas: cartão, Uber, iFood, Apple Pay, tudo em dólar digital. Mais
+				de 300 mentorados formados.</p>
+			<p class="mentor-bio reveal d2">Não sou influencer de trade. Sou o cara que os maiores empresários e traders
+				do Brasil procuram quando precisam resolver.</p>
+			<div class="mentor-tags reveal d3">
+				<div class="mentor-tags-row">
+					<span class="mentor-tag">Best Seller</span>
+					<span class="mentor-tag">9+ anos em cripto</span>
+					<span class="mentor-tag">US$500M+ movimentados</span>
+				</div>
+				<div class="mentor-tags-row">
+					<span class="mentor-tag">45+ países</span>
+					<span class="mentor-tag">300+ mentorados</span>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- ══ 9. CURRICULUM ══ -->
+	<section class="section">
+		<div class="inner">
+			<div class="section-badge reveal">
+				O que você recebe
+			</div>
+			<h2 class="h2 reveal d1">Não é um curso. É uma transformação completa em 90 dias.</h2>
+			<div class="curr-list">
+				<!-- 01 -->
+				<div class="curr-item reveal">
+					<div class="curr-num">01</div>
+					<div class="curr-icon" style="color:var(--gold)">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+							stroke-linecap="round" stroke-linejoin="round">
+							<path
+								d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.63 19.79 19.79 0 01.04 1a2 2 0 012-1.78h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.34 1.85.574 2.81.7A2 2 0 0122 16.92z" />
+						</svg>
+					</div>
+					<div>
+						<div class="curr-title">4 Sessões Individuais de 1 Hora</div>
+						<div class="curr-desc">Encontros ao vivo, 1 a 1, comigo. Nada de grupo, nada de gravação. Cada
+							sessão tem um objetivo claro e você sai fazendo, não assistindo.</div>
+					</div>
+					<div class="curr-val-badge">R$20.000</div>
+				</div>
+				<!-- 02 -->
+				<div class="curr-item reveal d1">
+					<div class="curr-num">02</div>
+					<div class="curr-icon">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+							stroke-linecap="round" stroke-linejoin="round">
+							<path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
+						</svg>
+					</div>
+					<div>
+						<div class="curr-title">Meu WhatsApp Pessoal por 90 Dias</div>
+						<div class="curr-desc">Acesso direto ao meu número. Qualquer dúvida, qualquer operação, qualquer
+							emergência. Resposta em até 24h. Não é bot, não é equipe. Sou eu.</div>
+					</div>
+					<div class="curr-val-badge">R$15.000</div>
+				</div>
+				<!-- 03 -->
+				<div class="curr-item reveal d1">
+					<div class="curr-num">03</div>
+					<div class="curr-icon">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+							stroke-linecap="round" stroke-linejoin="round">
+							<rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+							<line x1="1" y1="10" x2="23" y2="10" />
+						</svg>
+					</div>
+					<div>
+						<div class="curr-title">Setup Completo do Ecossistema Cripto</div>
+						<div class="curr-desc">Carteira configurada, cartão internacional ativo (sem IOF, com cashback),
+							PIX para cripto funcionando. Você sai da primeira sessão já usando.</div>
+					</div>
+					<div class="curr-val-badge">R$8.000</div>
+				</div>
+				<!-- 04 -->
+				<div class="curr-item reveal d2">
+					<div class="curr-num">04</div>
+					<div class="curr-icon">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+							stroke-linecap="round" stroke-linejoin="round">
+							<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+						</svg>
+					</div>
+					<div>
+						<div class="curr-title">Plano de Blindagem Patrimonial</div>
+						<div class="curr-desc">Estratégia personalizada para proteger seu patrimônio contra bloqueios
+							judiciais. Montada com base no seu faturamento e estrutura societária.</div>
+					</div>
+					<div class="curr-val-badge">R$12.000</div>
+				</div>
+				<!-- 05 -->
+				<div class="curr-item reveal d2">
+					<div class="curr-num">05</div>
+					<div class="curr-icon">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+							stroke-linecap="round" stroke-linejoin="round">
+							<circle cx="12" cy="12" r="10" />
+							<line x1="2" y1="12" x2="22" y2="12" />
+							<path
+								d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
+						</svg>
+					</div>
+					<div>
+						<div class="curr-title">Operações Internacionais sem Taxas</div>
+						<div class="curr-desc">Pagar fornecedores, receber de clientes, rodar tráfego pago
+							internacional. Tudo sem IOF, sem taxa bancária, sem burocracia.</div>
+					</div>
+					<div class="curr-val-badge">R$10.000</div>
+				</div>
+				<!-- 06 -->
+				<div class="curr-item reveal d3">
+					<div class="curr-num">06</div>
+					<div class="curr-icon">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+							stroke-linecap="round" stroke-linejoin="round">
+							<path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+							<circle cx="9" cy="7" r="4" />
+							<path d="M23 21v-2a4 4 0 00-3-3.87" />
+							<path d="M16 3.13a4 4 0 010 7.75" />
+						</svg>
+					</div>
+					<div>
+						<div class="curr-title">Acesso ao Network de Empresários</div>
+						<div class="curr-desc">Você entra no meu círculo. Empresários, executivos, jogadores,
+							profissionais que já operam em cripto. Conexões que geram negócios reais.</div>
+					</div>
+					<div class="curr-val-badge">Inestimável</div>
+				</div>
+				<!-- 07 -->
+				<div class="curr-item reveal d3">
+					<div class="curr-num">07</div>
+					<div class="curr-icon">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+							stroke-linecap="round" stroke-linejoin="round">
+							<path
+								d="M18.178 8c5.096 0 5.096 8 0 8-5.095 0-7.133-8-12.739-8-4.585 0-4.585 8 0 8 5.606 0 7.644-8 12.74-8z" />
+						</svg>
+					</div>
+					<div>
+						<div class="curr-title">Cliente P2P Preferencial Vitalício</div>
+						<div class="curr-desc">Depois da mentoria, qualquer operação de cripto que você precisar pro
+							resto da vida, sou eu que resolvo. Taxa preferencial, prioridade total.</div>
+					</div>
+					<div class="curr-val-badge">Inestimável</div>
+				</div>
+			</div>
+			<div class="curr-total reveal">
+				<span class="curr-total-l">Valor total se contratado separadamente:</span>
+				<span class="curr-total-n">R$65.000+</span>
+			</div>
+		</div>
+	</section>
+
+	<!-- ══ 10. PRICING ══ -->
+	<section class="section" id="vaga" style="padding-top:1rem">
+		<div class="inner">
+			<div class="pricing-wrap reveal">
+				<div class="pricing-card">
+					<div class="pricing-badge-inside">Seu investimento</div>
+					<span class="pricing-label">Mentoria 100% individual</span>
+					<div class="pricing-amount">R$40.000</div>
+					<div class="pricing-period">3 meses de acompanhamento 100% individual</div>
+					<div class="pricing-vagas">⚡ Apenas 5 vagas por mês</div>
+					<div class="pricing-div"></div>
+					<p class="pricing-section-label">Tudo que está incluso:</p>
+					<div class="pricing-features">
+						<div class="pf">4 sessões individuais de 1 hora (ao vivo, 1 a 1)</div>
+						<div class="pf">WhatsApp direto do Yuri por 90 dias</div>
+						<div class="pf">Setup completo: carteira, cartão sem IOF, PIX para cripto</div>
+						<div class="pf">Plano de blindagem patrimonial personalizado</div>
+						<div class="pf">Operações internacionais sem taxas bancárias</div>
+						<div class="pf">Network exclusivo de empresários</div>
+						<div class="pf">Cliente P2P preferencial vitalício</div>
+					</div>
+					<div class="pricing-div"></div>
+					<div class="form-card">
+						<p class="pricing-section-label">Preencha para garantir sua vaga</p>
+						<div class="pricing-form">
+							<input type="text" placeholder="Seu nome completo">
+							<input type="tel" placeholder="Seu WhatsApp com DDD (ex: 11999999999)">
+							<input type="email" placeholder="Seu melhor email">
+							<select>
+								<option value="" disabled selected>Qual seu faturamento mensal?</option>
+								<option>Até R$15.000</option>
+								<option>R$15.000 – R$50.000</option>
+								<option>R$50.000 – R$150.000</option>
+								<option>R$150.000 – R$500.000</option>
+								<option>Acima de R$500.000</option>
+							</select>
+						</div>
+						<button class="btn-gold">QUERO MINHA VAGA →</button>
+						<p class="pricing-fine">Você será direcionado para o WhatsApp da equipe. Sem compromisso.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- ══ 11. FAQ ══ -->
+	<section class="section" style="padding-top:1rem">
+		<div class="inner">
+			<h2 class="h2 reveal">Perguntas frequentes</h2>
+			<div class="faq-list reveal d1">
+				<details class="faq-item">
+					<summary class="faq-q">Preciso saber algo de cripto antes?<span class="faq-icon">+</span></summary>
+					<p class="faq-a">Não. A mentoria começa do zero. Você não precisa entender blockchain, carteiras ou
+						exchanges. Só precisa querer aprender a usar.</p>
+				</details>
+				<details class="faq-item">
+					<summary class="faq-q">É legal reduzir imposto usando cripto?<span class="faq-icon">+</span>
+					</summary>
+					<p class="faq-a">Sim. Tudo que ensinamos é legal. Não é sonegação — é planejamento financeiro. As
+						mesmas estratégias usadas pelos maiores empresários do Brasil.</p>
+				</details>
+				<details class="faq-item">
+					<summary class="faq-q">Quanto tempo por semana preciso dedicar?<span class="faq-icon">+</span>
+					</summary>
+					<p class="faq-a">Cerca de 2-3 horas por semana. Uma sessão ao vivo e implementação guiada. Não
+						precisa estudar — precisa fazer.</p>
+				</details>
+				<details class="faq-item">
+					<summary class="faq-q">Posso parcelar o investimento?<span class="faq-icon">+</span></summary>
+					<p class="faq-a">Sim. Os detalhes do parcelamento são apresentados após o preenchimento do
+						formulário. Entre em contato com a equipe.</p>
+				</details>
+				<details class="faq-item">
+					<summary class="faq-q">Por que apenas 5 vagas por mês?<span class="faq-icon">+</span></summary>
+					<p class="faq-a">Porque a mentoria é 100% individual. Cada cliente tem acesso direto ao Yuri —
+						WhatsApp pessoal, sessões 1 a 1, estratégia sob medida. Não dá pra manter isso com mais vagas.
+					</p>
+				</details>
+			</div>
+		</div>
+	</section>
+
+	<!-- ══ 12. FINAL CTA ══ -->
+	<section class="final-cta">
+		<div class="inner">
+			<div class="section-badge reveal" style="margin:0 auto 2rem;">
+				Última chamada
+			</div>
+			<h2 class="final-h2 reveal d1">A cada mês que passa, você está<br>deixando <em>R$15.000+ na mesa.</em></h2>
+			<p class="final-p reveal d2">A pergunta não é se você pode pagar R$40 mil pela mentoria. A pergunta é quanto
+				está custando NÃO ter esse conhecimento.</p>
+			<a href="#vaga" class="btn-gold-inline reveal d3">Garantir minha vaga →</a>
+			<p class="final-vagas reveal d4">5 vagas por mês. Mentoria 100% individual.</p>
+		</div>
+	</section>
+
+	<!-- FOOTER -->
+	<footer>
+		<div class="footer-logo">Yuri Palheiros</div>
+		<div class="footer-fine">Concierge Cripto • Yuri Palheiros • 2026 — Este site não constitui aconselhamento financeiro. Resultados podem variar.</div>
+	</footer>
+
+	<script>
+		/* ── REVEAL ── */
+		const revObs = new IntersectionObserver((entries) => {
+			entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revObs.unobserve(e.target); } });
+		}, { threshold: 0.1 });
+		document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
+
+		/* ── STATS: fade + count com stagger esq→dir ── */
+		function animateStat(el, delay) {
+			setTimeout(() => {
+				const to = +el.dataset.to;
+				const pre = el.dataset.prefix || '', suf = el.dataset.suffix || '';
+				el.classList.add('counted');
+				let v = 0;
+				const dur = 900, step = 16;
+				const inc = to / (dur / step);
+				const t = setInterval(() => {
+					v = Math.min(v + inc, to);
+					const display = Math.floor(v);
+					el.textContent = (pre === 'US$') ? `US$${display}M+` : `${display}${suf}`;
+					if (v >= to) {
+						el.textContent = pre + to + suf;
+						clearInterval(t);
+					}
+				}, step);
+			}, delay || 0);
+		}
+
+		const statEls = Array.from(document.querySelectorAll('.stat-n[data-to]'));
+		let statsFired = false;
+		const statsBar = document.querySelector('.stats-bar');
+		const statObs = new IntersectionObserver((entries) => {
+			if (!entries[0].isIntersecting || statsFired) return;
+			statsFired = true;
+			statEls.forEach((el, i) => animateStat(el, i * 180));
+			statObs.disconnect();
+		}, { threshold: 0.1 });
+		statObs.observe(statsBar);
+
+		// Fallback: se o observer nunca disparar, dispara após 3s
+		setTimeout(() => {
+			if (!statsFired) {
+				statsFired = true;
+				statEls.forEach((el, i) => animateStat(el, i * 180));
+			}
+		}, 3000);
+
+		/* ── ACCORDION ── */
+		const track = document.getElementById('accordionTrack');
+		const panels = Array.from(track.querySelectorAll('.a-panel'));
+		const gallerySection = document.querySelector('.gallery-section');
+		let current = 0, galleryReady = false, wheelAccum = 0;
+
+		function setPanel(idx) {
+			if (idx < 0 || idx >= panels.length || idx === current) return;
+			panels[current].classList.remove('active');
+			current = idx;
+			panels[current].classList.add('active');
+		}
+		panels.forEach((p, i) => p.addEventListener('click', () => setPanel(i)));
+
+		new IntersectionObserver((entries) => {
+			galleryReady = entries[0].isIntersecting;
+		}, { threshold: 0.72 }).observe(gallerySection);
+
+		let panelCooldown = false;
+
+		window.addEventListener('wheel', (e) => {
+			if (!galleryReady) return;
+			const r = gallerySection.getBoundingClientRect();
+			const goingDown = e.deltaY > 0;
+			const goingUp   = e.deltaY < 0;
+
+			// Descida: trava quando galeria quase inteira visível (220px de margem)
+			if (goingDown && current < panels.length - 1) {
+				if (r.top > 220 || r.bottom < window.innerHeight * 0.35) return;
+				e.preventDefault();
+				if (!panelCooldown) {
+					setPanel(current + 1);
+					panelCooldown = true;
+					setTimeout(() => { panelCooldown = false; }, 620);
+				}
+				return;
+			}
+			// Subida: só trava quando galeria está bem no topo (margem menor = trava mais tarde)
+			if (goingUp && current > 0) {
+				if (r.top > 40 || r.bottom < window.innerHeight * 0.35) return;
+				e.preventDefault();
+				if (!panelCooldown) {
+					setPanel(current - 1);
+					panelCooldown = true;
+					setTimeout(() => { panelCooldown = false; }, 620);
+				}
+				return;
+			}
+		}, { passive: false });
+
+		/* ── HERO LAZY VIDEO ── */
+		window.addEventListener('load', () => {
+			const heroLeft = document.querySelector('.hero-left');
+			const vid = document.createElement('video');
+			vid.autoplay = true; vid.muted = true; vid.loop = true; vid.playsInline = true;
+			vid.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center top;display:block;z-index:1';
+			vid.src = '../img/v1.mp4';
+			vid.oncanplay = () => {
+				heroLeft.appendChild(vid);
+				requestAnimationFrame(() => {
+					vid.classList.add('ready');
+					const heroImg = document.getElementById('heroImg');
+					if (heroImg) heroImg.classList.add('vid-ready');
+				});
+			};
+		});
+	</script>
+</body>
+
+</html>
