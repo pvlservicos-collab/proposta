@@ -1,0 +1,1589 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin — Painel do Formulário</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0C0C0F;
+            --bg1: #141418;
+            --bg2: #1A1A20;
+            --bg3: #222228;
+            --gold: #C9A84C;
+            --gold2: #E8D5A0;
+            --gold-dim: rgba(201, 168, 76, 0.15);
+            --text: #F0EEE8;
+            --text2: rgba(240, 238, 232, 0.6);
+            --text3: rgba(240, 238, 232, 0.35);
+            --border: rgba(255, 255, 255, 0.07);
+            --border2: rgba(255, 255, 255, 0.12);
+            --green: #5CE65C;
+            --red: #FF6B6B;
+            --blue: #7EB8FF;
+            --font: 'DM Sans', sans-serif;
+            --font-title: 'Playfair Display', serif;
+            --font-mono: 'DM Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* ── LAYOUT ── */
+        .layout {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            min-height: 100vh;
+        }
+
+        /* ── SIDEBAR ── */
+        .sidebar {
+            background: var(--bg1);
+            border-right: 1px solid var(--border);
+            padding: 32px 0;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-brand {
+            padding: 0 24px 32px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 24px;
+        }
+
+        .sidebar-brand h2 {
+            font-family: var(--font-title);
+            font-size: 1.3rem;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .sidebar-brand p {
+            font-size: 0.7rem;
+            color: var(--text3);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 24px;
+            font-size: 0.88rem;
+            color: var(--text2);
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+            letter-spacing: 0.3px;
+        }
+
+        .nav-item:hover {
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .nav-item.active {
+            color: var(--gold);
+            border-left-color: var(--gold);
+            background: var(--gold-dim);
+        }
+
+        .nav-icon {
+            width: 16px;
+            height: 16px;
+            opacity: 0.7;
+            flex-shrink: 0;
+        }
+
+        .nav-item.active .nav-icon {
+            opacity: 1;
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding: 20px 24px;
+            border-top: 1px solid var(--border);
+            font-size: 0.72rem;
+            color: var(--text3);
+            letter-spacing: 1px;
+        }
+
+        /* ── MAIN ── */
+        .main {
+            padding: 40px 48px;
+            overflow-y: auto;
+        }
+
+        /* ── TABS ── */
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        /* ── PAGE HEADER ── */
+        .page-header {
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .page-header h1 {
+            font-family: var(--font-title);
+            font-size: 2rem;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .page-header p {
+            font-size: 0.88rem;
+            color: var(--text2);
+            margin-top: 6px;
+        }
+
+        .refresh-btn {
+            background: var(--bg2);
+            border: 1px solid var(--border2);
+            color: var(--text2);
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-family: var(--font);
+            font-size: 0.82rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .refresh-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* ── STAT CARDS ── */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: var(--bg1);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 22px 24px;
+            transition: border-color 0.2s;
+        }
+
+        .stat-card:hover {
+            border-color: var(--border2);
+        }
+
+        .stat-label {
+            font-size: 0.72rem;
+            color: var(--text3);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text);
+            font-family: var(--font-mono);
+        }
+
+        .stat-sub {
+            font-size: 0.78rem;
+            color: var(--text2);
+            margin-top: 6px;
+        }
+
+        .stat-up {
+            color: var(--green);
+        }
+
+        .stat-down {
+            color: var(--red);
+        }
+
+        /* ── SECTION TITLE ── */
+        .section-title {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--text3);
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+
+        /* ── FUNNEL ── */
+        .funnel-wrap {
+            background: var(--bg1);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 32px;
+        }
+
+        .funnel-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 10px;
+        }
+
+        .funnel-label {
+            font-size: 0.8rem;
+            color: var(--text2);
+            width: 100px;
+            flex-shrink: 0;
+            font-family: var(--font-mono);
+        }
+
+        .funnel-bar-track {
+            flex: 1;
+            height: 28px;
+            background: var(--bg3);
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .funnel-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold), rgba(201, 168, 76, 0.5));
+            border-radius: 6px;
+            transition: width 0.8s cubic-bezier(.4, 0, .2, 1);
+            display: flex;
+            align-items: center;
+            padding-left: 12px;
+        }
+
+        .funnel-bar-fill span {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #000;
+            white-space: nowrap;
+            font-family: var(--font-mono);
+        }
+
+        .funnel-drop {
+            font-size: 0.78rem;
+            color: var(--red);
+            width: 58px;
+            flex-shrink: 0;
+            text-align: right;
+            font-family: var(--font-mono);
+        }
+
+        /* ── HEATMAP ── */
+        .heatmap-wrap {
+            background: var(--bg1);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 32px;
+        }
+
+        .heatmap-question {
+            margin-bottom: 20px;
+        }
+
+        .heatmap-q-title {
+            font-size: 0.85rem;
+            color: var(--text2);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .heatmap-options {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .heatmap-opt {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .heatmap-opt-label {
+            font-size: 0.78rem;
+            color: var(--text3);
+            width: 220px;
+            flex-shrink: 0;
+            font-family: var(--font-mono);
+        }
+
+        .heatmap-opt-bar {
+            flex: 1;
+            height: 18px;
+            background: var(--bg3);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .heatmap-opt-fill {
+            height: 100%;
+            background: rgba(126, 184, 255, 0.4);
+            border-radius: 4px;
+            transition: width 0.6s ease;
+        }
+
+        .heatmap-opt-count {
+            font-size: 0.75rem;
+            color: var(--blue);
+            font-family: var(--font-mono);
+            width: 30px;
+            text-align: right;
+        }
+
+        /* ── SUBMISSIONS TABLE ── */
+        .table-wrap {
+            background: var(--bg1);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 32px;
+        }
+
+        .table-scroll {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.83rem;
+        }
+
+        thead tr {
+            background: var(--bg2);
+            border-bottom: 1px solid var(--border2);
+        }
+
+        th {
+            padding: 14px 18px;
+            text-align: left;
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text3);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text2);
+            vertical-align: top;
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .badge-ok {
+            background: rgba(92, 230, 92, 0.1);
+            color: var(--green);
+            border: 1px solid rgba(92, 230, 92, 0.2);
+        }
+
+        .badge-no {
+            background: rgba(255, 107, 107, 0.1);
+            color: var(--red);
+            border: 1px solid rgba(255, 107, 107, 0.2);
+        }
+
+        /* ── FLOWCHART ── */
+        #flowchart-canvas {
+            background: var(--bg1);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+
+        #flowchart-svg-wrap {
+            overflow-x: auto;
+            overflow-y: auto;
+            max-height: 680px;
+            padding: 20px;
+        }
+
+        .fc-node {
+            position: absolute;
+            background: var(--bg2);
+            border: 1.5px solid var(--border2);
+            border-radius: 10px;
+            padding: 14px 18px;
+            min-width: 200px;
+            max-width: 230px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            cursor: default;
+        }
+
+        .fc-node:hover {
+            border-color: var(--gold);
+            box-shadow: 0 0 20px rgba(201, 168, 76, 0.15);
+        }
+
+        .fc-node.welcome {
+            border-color: rgba(126, 184, 255, 0.4);
+            background: rgba(126, 184, 255, 0.05);
+        }
+
+        .fc-node.question {
+            border-color: var(--border2);
+        }
+
+        .fc-node.conditional {
+            border-color: rgba(201, 168, 76, 0.4);
+            background: rgba(201, 168, 76, 0.05);
+        }
+
+        .fc-node.end-ok {
+            border-color: rgba(92, 230, 92, 0.4);
+            background: rgba(92, 230, 92, 0.05);
+        }
+
+        .fc-node.end-no {
+            border-color: rgba(255, 107, 107, 0.4);
+            background: rgba(255, 107, 107, 0.05);
+        }
+
+        .fc-node-type {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text3);
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .fc-node.welcome .fc-node-type {
+            color: var(--blue);
+        }
+
+        .fc-node.conditional .fc-node-type {
+            color: var(--gold);
+        }
+
+        .fc-node.end-ok .fc-node-type {
+            color: var(--green);
+        }
+
+        .fc-node.end-no .fc-node-type {
+            color: var(--red);
+        }
+
+        .fc-node-title {
+            font-size: 0.82rem;
+            color: var(--text);
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .fc-node-count {
+            margin-top: 8px;
+            font-size: 0.7rem;
+            color: var(--text3);
+            font-family: var(--font-mono);
+        }
+
+        .fc-node-count span {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        /* ── EVENTS LOG ── */
+        .event-list {
+            background: var(--bg1);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            max-height: 420px;
+            overflow-y: auto;
+        }
+
+        .event-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.82rem;
+        }
+
+        .event-item:last-child {
+            border-bottom: none;
+        }
+
+        .event-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .dot-start {
+            background: var(--blue);
+        }
+
+        .dot-answer {
+            background: var(--gold);
+        }
+
+        .dot-complete {
+            background: var(--green);
+        }
+
+        .dot-abandon {
+            background: var(--red);
+        }
+
+        .dot-view {
+            background: var(--text3);
+        }
+
+        .event-name {
+            color: var(--text);
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            min-width: 130px;
+        }
+
+        .event-detail {
+            color: var(--text2);
+            font-size: 0.78rem;
+        }
+
+        .event-time {
+            color: var(--text3);
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            margin-left: auto;
+        }
+
+        /* ── DROP-OFF TABLE ── */
+        .dropoff-table {
+            background: var(--bg1);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .dropoff-row {
+            display: grid;
+            grid-template-columns: 100px 1fr 80px 80px 90px;
+            align-items: center;
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--border);
+            gap: 16px;
+            transition: background 0.15s;
+        }
+
+        .dropoff-row:last-child {
+            border-bottom: none;
+        }
+
+        .dropoff-row:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .dropoff-row.header {
+            background: var(--bg2);
+            border-bottom: 1px solid var(--border2);
+        }
+
+        .dropoff-row.header span {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text3);
+            font-weight: 500;
+        }
+
+        .dropoff-row.worst {
+            background: rgba(255, 107, 107, 0.04);
+        }
+
+        .dr-q {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text3);
+        }
+
+        .dr-title {
+            font-size: 0.85rem;
+            color: var(--text2);
+        }
+
+        .dr-count {
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text);
+            text-align: right;
+        }
+
+        .dr-left {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text3);
+            text-align: right;
+        }
+
+        .dr-drop {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            text-align: right;
+            font-weight: 600;
+        }
+
+        .dr-drop.high {
+            color: var(--red);
+        }
+
+        .dr-drop.mid {
+            color: #FFAA44;
+        }
+
+        .dr-drop.low {
+            color: var(--green);
+        }
+
+        .dr-drop.none {
+            color: var(--text3);
+        }
+
+        .worst-badge {
+            display: inline-block;
+            background: rgba(255, 107, 107, 0.15);
+            color: var(--red);
+            border: 1px solid rgba(255, 107, 107, 0.3);
+            border-radius: 4px;
+            padding: 1px 6px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+
+        /* ── DROP-OFF TABLE ── */
+        .time-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .time-card {
+            background: var(--bg1);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .time-card-q {
+            font-size: 0.7rem;
+            color: var(--text3);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .time-card-val {
+            font-size: 1.4rem;
+            font-family: var(--font-mono);
+            color: var(--gold2);
+            font-weight: 500;
+        }
+
+        .time-card-label {
+            font-size: 0.7rem;
+            color: var(--text3);
+            margin-top: 4px;
+        }
+
+        /* ── EMPTY STATE ── */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text3);
+        }
+
+        .empty-state h3 {
+            font-size: 1.1rem;
+            color: var(--text2);
+            margin-bottom: 8px;
+        }
+
+        .empty-state p {
+            font-size: 0.85rem;
+        }
+
+        /* ── SCROLLBAR ── */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--bg3);
+            border-radius: 3px;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .main {
+                padding: 24px 20px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .time-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="layout">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <h2>Admin Panel</h2>
+                <p>Form Analytics</p>
+            </div>
+            <nav>
+                <div class="nav-item active" onclick="showTab('analytics')">
+                    <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <rect x="1" y="8" width="3" height="7" />
+                        <rect x="6.5" y="5" width="3" height="10" />
+                        <rect x="12" y="2" width="3" height="13" />
+                    </svg>
+                    Analytics
+                </div>
+                <div class="nav-item" onclick="showTab('funnel')">
+                    <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M2 2h12l-4.5 6v5l-3-1.5V8L2 2z" />
+                    </svg>
+                    Funil
+                </div>
+                <div class="nav-item" onclick="showTab('flowchart')">
+                    <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <rect x="5" y="1" width="6" height="4" rx="1" />
+                        <rect x="1" y="11" width="6" height="4" rx="1" />
+                        <rect x="9" y="11" width="6" height="4" rx="1" />
+                        <path d="M8 5v2.5M4 8.5V11m8-2.5V11M4 8.5h8" />
+                    </svg>
+                    Fluxograma
+                </div>
+                <div class="nav-item" onclick="showTab('submissions')">
+                    <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <rect x="2" y="2" width="12" height="12" rx="2" />
+                        <path d="M5 8h6M5 5h6M5 11h4" />
+                    </svg>
+                    Respostas
+                </div>
+                <div class="nav-item" onclick="showTab('events')">
+                    <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="8" cy="8" r="6" />
+                        <path d="M8 4v4l3 2" />
+                    </svg>
+                    Eventos
+                </div>
+            </nav>
+            <div class="sidebar-footer">
+                Atualizado em tempo real<br>
+                via localStorage
+            </div>
+        </aside>
+
+        <!-- MAIN -->
+        <main class="main">
+
+            <!-- ── ANALYTICS ── -->
+            <div class="tab-panel active" id="tab-analytics">
+                <div class="page-header">
+                    <div>
+                        <h1>Analytics</h1>
+                        <p>Visão geral — apenas quem passou da pergunta 1</p>
+                    </div>
+                    <button class="refresh-btn" onclick="loadAll()">
+                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor"
+                            stroke-width="1.5">
+                            <path d="M13.5 8A5.5 5.5 0 112.5 8" />
+                            <path d="M13.5 4v4h-4" />
+                        </svg>
+                        Atualizar
+                    </button>
+                </div>
+
+                <div class="stats-grid" id="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">Qualificados</div>
+                        <div class="stat-value" id="stat-starts">—</div>
+                        <div class="stat-sub">passaram da Q1</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Concluídos</div>
+                        <div class="stat-value" id="stat-completed">—</div>
+                        <div class="stat-sub">respostas completas</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Taxa conversão</div>
+                        <div class="stat-value" id="stat-rate">—</div>
+                        <div class="stat-sub">concluídos / qualificados</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Desqualificados</div>
+                        <div class="stat-value" id="stat-disq">—</div>
+                        <div class="stat-sub">faturamento &lt; 20k</div>
+                    </div>
+                </div>
+
+                <!-- DROP-OFF TABLE -->
+                <div class="section-title">Onde as pessoas saem — abandono por pergunta</div>
+                <div id="dropoff-table" style="margin-bottom:36px;">
+                    <div class="empty-state">
+                        <p>Aguardando dados…</p>
+                    </div>
+                </div>
+
+                <!-- TIME PER Q -->
+                <div class="section-title">Tempo médio por pergunta</div>
+                <div class="time-grid" id="time-grid">
+                    <div class="empty-state">
+                        <p>Aguardando dados…</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── FUNIL ── -->
+            <div class="tab-panel" id="tab-funnel">
+                <div class="page-header">
+                    <div>
+                        <h1>Funil</h1>
+                        <p>Quantas pessoas chegaram em cada etapa</p>
+                    </div>
+                    <button class="refresh-btn" onclick="loadAll()">Atualizar</button>
+                </div>
+
+                <div class="funnel-wrap" id="funnel-wrap">
+                    <div class="empty-state">
+                        <h3>Nenhum dado ainda</h3>
+                        <p>Abra o formulário e preencha algumas respostas para ver o funil.</p>
+                    </div>
+                </div>
+
+                <div class="section-title" style="margin-top:32px">Heatmap de respostas</div>
+                <div class="heatmap-wrap" id="heatmap-wrap">
+                    <div class="empty-state">
+                        <p>Aguardando dados…</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── FLOWCHART ── -->
+            <div class="tab-panel" id="tab-flowchart">
+                <div class="page-header">
+                    <div>
+                        <h1>Fluxograma</h1>
+                        <p>Visualização do fluxo de perguntas em tempo real</p>
+                    </div>
+                    <button class="refresh-btn" onclick="renderFlowchart()">Atualizar</button>
+                </div>
+
+                <div id="flowchart-canvas">
+                    <div id="flowchart-svg-wrap">
+                        <svg id="flowchart-svg" style="display:block;" xmlns="http://www.w3.org/2000/svg"></svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── SUBMISSIONS ── -->
+            <div class="tab-panel" id="tab-submissions">
+                <div class="page-header">
+                    <div>
+                        <h1>Respostas</h1>
+                        <p>Todos os formulários submetidos</p>
+                    </div>
+                    <div style="display:flex;gap:10px;">
+                        <button class="refresh-btn" onclick="loadAll()">Atualizar</button>
+                        <button class="refresh-btn" onclick="exportCSV()" style="border-color:var(--gold);color:var(--gold);">
+                            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M8 2v8M5 7l3 3 3-3M2 12v1a1 1 0 001 1h10a1 1 0 001-1v-1"/>
+                            </svg>
+                            Exportar CSV
+                        </button>
+                    </div>
+                </div>
+
+                <div class="table-wrap">
+                    <div class="table-scroll">
+                        <table id="submissions-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nome</th>
+                                    <th>WhatsApp</th>
+                                    <th>E-mail</th>
+                                    <th>Instagram</th>
+                                    <th>Perfil</th>
+                                    <th>Faturamento</th>
+                                    <th>Investimento</th>
+                                    <th>Status</th>
+                                    <th>Data</th>
+                                </tr>
+                            </thead>
+                            <tbody id="submissions-body">
+                                <tr>
+                                    <td colspan="10" style="text-align:center;padding:40px;color:var(--text3);">Nenhum
+                                        envio ainda.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── EVENTS ── -->
+            <div class="tab-panel" id="tab-events">
+                <div class="page-header">
+                    <div>
+                        <h1>Eventos</h1>
+                        <p>Log detalhado de todas as interações</p>
+                    </div>
+                    <button class="refresh-btn" onclick="loadAll()">Atualizar</button>
+                </div>
+
+                <div class="event-list" id="event-list">
+                    <div class="empty-state">
+                        <p>Nenhum evento registrado.</p>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        // ── NAVIGATION ──
+        function showTab(name) {
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.getElementById('tab-' + name).classList.add('active');
+            event.currentTarget.classList.add('active');
+            loadAll();
+        }
+
+        // ── QUESTION DEFINITIONS ──
+        const QUESTIONS = [
+            { id: 0, type: 'welcome', title: 'Tela de Boas-vindas', key: null },
+            { id: 1, type: 'question', title: 'Q1 — Qual é o seu nome?', key: 'nome' },
+            { id: 2, type: 'question', title: 'Q2 — WhatsApp', key: 'whatsapp' },
+            { id: 3, type: 'question', title: 'Q3 — E-mail', key: 'email' },
+            { id: 4, type: 'question', title: 'Q4 — Instagram', key: 'instagram' },
+            { id: 5, type: 'question', title: 'Q5 — Perfil profissional', key: 'perfil' },
+            {
+                id: 6, type: 'conditional', title: 'Q6 — Faturamento mensal', key: 'faturamento',
+                condition: 'Se ≤ R$20k → Desqualificado'
+            },
+            { id: 7, type: 'question', title: 'Q7 — Tráfego pago', key: 'trafego' },
+            { id: 8, type: 'question', title: 'Q8 — Patrimônio construído', key: 'patrimonio' },
+            { id: 9, type: 'question', title: 'Q9 — Dólar digital', key: 'dolar' },
+            { id: 10, type: 'question', title: 'Q10 — Situação atual', key: 'situacao' },
+            { id: 11, type: 'question', title: 'Q11 — Disposição a investir', key: 'investimento' },
+            { id: 12, type: 'question', title: 'Q12 — Campo aberto', key: 'decisao' },
+            { id: 'end-ok', type: 'end-ok', title: '✓ Aprovado — Aguarde contato', key: null },
+            { id: 'end-no', type: 'end-no', title: '✗ Desqualificado — Faturamento baixo', key: null },
+        ];
+
+        const Q_LABELS = {
+            nome: 'Nome',
+            whatsapp: 'WhatsApp',
+            email: 'E-mail',
+            instagram: 'Instagram',
+            perfil: 'Perfil',
+            faturamento: 'Faturamento',
+            trafego: 'Tráfego',
+            patrimonio: 'Patrimônio',
+            dolar: 'Dólar digital',
+            situacao: 'Situação',
+            investimento: 'Investimento',
+            decisao: 'Campo aberto'
+        };
+
+        // ── LOAD DATA ──
+        function getData() {
+            return {
+                analytics: JSON.parse(localStorage.getItem('form_analytics') || '[]'),
+                funnel: JSON.parse(localStorage.getItem('form_funnel') || '{}'),
+                answers: JSON.parse(localStorage.getItem('form_answers_agg') || '{}'),
+                submissions: JSON.parse(localStorage.getItem('form_submissions') || '[]'),
+            };
+        }
+
+        function loadAll() {
+            const d = getData();
+            renderStats(d);
+            renderDropoff(d);
+            renderFunnel(d);
+            renderHeatmap(d);
+            renderSubmissions(d);
+            renderEvents(d);
+            renderFlowchart(d);
+            renderTimeGrid(d);
+        }
+
+        // ── STATS ──
+        function renderStats(d) {
+            const events = d.analytics;
+            const funnel = d.funnel;
+            // "Qualificados" = people who reached Q2 (passed Q1)
+            const qualified = funnel[2] || 0;
+            const completed = events.filter(e => e.event === 'form_complete').length;
+            const disq = events.filter(e => e.event === 'form_disqualified').length;
+            const rate = qualified > 0 ? Math.round((completed / qualified) * 100) : 0;
+
+            document.getElementById('stat-starts').textContent = qualified;
+            document.getElementById('stat-completed').textContent = completed;
+            document.getElementById('stat-rate').textContent = rate + '%';
+            document.getElementById('stat-disq').textContent = disq;
+        }
+
+        // ── DROP-OFF TABLE ──
+        const Q_NAMES = {
+            1: 'Nome', 2: 'WhatsApp', 3: 'E-mail', 4: 'Instagram',
+            5: 'Perfil profissional', 6: 'Faturamento mensal ⚡',
+            7: 'Tráfego pago', 8: 'Patrimônio construído',
+            9: 'Dólar digital', 10: 'Situação atual',
+            11: 'Disposição a investir', 12: 'Campo aberto'
+        };
+
+        function renderDropoff(d) {
+            const funnel = d.funnel;
+            const events = d.analytics;
+            const completed = events.filter(e => e.event === 'form_complete').length;
+
+            // Build array Q2–Q12 (Q1 is entry gate, we start counting from Q2)
+            const rows = [];
+            for (let q = 2; q <= 12; q++) {
+                const arrived = funnel[q] || 0;
+                const next = q < 12 ? (funnel[q + 1] || 0) : completed;
+                const dropped = arrived - next;
+                const dropPct = arrived > 0 ? Math.round((dropped / arrived) * 100) : 0;
+                rows.push({ q, name: Q_NAMES[q], arrived, next, dropped, dropPct });
+            }
+
+            if (rows.every(r => r.arrived === 0)) {
+                document.getElementById('dropoff-table').innerHTML = `<div class="empty-state"><p>Aguardando dados de pelo menos 2 perguntas respondidas.</p></div>`;
+                return;
+            }
+
+            // Find worst drop-off
+            const worstDrop = Math.max(...rows.map(r => r.dropPct));
+
+            let html = `<div class="dropoff-table">
+    <div class="dropoff-row header">
+      <span>Pergunta</span><span>Título</span>
+      <span style="text-align:right">Chegaram</span>
+      <span style="text-align:right">Saíram</span>
+      <span style="text-align:right">Drop-off</span>
+    </div>`;
+
+            rows.forEach(r => {
+                const dropClass = r.dropPct >= 40 ? 'high' : r.dropPct >= 20 ? 'mid' : r.dropPct > 0 ? 'low' : 'none';
+                const isWorst = r.dropPct === worstDrop && worstDrop > 0;
+                html += `<div class="dropoff-row${isWorst ? ' worst' : ''}">
+      <div class="dr-q">Q${r.q}</div>
+      <div class="dr-title">${r.name}${isWorst ? '<span class="worst-badge">maior saída</span>' : ''}</div>
+      <div class="dr-count">${r.arrived}</div>
+      <div class="dr-left">${r.dropped > 0 ? '-' + r.dropped : '0'}</div>
+      <div class="dr-drop ${dropClass}">${r.arrived > 0 ? r.dropPct + '%' : '—'}</div>
+    </div>`;
+            });
+
+            html += '</div>';
+            document.getElementById('dropoff-table').innerHTML = html;
+        }
+
+        // ── TIME PER Q ──
+        function renderTimeGrid(d) {
+            const events = d.analytics;
+            const answerEvents = events.filter(e => e.event === 'answer' && e.timeSpent);
+
+            const timeByQ = {};
+            const countByQ = {};
+            answerEvents.forEach(e => {
+                timeByQ[e.q] = (timeByQ[e.q] || 0) + e.timeSpent;
+                countByQ[e.q] = (countByQ[e.q] || 0) + 1;
+            });
+
+            const grid = document.getElementById('time-grid');
+            const qs = Object.keys(timeByQ).sort((a, b) => a - b);
+            if (qs.length === 0) {
+                grid.innerHTML = '<div class="empty-state"><p>Aguardando dados…</p></div>';
+                return;
+            }
+            grid.innerHTML = qs.map(q => {
+                const avg = Math.round(timeByQ[q] / countByQ[q] / 1000);
+                return `<div class="time-card">
+      <div class="time-card-q">Q${q}</div>
+      <div class="time-card-val">${avg}s</div>
+      <div class="time-card-label">tempo médio</div>
+    </div>`;
+            }).join('');
+        }
+
+        // ── FUNNEL ──
+        function renderFunnel(d) {
+            const funnel = d.funnel;
+            const events = d.analytics;
+            const starts = events.filter(e => e.event === 'form_start').length;
+
+            if (starts === 0 && Object.keys(funnel).length === 0) {
+                document.getElementById('funnel-wrap').innerHTML = `<div class="empty-state"><h3>Nenhum dado ainda</h3><p>Preencha o formulário para ver o funil.</p></div>`;
+                return;
+            }
+
+            const maxVal = Math.max(starts, ...Object.values(funnel), 1);
+            let html = '';
+
+            // Welcome
+            html += funnelRow('Início', starts, maxVal, null);
+
+            for (let q = 1; q <= 12; q++) {
+                const count = funnel[q] || 0;
+                const prev = q === 1 ? starts : (funnel[q - 1] || starts);
+                const drop = prev > 0 ? Math.round(((prev - count) / prev) * 100) : 0;
+                html += funnelRow(`Q${q}`, count, maxVal, drop > 0 ? `-${drop}%` : null);
+            }
+
+            const completed = events.filter(e => e.event === 'form_complete').length;
+            html += funnelRow('Concluído', completed, maxVal, null, true);
+
+            document.getElementById('funnel-wrap').innerHTML = html;
+        }
+
+        function funnelRow(label, count, max, drop, highlight = false) {
+            const pct = max > 0 ? Math.max((count / max) * 100, 2) : 2;
+            const color = highlight ? 'background: linear-gradient(90deg, #5CE65C, rgba(92,230,92,0.4))' : '';
+            return `<div class="funnel-row">
+    <div class="funnel-label">${label}</div>
+    <div class="funnel-bar-track">
+      <div class="funnel-bar-fill" style="width:${pct}%;${color}">
+        <span>${count}</span>
+      </div>
+    </div>
+    <div class="funnel-drop">${drop || ''}</div>
+  </div>`;
+        }
+
+        // ── HEATMAP ──
+        const CHOICE_LABELS = {
+            gestor_trafego: 'Gestor de tráfego',
+            infoprodutor: 'Infoprodutor',
+            ecommerce: 'E-commerce',
+            empresario: 'Empresário',
+            outro: 'Outro',
+            ate_20k: '≤ R$20k',
+            '20k_50k': 'R$20k–50k',
+            '50k_150k': 'R$50k–150k',
+            '150k_500k': 'R$150k–500k',
+            acima_500k: '> R$500k',
+            trafego_ate_10k: 'Até R$10k/mês',
+            trafego_10k_50k: 'R$10k–50k',
+            trafego_50k_100k: 'R$50k–100k',
+            trafego_acima_100k: '> R$100k',
+            sem_trafego: 'Não investe',
+            patrimonio_relevante: 'Relevante no nome',
+            patrimonio_empresa: 'Dentro da empresa',
+            construindo: 'Ainda construindo',
+            nunca_usei: 'Nunca usei',
+            ouvi_falar: 'Ouvi falar',
+            usa_atualmente: 'Usa atualmente',
+            imposto: 'Muito imposto',
+            iof_trafego: 'IOF/tráfego',
+            patrimonio_exposto: 'Patrimônio exposto',
+            guardar_dolar: 'Guardar em dólar',
+            estruturar_fora: 'Estruturar fora BR',
+            menos_5k: '< R$5k',
+            '5k_10k': 'R$5k–10k',
+            '10k_20k': 'R$10k–20k',
+            '20k_40k': 'R$20k–40k',
+            mais_40k: '> R$40k',
+        };
+
+        function renderHeatmap(d) {
+            const agg = d.answers;
+            if (Object.keys(agg).length === 0) {
+                document.getElementById('heatmap-wrap').innerHTML = `<div class="empty-state"><p>Aguardando dados…</p></div>`;
+                return;
+            }
+
+            // Group by question number
+            const byQ = {};
+            Object.entries(agg).forEach(([key, count]) => {
+                const m = key.match(/^q(\d+)_(.+)$/);
+                if (m) {
+                    const q = m[1], val = m[2];
+                    if (!byQ[q]) byQ[q] = {};
+                    byQ[q][val] = count;
+                }
+            });
+
+            const qNames = { 5: 'Perfil', 6: 'Faturamento', 7: 'Tráfego', 8: 'Patrimônio', 9: 'Dólar', 10: 'Situação', 11: 'Investimento' };
+
+            let html = '';
+            Object.keys(byQ).sort((a, b) => a - b).forEach(q => {
+                if (!qNames[q]) return;
+                const opts = byQ[q];
+                const maxCount = Math.max(...Object.values(opts));
+                const title = `Q${q} — ${qNames[q]}`;
+                html += `<div class="heatmap-question">
+      <div class="heatmap-q-title">${title}</div>
+      <div class="heatmap-options">`;
+                Object.entries(opts).sort((a, b) => b[1] - a[1]).forEach(([val, count]) => {
+                    const pct = maxCount > 0 ? (count / maxCount) * 100 : 0;
+                    const label = CHOICE_LABELS[val] || val;
+                    html += `<div class="heatmap-opt">
+        <div class="heatmap-opt-label">${label}</div>
+        <div class="heatmap-opt-bar"><div class="heatmap-opt-fill" style="width:${pct}%"></div></div>
+        <div class="heatmap-opt-count">${count}</div>
+      </div>`;
+                });
+                html += '</div></div>';
+            });
+
+            document.getElementById('heatmap-wrap').innerHTML = html || '<div class="empty-state"><p>Aguardando dados…</p></div>';
+        }
+
+        // ── SUBMISSIONS TABLE ──
+        function renderSubmissions(d) {
+            const subs = d.submissions;
+            const tbody = document.getElementById('submissions-body');
+            if (subs.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;padding:40px;color:var(--text3);">Nenhum envio ainda.</td></tr>';
+                return;
+            }
+            tbody.innerHTML = [...subs].reverse().map((s, i) => {
+                const a = s.answers || {};
+                const date = new Date(s.ts).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
+                const status = s.disqualified
+                    ? `<span class="badge badge-no">Desqualificado</span>`
+                    : `<span class="badge badge-ok">Aprovado</span>`;
+                return `<tr>
+      <td style="color:var(--text3);font-family:var(--font-mono)">${subs.length - i}</td>
+      <td style="color:var(--text);font-weight:500">${a.nome || '—'}</td>
+      <td>${a.whatsapp || '—'}</td>
+      <td>${a.email || '—'}</td>
+      <td>${a.instagram || '—'}</td>
+      <td>${CHOICE_LABELS[a.perfil] || a.perfil || '—'}</td>
+      <td>${CHOICE_LABELS[a.faturamento] || a.faturamento || '—'}</td>
+      <td>${CHOICE_LABELS[a.investimento] || a.investimento || '—'}</td>
+      <td>${status}</td>
+      <td style="color:var(--text3);font-family:var(--font-mono);font-size:0.75rem">${date}</td>
+    </tr>`;
+            }).join('');
+        }
+
+        // ── EVENTS ──
+        function renderEvents(d) {
+            const events = d.analytics;
+            const container = document.getElementById('event-list');
+            if (events.length === 0) {
+                container.innerHTML = '<div class="empty-state"><p>Nenhum evento registrado.</p></div>';
+                return;
+            }
+            const dotClass = {
+                form_start: 'dot-start',
+                answer: 'dot-answer',
+                choice_click: 'dot-answer',
+                multi_click: 'dot-answer',
+                form_complete: 'dot-complete',
+                form_disqualified: 'dot-complete',
+                abandon: 'dot-abandon',
+                question_view: 'dot-view',
+            };
+            container.innerHTML = [...events].reverse().slice(0, 200).map(e => {
+                const dot = dotClass[e.event] || 'dot-view';
+                const time = new Date(e.ts).toLocaleTimeString('pt-BR');
+                const detail = e.value ? `val: ${e.value}` : e.q ? `Q${e.q}` : `slide: ${e.slide}`;
+                return `<div class="event-item">
+      <div class="event-dot ${dot}"></div>
+      <div class="event-name">${e.event}</div>
+      <div class="event-detail">${detail}</div>
+      <div class="event-time">${time}</div>
+    </div>`;
+            }).join('');
+        }
+
+        // ── FLOWCHART ──
+        function renderFlowchart(d) {
+            d = d || getData();
+            const funnel = d.funnel;
+            const events = d.analytics;
+            const starts = events.filter(e => e.event === 'form_start').length;
+            const completed = events.filter(e => e.event === 'form_complete').length;
+            const disq = events.filter(e => e.event === 'form_disqualified').length;
+
+            const nodeW = 210;
+            const nodeH = 80;
+            const gapY = 50;
+            const colX_main = 340;
+            const colX_disq = 620;
+            const startY = 30;
+
+            // Node definitions: id, x, y, type, title, sub
+            const nodeCount = q => q <= 12 ? (funnel[q] || 0) : (q === 'end-ok' ? completed : disq);
+
+            const nodes = [
+                { id: 'welcome', x: colX_main, y: startY, type: 'welcome', title: 'Tela de Boas-vindas', count: starts },
+                ...Array.from({ length: 12 }, (_, i) => {
+                    const q = i + 1;
+                    return {
+                        id: `q${q}`,
+                        x: colX_main,
+                        y: startY + (nodeH + gapY) * (q),
+                        type: q === 6 ? 'conditional' : 'question',
+                        title: (() => {
+                            const map = {
+                                1: 'Q1 — Nome', 2: 'Q2 — WhatsApp', 3: 'Q3 — E-mail', 4: 'Q4 — Instagram',
+                                5: 'Q5 — Perfil profissional', 6: 'Q6 — Faturamento ⚡', 7: 'Q7 — Tráfego pago',
+                                8: 'Q8 — Patrimônio', 9: 'Q9 — Dólar digital', 10: 'Q10 — Situação atual',
+                                11: 'Q11 — Investimento', 12: 'Q12 — Campo aberto'
+                            };
+                            return map[q];
+                        })(),
+                        count: nodeCount(q),
+                        condition: q === 6 ? 'Se ≤ R$20k → Desqualificado' : null
+                    };
+                }),
+                {
+                    id: 'end-ok',
+                    x: colX_main,
+                    y: startY + (nodeH + gapY) * 13,
+                    type: 'end-ok',
+                    title: '✓ Aprovado — Aguarde o contato',
+                    count: completed
+                },
+                {
+                    id: 'end-disq',
+                    x: colX_disq,
+                    y: startY + (nodeH + gapY) * 6,
+                    type: 'end-no',
+                    title: '✗ Desqualificado — Faturamento baixo',
+                    count: disq
+                },
+            ];
+
+            const totalH = startY + (nodeH + gapY) * 14 + nodeH + 40;
+            const totalW = colX_disq + nodeW + 60;
+
+            const svg = document.getElementById('flowchart-svg');
+            svg.setAttribute('viewBox', `0 0 ${totalW} ${totalH}`);
+            svg.setAttribute('width', totalW);
+            svg.setAttribute('height', totalH);
+            svg.innerHTML = '';
+
+            // Defs
+            svg.innerHTML += `<defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="rgba(255,255,255,0.25)"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="rgba(255,107,107,0.6)"/>
+    </marker>
+  </defs>`;
+
+            // Draw main-flow lines first (behind nodes)
+            const nodeMap = {};
+            nodes.forEach(n => nodeMap[n.id] = n);
+
+            // Main vertical connections
+            const mainFlow = ['welcome', 'q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12', 'end-ok'];
+            for (let i = 0; i < mainFlow.length - 1; i++) {
+                const a = nodeMap[mainFlow[i]];
+                const b = nodeMap[mainFlow[i + 1]];
+                const x1 = a.x + nodeW / 2;
+                const y1 = a.y + nodeH;
+                const x2 = b.x + nodeW / 2;
+                const y2 = b.y;
+                svg.innerHTML += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"
+      stroke="rgba(255,255,255,0.15)" stroke-width="1.5" marker-end="url(#arrow)"/>`;
+            }
+
+            // Conditional branch from Q6 to disq
+            const q6 = nodeMap['q6'];
+            const disqNode = nodeMap['end-disq'];
+            const bx1 = q6.x + nodeW;
+            const by1 = q6.y + nodeH / 2;
+            const bx2 = disqNode.x;
+            const by2 = disqNode.y + nodeH / 2;
+            const mx = (bx1 + bx2) / 2;
+            svg.innerHTML += `<path d="M${bx1},${by1} C${mx},${by1} ${mx},${by2} ${bx2},${by2}"
+    stroke="rgba(255,107,107,0.5)" stroke-width="1.5" fill="none" marker-end="url(#arrow-red)" stroke-dasharray="5,3"/>`;
+            // Label on branch
+            svg.innerHTML += `<text x="${mx}" y="${(by1 + by2) / 2 - 8}" text-anchor="middle"
+    font-family="DM Mono, monospace" font-size="9" fill="rgba(255,107,107,0.7)">≤ R$20k</text>`;
+
+            // Draw nodes
+            nodes.forEach(n => {
+                const typeColors = {
+                    welcome: '#7EB8FF', question: 'rgba(255,255,255,0.25)',
+                    conditional: '#C9A84C', 'end-ok': '#5CE65C', 'end-no': '#FF6B6B'
+                };
+                const borderColor = typeColors[n.type] || 'rgba(255,255,255,0.25)';
+                const bgColor = n.type === 'welcome' ? 'rgba(126,184,255,0.06)'
+                    : n.type === 'conditional' ? 'rgba(201,168,76,0.06)'
+                        : n.type === 'end-ok' ? 'rgba(92,230,92,0.06)'
+                            : n.type === 'end-no' ? 'rgba(255,107,107,0.06)'
+                                : '#1A1A20';
+
+                const typeLabel = n.type === 'welcome' ? 'INÍCIO'
+                    : n.type === 'conditional' ? 'CONDICIONAL'
+                        : n.type === 'end-ok' ? 'FINAL — APROVADO'
+                            : n.type === 'end-no' ? 'FINAL — DESQUALIFICADO'
+                                : 'PERGUNTA';
+
+                svg.innerHTML += `
+      <rect x="${n.x}" y="${n.y}" width="${nodeW}" height="${nodeH}"
+        rx="10" fill="${bgColor}" stroke="${borderColor}" stroke-width="1.5"/>
+      <text x="${n.x + 14}" y="${n.y + 18}" font-family="DM Sans, sans-serif"
+        font-size="8.5" fill="${borderColor}" letter-spacing="1.5" font-weight="500">${typeLabel}</text>
+      <text x="${n.x + 14}" y="${n.y + 36}" font-family="DM Sans, sans-serif"
+        font-size="11.5" fill="rgba(240,238,232,0.9)" font-weight="500">${truncate(n.title, 28)}</text>
+      ${n.condition ? `<text x="${n.x + 14}" y="${n.y + 52}" font-family="DM Mono, monospace"
+        font-size="8.5" fill="rgba(201,168,76,0.7)">${n.condition}</text>` : ''}
+      <text x="${n.x + 14}" y="${n.y + 67}" font-family="DM Mono, monospace"
+        font-size="9" fill="rgba(240,238,232,0.3)">alcançaram: <tspan fill="${borderColor}" font-weight="600">${n.count}</tspan></text>
+    `;
+            });
+        }
+
+        function truncate(str, max) {
+            return str.length > max ? str.slice(0, max) + '…' : str;
+        }
+
+        // ── EXPORT CSV ──
+        function exportCSV() {
+            const subs = JSON.parse(localStorage.getItem('form_submissions') || '[]');
+            if (subs.length === 0) { alert('Nenhum envio para exportar.'); return; }
+
+            const cols = ['#', 'Data', 'Status', 'Nome', 'WhatsApp', 'E-mail', 'Instagram',
+                'Perfil', 'Faturamento', 'Tráfego', 'Patrimônio', 'Dólar digital',
+                'Situação', 'Investimento', 'Campo aberto'];
+
+            const escape = v => {
+                const s = String(v ?? '');
+                return s.includes(',') || s.includes('"') || s.includes('\n')
+                    ? '"' + s.replace(/"/g, '""') + '"' : s;
+            };
+
+            const rows = subs.map((s, i) => {
+                const a = s.answers || {};
+                const date = new Date(s.ts).toLocaleString('pt-BR');
+                const status = s.disqualified ? 'Desqualificado' : 'Aprovado';
+                const situacao = Array.isArray(a.situacao) ? a.situacao.map(v => CHOICE_LABELS[v] || v).join(' | ') : (a.situacao || '');
+                return [
+                    i + 1, date, status,
+                    a.nome || '', a.whatsapp || '', a.email || '', a.instagram || '',
+                    CHOICE_LABELS[a.perfil] || a.perfil || '',
+                    CHOICE_LABELS[a.faturamento] || a.faturamento || '',
+                    CHOICE_LABELS[a.trafego] || a.trafego || '',
+                    CHOICE_LABELS[a.patrimonio] || a.patrimonio || '',
+                    CHOICE_LABELS[a.dolar] || a.dolar || '',
+                    situacao,
+                    CHOICE_LABELS[a.investimento] || a.investimento || '',
+                    a.decisao || ''
+                ].map(escape).join(',');
+            });
+
+            const csv = '\uFEFF' + [cols.join(','), ...rows].join('\r\n');
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'leads_' + new Date().toISOString().slice(0, 10) + '.csv';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // ── INIT ──
+        loadAll();
+        setInterval(loadAll, 5000); // auto-refresh every 5s
+    </script>
+</body>
+
+</html>

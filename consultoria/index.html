@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Consultoria Personalizada</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link
+		href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap"
+		rel="stylesheet">
+	<style>
+		:root {
+			--gold: #C9A84C;
+			--gold-light: #E8D5A0;
+			--white: #FFFFFF;
+			--white-80: rgba(255, 255, 255, 0.85);
+			--white-50: rgba(255, 255, 255, 0.5);
+			--white-20: rgba(255, 255, 255, 0.2);
+			--white-10: rgba(255, 255, 255, 0.1);
+			--dark: rgba(0, 0, 0, 0.55);
+			--font-title: 'Playfair Display', serif;
+			--font-body: 'DM Sans', sans-serif;
+		}
+
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		html,
+		body {
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			font-family: var(--font-body);
+		}
+
+		/* ── FIXED BACKGROUND ── */
+		#bg {
+			position: fixed;
+			inset: 0;
+			z-index: 0;
+			background:
+				linear-gradient(to bottom, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.70) 100%),
+				url('fundoform.jpg') right bottom / cover no-repeat;
+		}
+
+		/* ── SCROLL CONTAINER — controlled entirely by JS ── */
+		#form-scroll {
+			position: fixed;
+			inset: 0;
+			z-index: 10;
+			overflow: hidden;
+		}
+
+		/* ── PROGRESS BAR ── */
+		#progress-bar {
+			position: fixed;
+			top: 0;
+			left: 0;
+			z-index: 100;
+			height: 3px;
+			background: var(--gold);
+			transition: width 0.6s cubic-bezier(.4, 0, .2, 1);
+			box-shadow: 0 0 12px rgba(201, 168, 76, 0.6);
+		}
+
+		#progress-label {
+			position: fixed;
+			top: 16px;
+			right: 24px;
+			z-index: 100;
+			font-family: var(--font-body);
+			font-size: 0.75rem;
+			letter-spacing: 2px;
+			color: var(--white-80);
+			font-weight: 500;
+			text-transform: uppercase;
+		}
+
+		/* ── SLIDE ── */
+		#slides-track {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			transition: transform 0.55s cubic-bezier(0.77, 0, 0.175, 1);
+			will-change: transform;
+		}
+
+		.slide {
+			height: 100vh;
+			width: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 0 6%;
+			position: relative;
+		}
+
+		.slide-content {
+			max-width: 720px;
+			width: 100%;
+			text-align: center;
+			animation: none;
+		}
+
+		.slide.active .slide-content {
+			animation: slideUp 0.5s ease-out both;
+		}
+
+		@keyframes slideUp {
+			from {
+				opacity: 0;
+				transform: translateY(28px);
+			}
+
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		.q-number {
+			font-size: 0.82rem;
+			color: var(--gold-light);
+			letter-spacing: 2px;
+			text-transform: uppercase;
+			margin-bottom: 18px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 8px;
+			font-weight: 500;
+		}
+
+		.q-number svg {
+			width: 14px;
+			height: 14px;
+			fill: var(--gold);
+		}
+
+		.q-title {
+			font-family: var(--font-title);
+			font-size: clamp(2rem, 4.5vw, 3.4rem);
+			color: var(--white);
+			line-height: 1.2;
+			margin-bottom: 12px;
+			font-weight: 600;
+		}
+
+		.q-desc {
+			font-size: 0.92rem;
+			color: var(--white-50);
+			margin-bottom: 36px;
+			line-height: 1.7;
+			font-style: italic;
+		}
+
+		/* ── INPUTS ── */
+		.text-input {
+			background: transparent;
+			border: none;
+			border-bottom: 2px solid var(--white-50);
+			padding: 12px 4px;
+			font-family: var(--font-title);
+			font-size: 1.7rem;
+			color: var(--white);
+			width: 100%;
+			max-width: 520px;
+			outline: none;
+			transition: border-color 0.3s;
+			caret-color: var(--gold);
+			text-align: center;
+		}
+
+		.text-input::placeholder {
+			color: var(--white-20);
+		}
+
+		.text-input:focus {
+			border-bottom-color: var(--gold);
+		}
+
+		/* ── CHOICE BUTTONS ── */
+		.choices {
+			display: flex;
+			flex-direction: column;
+			gap: 12px;
+			max-width: 580px;
+			margin: 0 auto;
+		}
+
+		.choice-btn {
+			background: var(--white-10);
+			border: 1.5px solid var(--white-20);
+			padding: 16px 22px;
+			border-radius: 10px;
+			color: var(--white-80);
+			font-family: var(--font-body);
+			font-size: 0.95rem;
+			cursor: pointer;
+			text-align: left;
+			transition: all 0.2s;
+			display: flex;
+			align-items: center;
+			gap: 14px;
+			backdrop-filter: blur(8px);
+		}
+
+		.choice-btn:hover,
+		.choice-btn.selected {
+			background: rgba(201, 168, 76, 0.18);
+			border-color: var(--gold);
+			color: var(--white);
+		}
+
+		.choice-btn .key {
+			font-size: 0.7rem;
+			background: var(--white-20);
+			border-radius: 5px;
+			padding: 2px 7px;
+			font-weight: 600;
+			letter-spacing: 1px;
+			min-width: 28px;
+			text-align: center;
+			flex-shrink: 0;
+		}
+
+		.choice-btn.selected .key {
+			background: var(--gold);
+			color: #000;
+		}
+
+		/* ── MULTI-SELECT hint ── */
+		.multi-hint {
+			font-size: 0.75rem;
+			color: var(--white-50);
+			margin-bottom: 16px;
+			letter-spacing: 1px;
+		}
+
+		/* ── ADVANCE BUTTON ── */
+		.advance-btn {
+			margin-top: 28px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 12px;
+		}
+
+		.btn-next {
+			background: var(--gold);
+			color: #000;
+			border: none;
+			padding: 14px 28px;
+			border-radius: 8px;
+			font-family: var(--font-body);
+			font-size: 0.9rem;
+			font-weight: 600;
+			cursor: pointer;
+			letter-spacing: 1px;
+			text-transform: uppercase;
+			transition: all 0.2s;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.btn-next:hover {
+			background: var(--gold-light);
+			transform: translateY(-1px);
+		}
+
+		.enter-hint {
+			font-size: 0.75rem;
+			color: var(--white-50);
+			letter-spacing: 1px;
+		}
+
+		.enter-hint kbd {
+			background: var(--white-10);
+			border: 1px solid var(--white-20);
+			border-radius: 4px;
+			padding: 2px 6px;
+			font-size: 0.7rem;
+			color: var(--white-80);
+		}
+
+		/* ── TEXTAREA ── */
+		.text-area {
+			background: var(--white-10);
+			border: 1.5px solid var(--white-20);
+			border-radius: 10px;
+			padding: 16px 18px;
+			font-family: var(--font-body);
+			font-size: 1rem;
+			color: var(--white);
+			width: 100%;
+			max-width: 580px;
+			min-height: 130px;
+			outline: none;
+			resize: none;
+			transition: border-color 0.3s;
+			caret-color: var(--gold);
+			line-height: 1.7;
+			backdrop-filter: blur(8px);
+			text-align: left;
+		}
+
+		.text-area::placeholder {
+			color: var(--white-20);
+		}
+
+		.text-area:focus {
+			border-color: var(--gold);
+		}
+
+		/* ── WELCOME & END SLIDES ── */
+		.welcome-slide .slide-content {
+			max-width: 760px;
+		}
+
+		.logo-line {
+			font-size: 0.75rem;
+			letter-spacing: 4px;
+			text-transform: uppercase;
+			color: var(--gold);
+			margin-bottom: 24px;
+			font-weight: 500;
+		}
+
+		.welcome-title {
+			font-family: var(--font-title);
+			font-size: clamp(2.6rem, 6vw, 5rem);
+			color: var(--white);
+			line-height: 1.1;
+			margin-bottom: 22px;
+			font-weight: 600;
+		}
+
+		.welcome-sub {
+			font-size: 1.05rem;
+			color: var(--white-80);
+			line-height: 1.85;
+			max-width: 560px;
+			margin: 0 auto 44px;
+		}
+
+		.btn-start {
+			background: var(--gold);
+			color: #000;
+			border: none;
+			padding: 18px 48px;
+			border-radius: 8px;
+			font-family: var(--font-body);
+			font-size: 1rem;
+			font-weight: 700;
+			cursor: pointer;
+			letter-spacing: 2px;
+			text-transform: uppercase;
+			transition: all 0.25s;
+		}
+
+		.btn-start:hover {
+			background: var(--gold-light);
+			transform: translateY(-2px);
+		}
+
+		/* ── END SLIDES ── */
+		.end-slide .slide-content {
+			max-width: 680px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		.end-avatar {
+			width: 160px;
+			height: 160px;
+			border-radius: 50%;
+			overflow: hidden;
+			border: 4px solid var(--gold);
+			box-shadow: 0 0 0 8px rgba(201, 168, 76, 0.15);
+			margin-bottom: 36px;
+			flex-shrink: 0;
+		}
+
+		.end-avatar img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			display: block;
+		}
+
+		.end-title {
+			font-family: var(--font-title);
+			font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+			color: var(--white);
+			margin-bottom: 18px;
+			font-weight: 700;
+			line-height: 1.2;
+		}
+
+		.end-sub {
+			font-family: var(--font-body);
+			font-size: clamp(1.35rem, 2.5vw, 1.85rem);
+			font-weight: 400;
+			color: var(--white-80);
+			line-height: 1.7;
+			margin-bottom: 10px;
+		}
+
+		.end-info-list {
+			margin: 22px 0 36px;
+			display: flex;
+			flex-direction: column;
+			gap: 14px;
+		}
+
+		.end-info-list p {
+			font-family: var(--font-title);
+			font-size: 1.1rem;
+			font-weight: 400;
+			color: var(--white-80);
+			line-height: 1.6;
+		}
+
+		.btn-end {
+			background: var(--gold);
+			color: #000;
+			border: none;
+			padding: 20px 52px;
+			border-radius: 8px;
+			font-family: var(--font-body);
+			font-size: 1.05rem;
+			font-weight: 700;
+			cursor: pointer;
+			letter-spacing: 1.5px;
+			text-transform: uppercase;
+			transition: all 0.25s;
+			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+			text-decoration: none;
+			display: inline-block;
+		}
+
+		.btn-end:hover {
+			background: var(--gold-light);
+			transform: translateY(-2px);
+		}
+
+		/* ── VALIDATION ── */
+		.error-msg {
+			font-size: 0.8rem;
+			color: #FF7070;
+			margin-top: 10px;
+			display: none;
+			letter-spacing: 0.5px;
+		}
+
+		.error-msg.show {
+			display: block;
+		}
+
+		/* ── KEYBOARD HINT BOTTOM ── */
+		#keyboard-hint {
+			position: fixed;
+			bottom: 28px;
+			left: 50%;
+			transform: translateX(-50%);
+			z-index: 100;
+			font-size: 0.72rem;
+			color: var(--white-50);
+			letter-spacing: 1.5px;
+			text-align: center;
+		}
+
+		/* ── RESPONSIVE ── */
+		@media (max-width: 600px) {
+			.slide {
+				padding: 0 5%;
+			}
+
+			.choices {
+				gap: 10px;
+			}
+
+			.end-card-body {
+				padding: 24px 20px 28px;
+			}
+
+			.end-img-wrap img {
+				height: 180px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+
+	<div id="bg"></div>
+	<div id="progress-bar" style="width:0%"></div>
+	<div id="progress-label" style="display:none">1 de 12</div>
+
+	<div id="form-scroll">
+		<div id="slides-track">
+
+			<!-- ── Q1 Nome (first screen, no welcome) ── -->
+			<div class="slide welcome-slide" id="slide-0" data-index="0" data-type="text" data-required="true"
+				data-key="nome">
+				<div class="slide-content">
+					<div class="logo-line">Consultoria Estratégica</div>
+					<h1 class="welcome-title">Qual é o seu nome?</h1>
+					<p class="welcome-sub" style="font-style:italic;font-size:0.95rem;margin-bottom:36px;">Para começar,
+						me conta como posso te chamar.</p>
+					<input class="text-input" id="q1-input" type="text" placeholder="Seu nome completo"
+						autocomplete="off" style="font-size:1.7rem;">
+					<div class="error-msg" id="q1-err" style="margin-top:10px;">Por favor, preencha este campo.</div>
+					<div class="advance-btn" style="margin-top:28px;">
+						<button class="btn-start" onclick="startAndAdvance()">CONTINUAR →</button>
+					</div>
+				</div>
+			</div>
+
+			<!-- ── Q2 WhatsApp ── -->
+			<div class="slide" id="slide-2" data-index="2" data-type="text" data-required="true" data-key="whatsapp">
+				<div class="slide-content">
+					<div class="q-number"><svg viewBox="0 0 10 10">
+							<polygon points="5,0 10,10 0,10" />
+						</svg>2 → </div>
+					<h2 class="q-title">Qual é o seu WhatsApp?</h2>
+					<p class="q-desc">Com DDD. Ex: 11 99999-0000</p>
+					<input class="text-input" id="q2-input" type="tel" placeholder="(00) 00000-0000" autocomplete="off">
+					<div class="error-msg" id="q2-err">Por favor, preencha este campo.</div>
+					<div class="advance-btn">
+						<button class="btn-next" onclick="advance(2)">OK ✓</button>
+						<span class="enter-hint">ou pressione <kbd>Enter ↵</kbd></span>
+					</div>
+				</div>
+			</div>
+
+			<!-- ── Q3 Email ── -->
+			<div class="slide" id="slide-3" data-index="3" data-type="email" data-required="true" data-key="email">
+				<div class="slide-content">
+					<div class="q-number"><svg viewBox="0 0 10 10">
+							<polygon points="5,0 10,10 0,10" />
+						</svg>3 → </div>
+					<h2 class="q-title">Qual é o seu melhor e-mail?</h2>
+					<p class="q-desc">Descrição opcional</p>
+					<input class="text-input" id="q3-input" type="email" placeholder="name@example.com"
+						autocomplete="off">
+					<div class="error-msg" id="q3-err">Por favor, insira um e-mail válido.</div>
+					<div class="advance-btn">
+						<button class="btn-next" onclick="advance(3)">OK ✓</button>
+						<span class="enter-hint">ou pressione <kbd>Enter ↵</kbd></span>
+					</div>
+				</div>
+			</div>
+
+			<!-- ── Q4 Instagram ── -->
+			<div class="slide" id="slide-4" data-index="4" data-type="text" data-required="false" data-key="instagram">
+				<div class="slide-content">
+					<div class="q-number"><svg viewBox="0 0 10 10">
+							<polygon points="5,0 10,10 0,10" />
+						</svg>4 → </div>
+					<h2 class="q-title">Qual é o seu Instagram?</h2>
+					<p class="q-desc">@usuário — opcional</p>
+					<input class="text-input" id="q4-input" type="text" placeholder="@seu.perfil" autocomplete="off">
+					<div class="advance-btn">
+						<button class="btn-next" onclick="advance(4)">OK ✓</button>
+						<span class="enter-hint">ou pressione <kbd>Enter ↵</kbd></span>
+					</div>
+				</div>
+			</div>
+
+			<!-- ── Q5 Perfil ── -->
+			<div class="slide" id="slide-5" data-index="5" data-type="choice" data-required="true" data-key="perfil">
+				<div class="slide-content">
+					<div class="q-number"><svg viewBox="0 0 10 10">
+							<polygon points="5,0 10,10 0,10" />
+						</svg>5 → </div>
+					<h2 class="q-title">Como você se descreveria hoje?</h2>
+					<p class="q-desc">Escolha a opção que melhor representa você</p>
+					<div class="choices" id="q5-choices">
+						<button class="choice-btn" data-val="gestor_trafego" onclick="selectChoice(5, this)"><span
+								class="key">A</span>Gestor de tráfego pago</button>
+						<button class="choice-btn" data-val="infoprodutor" onclick="selectChoice(5, this)"><span
+								class="key">B</span>Infoprodutor / lançador</button>
+						<button class="choice-btn" data-val="ecommerce" onclick="selectChoice(5, this)"><span
+								class="key">C</span>Dono de e-commerce</button>
+						<button class="choice-btn" data-val="empresario" onclick="selectChoice(5, this)"><span
+								class="key">D</span>Empresário / Prestador de serviços</button>
+						<button class="choice-btn" data-val="outro" onclick="selectChoice(5, this)"><span
+								class="key">E</span>Outro</button>
+					</div>
+					<div class="error-msg" id="q5-err">Por favor, selecione uma opção.</div>
+				</div>
+			</div>
+
+			<!-- ── Q6 Faturamento ── -->
+			<div class="slide" id="slide-6" data-index="6" data-type="choice" data-required="true"
+				data-key="faturamento">
+				<div class="slide-content">
+					<div class="q-number"><svg viewBox="0 0 10 10">
+							<polygon points="5,0 10,10 0,10" />
+						</svg>6 → </div>
+					<h2 class="q-title">Qual é o seu faturamento mensal atual?</h2>
+					<p class="q-desc">Aproximado está ótimo</p>
+					<div class="choices" id="q6-choices">
+						<button class="choice-btn" data-val="ate_20k" data-disqualify="true"
+							onclick="selectChoice(6, this)"><span class="key">A</span>Até R$ 20.000</button>
+						<button class="choice-btn" data-val="20k_50k" onclick="selectChoice(6, this)"><span
+								class="key">B</span>Entre R$ 20.000 e R$ 50.000</button>
+						<button class="choice-btn" data-val="50k_150k" onclick="selectChoice(6, this)"><span
+								class="key">C</span>Entre R$ 50.000 e R$ 150.000</button>
+						<button class="choice-btn" data-val="150k_500k" onclick="selectChoice(6, this)"><span
+								class="key">D</span>Entre R$ 150.000 e R$ 500.000</button>
+						<button class="choice-btn" data-val="acima_500k" onclick="selectChoice(6, this)"><span
+								class="key">E</span>Acima de R$ 500.000</button>
+					</div>
+					<div class="error-msg" id="q6-err">Por favor, selecione uma opção.</div>
+				</div>
+			</div>
+
+			<!-- ── Q7 Tráfego ── -->
+			<div class="slide" id="slide-7" data-index="7" data-type="choice" data-required="true" data-key="trafego">
+				<div class="slide-content">
+					<div class="q-number"><svg viewBox="0 0 10 10">
+							<polygon points="5,0 10,10 0,10" />
+						</svg>7 → </div>
+					<h2 class="q-title">Você investe em tráfego pago?</h2>
+					<p class="q-desc">Meta, Google, TikTok…</p>
+					<div class="choices" id="q7-choices">
+						<button class="choice-btn" data-val="trafego_ate_10k" onclick="selectChoice(7, this)"><span
+								class="key">A</span>Sim, gasto até R$ 10.000/mês</button>
+						<button class="choice-btn" data-val="trafego_10k_50k" onclick="selectChoice(7, this)"><span
+								class="key">B</span>Sim, entre R$ 10.000 e R$ 50.000/mês</button>
+						<button class="choice-btn" data-val="trafego_50k_100k" onclick="selectChoice(7, this)"><span
+								class="key">C</span>Sim, entre R$ 50.000 e R$ 100.000/mês</button>
+						<button class="choice-btn" data-val="trafego_acima_100k" onclick="selectChoice(7, this)"><span
+								class="key">D</span>Sim, acima de R$ 100.000/mês</button>
+						<button class="choice-btn" data-val="sem_trafego" onclick="selectChoice(7, this)"><span
+								class="key">E</span>Não invisto em tráfego pago</button>
+					</div>
+					<div class="error-msg" id="q7-err">Por favor, selecione uma opção.</div>
+				</div>
+			</div>
+
+			<!-- ── Q8 Patrimônio ── -->
+			<div class="slide" id="slide-8" data-index="8" data-type="choice" data-required="true"
+				data-key="patrimonio">
+				<div class="slide-content">
+					<div class="q-number"><svg viewBox="0 0 10 10">
+							<polygon points="5,0 10,10 0,10" />
+						</svg>8 → </div>
+					<h2 class="q-title">Você possui patrimônio construído?</h2>
+					<p class="q-desc">Imóveis, participações, investimentos — além do caixa do negócio</p>
+					<div class="choices" id="q8-choices">
+						<button class="choice-btn" data-val="patrimonio_relevante" onclick="selectChoice(8, this)"><span
+								class="key">A</span>Sim, tenho patrimônio relevante no meu nome</button>
+						<button class="choice-btn" data-val="patrimonio_empresa" onclick="selectChoice(8, this)"><span
+								class="key">B</span>Sim, mas ainda está dentro da empresa operacional</button>
+						<button class="choice-btn" data-val="construindo" onclick="selectChoice(8, this)"><span
+								class="key">C</span>Ainda estou construindo</button>
+					</div>
+					<div class="error-msg" id="q8-err">Por favor, selecione uma opção.</div>
+				</div>
+			</div>
+
+			<!-- ── Q9 Dólar digital ── -->
+			<div class="slide" id="slide-9" data-index="9" data-type="choice" data-required="true" data-key="dolar">
+				<div class="slide-content">
+					<div class="q-number"><svg viewBox="0 0 10 10">
+							<polygon points="5,0 10,10 0,10" />
+						</svg>9 → </div>
+					<h2 class="q-title">Você já usou dólar digital?</h2>
+					<p class="q-desc">Stablecoins, contas internacionais, cartões em dólar…</p>
+					<div class="choices" id="q9-choices">
+						<button class="choice-btn" data-val="nunca_usei" onclick="selectChoice(9, this)"><span
+								class="key">A</span>Nunca usei</button>
+						<button class="choice-btn" data-val="ouvi_falar" onclick="selectChoice(9, this)"><span
+								class="key">B</span>Já ouvi falar mas nunca usei</button>
+						<button class="choice-btn" data-val="usa_atualmente" onclick="selectChoice(9, this)"><span
+								class="key">C</span>Já usei ou uso atualmente</button>
+					</div>
+					<div class="error-msg" id="q9-err">Por favor, selecione uma opção.</div>
+				</div>
+			</div>
+
+			<!-- ── Q10 Situação (multi) ── -->
+			<div class="slide" id="slide-10" data-index="10" data-type="multi" data-required="true" data-key="situacao">
+				<div class="slide-content">
+					<div class="q-number"><svg viewBox="0 0 10 10">
+							<polygon points="5,0 10,10 0,10" />
+						</svg>10 → </div>
+					<h2 class="q-title">Qual dessas situações se parece com a sua hoje?</h2>
+					<p class="q-desc multi-hint">Pode marcar mais de uma opção</p>
+					<div class="choices" id="q10-choices">
+						<button class="choice-btn" data-val="imposto" onclick="toggleMulti(10, this)"><span
+								class="key">A</span>Estou pagando muito imposto sem saber como resolver de forma
+							legal</button>
+						<button class="choice-btn" data-val="iof_trafego" onclick="toggleMulti(10, this)"><span
+								class="key">B</span>Perco dinheiro com IOF e impostos sobre tráfego pago</button>
+						<button class="choice-btn" data-val="patrimonio_exposto" onclick="toggleMulti(10, this)"><span
+								class="key">C</span>Meu patrimônio está exposto e quero proteger</button>
+						<button class="choice-btn" data-val="guardar_dolar" onclick="toggleMulti(10, this)"><span
+								class="key">D</span>Quero guardar e gastar em dólar sem burocracia</button>
+						<button class="choice-btn" data-val="estruturar_fora" onclick="toggleMulti(10, this)"><span
+								class="key">E</span>Quero estruturar minha operação fora do Brasil</button>
+					</div>
+					<div class="error-msg" id="q10-err">Selecione ao menos uma opção.</div>
+					<div class="advance-btn">
+						<button class="btn-next" onclick="advance(10)">OK ✓</button>
+						<span class="enter-hint">ou pressione <kbd>Enter ↵</kbd></span>
+					</div>
+				</div>
+			</div>
+
+			<!-- ── Q11 Investimento ── -->
+			<div class="slide" id="slide-11" data-index="11" data-type="choice" data-required="true"
+				data-key="investimento">
+				<div class="slide-content">
+					<div class="q-number"><svg viewBox="0 0 10 10">
+							<polygon points="5,0 10,10 0,10" />
+						</svg>11 → </div>
+					<h2 class="q-title">Quanto você estaria disposto a investir?</h2>
+					<p class="q-desc">Para estruturar e atingir o objetivo que você quer alcançar</p>
+					<div class="choices" id="q11-choices">
+						<button class="choice-btn" data-val="menos_5k" onclick="selectChoice(11, this)"><span
+								class="key">A</span>Menos de R$ 5.000</button>
+						<button class="choice-btn" data-val="5k_10k" onclick="selectChoice(11, this)"><span
+								class="key">B</span>De R$ 5.000 a R$ 10.000</button>
+						<button class="choice-btn" data-val="10k_20k" onclick="selectChoice(11, this)"><span
+								class="key">C</span>De R$ 10.000 a R$ 20.000</button>
+						<button class="choice-btn" data-val="20k_40k" onclick="selectChoice(11, this)"><span
+								class="key">D</span>De R$ 20.000 a R$ 40.000</button>
+						<button class="choice-btn" data-val="mais_40k" onclick="selectChoice(11, this)"><span
+								class="key">E</span>Mais de R$ 40.000</button>
+					</div>
+					<div class="error-msg" id="q11-err">Por favor, selecione uma opção.</div>
+				</div>
+			</div>
+
+			<!-- ── Q12 Campo aberto ── -->
+			<div class="slide" id="slide-12" data-index="12" data-type="textarea" data-required="false"
+				data-key="decisao">
+				<div class="slide-content">
+					<div class="q-number"><svg viewBox="0 0 10 10">
+							<polygon points="5,0 10,10 0,10" />
+						</svg>12 → </div>
+					<h2 class="q-title">O que precisaria ficar claro para você avançar?</h2>
+					<p class="q-desc">Caso seja selecionado, o que precisaria ficar claro nessa conversa para que você
+						tome a decisão?</p>
+					<textarea class="text-area" id="q12-input" placeholder="Escreva aqui…"></textarea>
+					<div class="advance-btn">
+						<button class="btn-next" onclick="advance(12)">ENVIAR →</button>
+						<span class="enter-hint"><kbd>Shift+Enter</kbd> para nova linha</span>
+					</div>
+				</div>
+			</div>
+
+			<!-- ── APPROVED END ── -->
+			<div class="slide end-slide" id="slide-13" data-index="13">
+				<div class="slide-content">
+					<div class="end-avatar">
+						<img src="img1.webp" alt="Especialista">
+					</div>
+					<h2 class="end-title">Perfeito, <span id="end-name">amigo(a)</span>!</h2>
+					<p class="end-sub">Suas respostas chegaram. Eu mesmo vou analisar cada detalhe antes da nossa
+						conversa.</p>
+					<div class="end-info-list">
+						<p>📲 Fique de olho no seu <strong>WhatsApp</strong></p>
+						<p>📧 Verifique também o seu <strong>e-mail</strong></p>
+						<p>⏱️ Retorno em até <strong>24h úteis</strong></p>
+					</div>
+					<a class="btn-end" href="https://wa.me/" target="_blank">FALAR NO WHATSAPP →</a>
+				</div>
+			</div>
+
+			<!-- ── DISQUALIFIED END ── -->
+			<div class="slide end-slide" id="slide-14" data-index="14">
+				<div class="slide-content">
+					<div class="end-avatar">
+						<img src="img1.webp" alt="Especialista">
+					</div>
+					<h2 class="end-title">Obrigado pela honestidade!</h2>
+					<p class="end-sub">Neste momento, minha consultoria é mais indicada para quem fatura acima de
+						R$50k/mês.</p>
+					<div class="end-info-list">
+						<p>📱 Me siga nas redes para acompanhar <strong>novidades</strong></p>
+						<p>🎯 Em breve posso ter algo pensado <strong>para o seu momento</strong></p>
+					</div>
+					<a class="btn-end" href="https://instagram.com/" target="_blank">ACOMPANHAR CONTEÚDO →</a>
+				</div>
+			</div>
+
+		</div><!-- /slides-track -->
+	</div><!-- /form-scroll -->
+	<div id="keyboard-hint" style="display:none"></div>
+
+	<script>
+		// ── STATE ──
+		const SESSION_ID = 'sess_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+		const TOTAL_QUESTIONS = 12; // Q1(slide-0) through Q12(slide-11... renumbered as slide-12)
+		// Slide 0 = Q1 (nome), slides 2–12 = Q2–Q12, slide-end-approved/disqualified = ends
+		let currentSlide = 0;
+		let formStarted = false;
+		let formAnswers = {};
+		let analytics = JSON.parse(localStorage.getItem('form_analytics') || '[]');
+		let slideTimestamps = {};
+		let disqualified = false;
+		let isAnimating = false;
+		let formLocked = false;
+
+		// ── TRACK ──
+		function trackEvent(event, data = {}) {
+			const entry = { session: SESSION_ID, event, slide: currentSlide, ts: Date.now(), ...data };
+			analytics.push(entry);
+			localStorage.setItem('form_analytics', JSON.stringify(analytics));
+			let counts = JSON.parse(localStorage.getItem('form_funnel') || '{}');
+			if (event === 'question_view') {
+				counts[data.q] = (counts[data.q] || 0) + 1;
+				localStorage.setItem('form_funnel', JSON.stringify(counts));
+			}
+			if (event === 'answer') {
+				let answers = JSON.parse(localStorage.getItem('form_answers_agg') || '{}');
+				let key = `q${data.q}_${String(data.value).substring(0, 40)}`;
+				answers[key] = (answers[key] || 0) + 1;
+				localStorage.setItem('form_answers_agg', JSON.stringify(answers));
+			}
+		}
+
+		// ── SCROLL TO SLIDE (transform-based) ──
+		function scrollToSlide(index) {
+			const el = document.getElementById('slide-' + index);
+			if (!el) return;
+
+			isAnimating = true;
+			const track = document.getElementById('slides-track');
+			const allSlides = Array.from(track.querySelectorAll('.slide'));
+			const domIndex = allSlides.indexOf(el);
+			track.style.transform = `translateY(-${domIndex * 100}vh)`;
+
+			currentSlide = index;
+			updateProgress();
+
+			document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+			el.classList.add('active');
+			slideTimestamps[index] = Date.now();
+
+			// q index: slide-0 = Q1, slide-2 = Q2, ... slide-12 = Q12
+			const qNum = slideToQ(index);
+			if (qNum >= 1 && qNum <= TOTAL_QUESTIONS) {
+				trackEvent('question_view', { q: qNum });
+				setTimeout(() => {
+					const inp = el.querySelector('.text-input, .text-area');
+					if (inp) inp.focus();
+				}, 400);
+			}
+
+			setTimeout(() => { isAnimating = false; }, 600);
+		}
+
+		// Map slide index → question number
+		function slideToQ(slideIdx) {
+			if (slideIdx === 0) return 1;
+			if (slideIdx >= 2 && slideIdx <= 12) return slideIdx; // slide-2=Q2, slide-12=Q12
+			return -1;
+		}
+
+		function updateProgress() {
+			const qNum = slideToQ(currentSlide);
+			if (qNum >= 1 && qNum <= TOTAL_QUESTIONS) {
+				const pct = Math.min((qNum / TOTAL_QUESTIONS) * 100, 100);
+				document.getElementById('progress-bar').style.width = pct + '%';
+				document.getElementById('progress-label').textContent = qNum + ' de ' + TOTAL_QUESTIONS;
+			} else {
+				document.getElementById('progress-bar').style.width = '100%';
+				document.getElementById('progress-label').textContent = '';
+			}
+		}
+
+		// ── START + ADVANCE Q1 (slide-0) ──
+		function startAndAdvance() {
+			const inp = document.getElementById('q1-input');
+			const val = inp.value.trim();
+			if (!val) { showErr(0); return; }
+			hideErr(0);
+			formAnswers['nome'] = val;
+			if (!formStarted) {
+				formStarted = true;
+				trackEvent('form_start');
+			}
+			trackEvent('answer', { q: 1, key: 'nome', value: val.substring(0, 50), timeSpent: slideTimestamps[0] ? Date.now() - slideTimestamps[0] : 0 });
+			document.getElementById('keyboard-hint').style.display = 'block';
+			scrollToSlide(2); // next is slide-2 (Q2)
+		}
+
+		// ── VALIDATE & ADVANCE (slides 2–12) ──
+		function advance(slideIndex) {
+			if (formLocked) return;
+			const slide = document.getElementById('slide-' + slideIndex);
+			const type = slide.dataset.type;
+			const required = slide.dataset.required === 'true';
+			const key = slide.dataset.key;
+			const qNum = slideToQ(slideIndex);
+			const timeSpent = slideTimestamps[slideIndex] ? Date.now() - slideTimestamps[slideIndex] : 0;
+
+			if (type === 'text' || type === 'email') {
+				const inp = document.getElementById('q' + slideIndex + '-input');
+				const val = inp.value.trim();
+				if (required && !val) { showErr(slideIndex); return; }
+				if (type === 'email' && val && !isValidEmail(val)) { showErr(slideIndex, 'E-mail inválido.'); return; }
+				hideErr(slideIndex);
+				formAnswers[key] = val;
+				trackEvent('answer', { q: qNum, key, value: val.substring(0, 50), timeSpent });
+			}
+
+			if (type === 'textarea') {
+				const inp = document.getElementById('q' + slideIndex + '-input');
+				formAnswers[key] = inp.value.trim();
+				trackEvent('answer', { q: qNum, key, value: '(texto longo)', timeSpent });
+			}
+
+			if (type === 'choice') {
+				const sel = document.querySelector('#q' + slideIndex + '-choices .choice-btn.selected');
+				if (required && !sel) { showErr(slideIndex); return; }
+				hideErr(slideIndex);
+				if (sel) {
+					formAnswers[key] = sel.dataset.val;
+					trackEvent('answer', { q: qNum, key, value: sel.dataset.val, timeSpent });
+					if (sel.dataset.disqualify === 'true') { disqualified = true; submitForm(true); return; }
+				}
+			}
+
+			if (type === 'multi') {
+				const sels = document.querySelectorAll('#q' + slideIndex + '-choices .choice-btn.selected');
+				if (required && sels.length === 0) { showErr(slideIndex); return; }
+				hideErr(slideIndex);
+				formAnswers[key] = Array.from(sels).map(b => b.dataset.val);
+				trackEvent('answer', { q: qNum, key, value: formAnswers[key].join(','), timeSpent });
+			}
+
+			// Last question = slide-12 (Q12)
+			if (slideIndex === 12) { submitForm(false); return; }
+			scrollToSlide(slideIndex + 1);
+		}
+
+		function submitForm(isDisqualified) {
+			let submissions = JSON.parse(localStorage.getItem('form_submissions') || '[]');
+			submissions.push({ session: SESSION_ID, answers: formAnswers, disqualified: isDisqualified, ts: Date.now() });
+			localStorage.setItem('form_submissions', JSON.stringify(submissions));
+			trackEvent(isDisqualified ? 'form_disqualified' : 'form_complete');
+
+			document.getElementById('end-name').textContent = formAnswers.nome || 'amigo(a)';
+			scrollToSlide(isDisqualified ? 14 : 13);
+			document.getElementById('keyboard-hint').style.display = 'none';
+			formLocked = true;
+		}
+
+		// ── CHOICE HELPERS ──
+		function selectChoice(slideIndex, btn) {
+			const container = document.getElementById('q' + slideIndex + '-choices');
+			container.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('selected'));
+			btn.classList.add('selected');
+			hideErr(slideIndex);
+			trackEvent('choice_click', { q: slideToQ(slideIndex), val: btn.dataset.val });
+			setTimeout(() => { if (btn.classList.contains('selected')) advance(slideIndex); }, 350);
+		}
+
+		function toggleMulti(slideIndex, btn) {
+			btn.classList.toggle('selected');
+			hideErr(slideIndex);
+			trackEvent('multi_click', { q: slideToQ(slideIndex), val: btn.dataset.val });
+		}
+
+		function showErr(q, msg) {
+			const el = document.getElementById('q' + q + '-err');
+			if (el) { if (msg) el.textContent = msg; el.classList.add('show'); }
+		}
+		function hideErr(q) {
+			const el = document.getElementById('q' + q + '-err');
+			if (el) el.classList.remove('show');
+		}
+		function isValidEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
+
+		// ── BLOCK ALL SCROLL ATTEMPTS ──
+		document.addEventListener('wheel', e => { e.preventDefault(); }, { passive: false });
+		document.addEventListener('touchmove', e => { e.preventDefault(); }, { passive: false });
+
+		document.addEventListener('keydown', e => {
+			const tag = document.activeElement ? document.activeElement.tagName : '';
+			const inInput = tag === 'INPUT' || tag === 'TEXTAREA';
+			if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', ' '].includes(e.key) && !inInput) e.preventDefault();
+			if (formLocked || isAnimating) return;
+
+			if (e.key === 'Enter') {
+				e.preventDefault();
+				if (currentSlide === 0) { startAndAdvance(); return; }
+				if (currentSlide >= 13) return;
+				const slide = document.getElementById('slide-' + currentSlide);
+				if (slide && slide.dataset.type === 'textarea') return;
+				advance(currentSlide);
+			}
+
+			const keyMap = { a: 0, b: 1, c: 2, d: 3, e: 4 };
+			const k = e.key.toLowerCase();
+			if (keyMap[k] !== undefined && currentSlide >= 2 && currentSlide <= 12) {
+				const slide = document.getElementById('slide-' + currentSlide);
+				if (!slide) return;
+				const type = slide.dataset.type;
+				if (type === 'choice' || type === 'multi') {
+					const btns = slide.querySelectorAll('.choice-btn');
+					if (btns[keyMap[k]]) {
+						if (type === 'multi') toggleMulti(currentSlide, btns[keyMap[k]]);
+						else selectChoice(currentSlide, btns[keyMap[k]]);
+					}
+				}
+			}
+		});
+
+		// ── INIT ──
+		scrollToSlide(0);
+		trackEvent('page_view');
+
+		document.addEventListener('visibilitychange', () => {
+			if (document.visibilityState === 'hidden' && formStarted && currentSlide < 13) {
+				trackEvent('abandon', { lastQ: slideToQ(currentSlide) });
+			}
+		});
+	</script>
+</body>
+
+</html>
