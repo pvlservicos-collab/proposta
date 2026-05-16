@@ -89,7 +89,7 @@
 			border-color: #fff;
 		}
 
-		/* ── SECTION BADGE (replaces eyebrow) ── */
+		/* ── SECTION BADGE ── */
 		.section-badge {
 			display: inline-flex;
 			align-items: center;
@@ -173,31 +173,9 @@
 			max-width: 620px;
 		}
 
-		.hero-badge {
-			display: inline-flex;
-			align-items: center;
-			gap: 0.6rem;
-			background: linear-gradient(105deg, #d4af6a, #a8833e, #c9a45e);
-			color: #1a0f00;
-			font-size: 0.62rem;
-			letter-spacing: 0.2em;
-			text-transform: uppercase;
-			padding: 0.45rem 1rem;
-			border-radius: 100px;
-			font-weight: 600;
-			margin-bottom: 2.2rem;
-			box-shadow: 0 2px 12px rgba(168, 131, 62, 0.3);
-		}
-
-		.hero-badge svg {
-			width: 11px;
-			height: 11px;
-			flex-shrink: 0;
-		}
-
 		.hero-h1 {
 			font-family: var(--serif);
-			font-size: clamp(2rem, 3.5vw, 3rem);
+			font-size: clamp(1.8rem, 3vw, 2.7rem);
 			font-weight: 400;
 			line-height: 1.22;
 			margin-bottom: 1.8rem;
@@ -207,30 +185,12 @@
 			color: var(--black);
 		}
 
-		@keyframes shimmer {
-			0% {
-				background-position: 0%
-			}
-
-			100% {
-				background-position: 200%
-			}
-		}
-
 		.hero-p {
 			font-size: var(--body);
 			line-height: 1.8;
 			color: var(--text);
 			font-weight: 300;
-			margin-bottom: 1.1rem;
-		}
-
-		.hero-strong {
-			font-size: var(--body);
-			font-weight: 600;
-			line-height: 1.5;
 			margin-bottom: 2.5rem;
-			color: var(--black);
 		}
 
 		.btn-dark {
@@ -253,26 +213,13 @@
 			box-shadow: 0 6px 22px rgba(0, 0, 0, 0.18);
 		}
 
-		.hero-fine {
-			margin-top: 0.9rem;
-			font-size: 0.8rem;
-			color: var(--gray-500);
-		}
-
-		/* ── STATS (parallax bg) ── */
+		/* ── STATS ── */
 		.stats-bar {
 			position: relative;
 			background: #0d0d0d;
 			display: flex;
 			justify-content: center;
 			padding: 0 14vw;
-		}
-
-		.stats-bar::before {
-			content: '';
-			position: absolute;
-			inset: 0;
-			background: transparent;
 		}
 
 		.stat {
@@ -383,8 +330,13 @@
 		}
 
 		@keyframes marquee-slide {
-			0%   { transform: translateX(0); }
-			100% { transform: translateX(-50%); }
+			0% {
+				transform: translateX(0);
+			}
+
+			100% {
+				transform: translateX(-50%);
+			}
 		}
 
 		/* ACCORDION */
@@ -699,43 +651,87 @@
 			color: var(--gold-light);
 		}
 
-		/* ── SOLUTION ── */
-		.solution-grid {
-			display: grid;
-			grid-template-columns: 1fr 1fr;
-			gap: 5rem;
-			align-items: stretch;
-			margin-top: 0.4rem;
+		/* ── FOR YOU SECTION ── */
+		.for-you-section {
+			padding: 6rem 2rem;
+			background: var(--black);
 		}
 
-		.solution-left {
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
+		.for-you-title {
+			font-family: var(--serif);
+			font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+			font-weight: 400;
+			color: #fff;
+			text-align: center;
+			margin-bottom: 3.5rem;
+			letter-spacing: 0.02em;
 		}
 
-		.solution-grid .h2 {
-			margin-bottom: 0.6rem;
-		}
-
-		.highlight-sol {
-			background: none;
-			color: var(--gold);
+		.for-you-title span {
+			color: var(--gold-light);
 			font-style: italic;
-			-webkit-text-fill-color: var(--gold);
 		}
 
-		.solution-img {
+		.for-you-grid {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 1.2rem;
+			max-width: var(--max-wide);
+			margin: 0 auto;
+		}
+
+		.for-you-card {
+			background: rgba(255, 255, 255, 0.04);
+			border: 1px solid rgba(255, 255, 255, 0.08);
 			border-radius: var(--radius);
-			overflow: hidden;
-			min-height: 500px;
+			padding: 2rem 1.8rem;
+			position: relative;
+			transition: border-color 0.3s, background 0.3s;
 		}
 
-		.solution-img img {
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
+		.for-you-card:hover {
+			border-color: rgba(201, 164, 94, 0.3);
+			background: rgba(255, 255, 255, 0.06);
+		}
+
+		.for-you-card::before {
+			content: '✓';
 			display: block;
+			width: 28px;
+			height: 28px;
+			background: linear-gradient(105deg, #d4af6a, #a8833e);
+			border-radius: 50%;
+			color: #1a0f00;
+			font-size: 0.7rem;
+			font-weight: 700;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin-bottom: 1.2rem;
+		}
+
+		.for-you-card p {
+			font-size: 1rem;
+			color: rgba(255, 255, 255, 0.82);
+			line-height: 1.75;
+			font-weight: 300;
+		}
+
+		/* last 2 cards centered — wrap them in a flex row spanning all 3 cols */
+		.for-you-card:nth-child(4),
+		.for-you-card:nth-child(5) {
+			grid-column: auto;
+		}
+
+		.for-you-last-row {
+			grid-column: 1 / -1;
+			display: flex;
+			justify-content: center;
+			gap: 1.2rem;
+		}
+
+		.for-you-last-row .for-you-card {
+			flex: 0 1 calc(33.333% - 0.6rem);
 		}
 
 		/* ── PLAN ── */
@@ -884,455 +880,35 @@
 			box-shadow: 0 2px 10px rgba(168, 131, 62, 0.3);
 		}
 
-		/* ── CURRICULUM ── */
-		.curr-list {
-			display: flex;
-			flex-direction: column;
-			margin-top: 2rem;
-		}
-
-		.curr-item {
-			display: grid;
-			grid-template-columns: 2.5rem 2rem 1fr auto;
-			gap: 1.5rem;
-			align-items: start;
-			padding: 2.2rem 0;
-			border-top: 1px solid var(--gray-400);
-		}
-
-		.curr-item:last-child {
-			border-bottom: 1px solid var(--gray-400);
-		}
-
-		.curr-num {
-			font-family: var(--serif);
-			font-size: 0.85rem;
-			color: var(--gray-500);
-			padding-top: 1px;
-			letter-spacing: 0.1em;
-		}
-
-		.curr-icon {
-			color: var(--gold);
-			padding-top: 1px;
-		}
-
-		.curr-icon svg {
-			width: 20px;
-			height: 20px;
-			display: block;
-		}
-
-		.curr-title {
-			font-family: var(--serif);
-			font-size: 1.2rem;
-			font-weight: 500;
-			margin-bottom: 0.5rem;
-			color: var(--black);
-		}
-
-		.curr-desc {
-			font-size: var(--body);
-			color: var(--text);
-			line-height: 1.82;
-			font-weight: 300;
-		}
-
-		.curr-val-badge {
-			background: var(--black);
-			color: var(--gold-light);
-			font-size: 1rem;
-			font-weight: 600;
-			padding: 0.65rem 1.2rem;
-			border-radius: 8px;
-			white-space: nowrap;
-			letter-spacing: 0.04em;
-			margin-top: 2px;
-			align-self: start;
-			border: 1px solid rgba(201, 164, 94, 0.25);
-		}
-
-		.curr-total {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			padding: 1.8rem 0;
-			border-top: 2px solid var(--gray-400);
-			margin-top: 0.5rem;
-		}
-
-		.curr-total-l {
-			font-size: 1.1rem;
-			color: var(--black);
-			font-weight: 600;
-		}
-
-		.curr-total-n {
-			font-family: var(--serif);
-			font-size: 3rem;
-			font-weight: 600;
-			color: #1a9e52;
-		}
-
-		/* ── PRICING CARD WRAP (glow top/bottom only) ── */
-		.pricing-wrap {
-			margin-top: 2.5rem;
-			position: relative;
-			border-radius: 18px;
-		}
-
-		.pricing-wrap::before,
-		.pricing-wrap::after {
-			content: '';
-			position: absolute;
-			left: 6%;
-			right: 6%;
-			height: 4px;
-			background: linear-gradient(90deg, transparent 0%, var(--gold-pale) 20%, var(--gold-light) 50%, var(--gold-pale) 80%, transparent 100%);
-			box-shadow: 0 0 14px rgba(201, 164, 94, 0.9), 0 0 30px rgba(168, 131, 62, 0.55), 0 0 50px rgba(168, 131, 62, 0.25);
-			border-radius: 100px;
-			z-index: 2;
-		}
-
-		.pricing-wrap::before {
-			top: 0;
-		}
-
-		.pricing-wrap::after {
-			bottom: 0;
-		}
-
-		.pricing-badge-inside {
-			display: block;
-			width: fit-content;
-			margin: 0 auto 2rem;
-			background: linear-gradient(105deg, #d4af6a 0%, #a8833e 50%, #c9a45e 100%);
-			color: #1a0f00;
-			font-size: 0.62rem;
-			letter-spacing: 0.2em;
-			text-transform: uppercase;
-			padding: 0.45rem 1.2rem;
-			border-radius: 100px;
-			font-weight: 600;
-			box-shadow: 0 2px 12px rgba(168, 131, 62, 0.4);
-			text-align: center;
-		}
-
-		.pricing-card {
-			background: var(--black);
-			padding: 3.5rem;
-			border-radius: 16px;
-			position: relative;
-			overflow: hidden;
-		}
-
-		.pricing-card::before {
-			content: '';
-			position: absolute;
-			top: -80px;
-			right: -80px;
-			width: 300px;
-			height: 300px;
-			background: radial-gradient(circle, rgba(168, 131, 62, 0.08), transparent 70%);
-			pointer-events: none;
-		}
-
-		.pricing-label {
-			font-size: 0.95rem;
-			letter-spacing: 0.14em;
-			text-transform: uppercase;
-			color: #fff;
-			font-weight: 600;
-			margin-bottom: 2rem;
-			display: block;
-			text-align: center;
-		}
-
-		.pricing-amount {
-			font-family: var(--serif);
-			font-size: 5.5rem;
-			color: #fff;
-			font-weight: 400;
-			line-height: 1;
-			letter-spacing: -0.04em;
-			margin-bottom: 0.4rem;
-		}
-
-		.pricing-period {
-			font-size: 1rem;
-			color: rgba(255, 255, 255, 0.6);
-			font-weight: 400;
-			margin-bottom: 0.3rem;
-		}
-
-		.pricing-vagas {
-			font-size: 0.88rem;
-			color: var(--gold-light);
-			font-weight: 500;
-			margin-bottom: 2.5rem;
-		}
-
-		.pricing-div {
-			height: 1px;
-			background: rgba(255, 255, 255, 0.12);
-			margin: 2.5rem 0;
-		}
-
-		.pricing-section-label {
-			font-size: 1.05rem;
-			letter-spacing: 0.08em;
-			text-transform: uppercase;
-			color: #fff;
-			margin-bottom: 1.4rem;
-			font-weight: 700;
-		}
-
-		.pricing-features {
-			display: grid;
-			grid-template-columns: 1fr 1fr;
-			gap: 1.1rem 2.5rem;
-			margin-bottom: 2.5rem;
-		}
-
-		.pf {
-			display: flex;
-			align-items: center;
-			gap: 0.75rem;
-			font-size: 1rem;
-			color: rgba(255, 255, 255, 0.88);
-			font-weight: 400;
-		}
-
-		.pf::before {
-			content: '✓';
-			color: var(--gold);
-			font-size: 0.8rem;
-			flex-shrink: 0;
-			font-weight: 700;
-		}
-
-		.form-card {
-			background: linear-gradient(145deg, #1e1e1e 0%, #161616 60%, #111 100%);
-			border: 1px solid rgba(255, 255, 255, 0.07);
-			border-radius: 18px;
-			padding: 2rem 2.5rem;
-			margin: 0 2rem;
-		}
-
-		.pricing-form {
-			display: flex;
-			flex-direction: column;
-			gap: 0.85rem;
-			margin-bottom: 1.4rem;
-		}
-
-		.pricing-form input,
-		.pricing-form select {
-			background: rgba(255, 255, 255, 0.08);
-			border: 1px solid rgba(255, 255, 255, 0.16);
-			color: #fff;
-			font-family: var(--sans);
-			font-size: 1rem;
-			font-weight: 400;
-			padding: 1rem 1.2rem;
-			border-radius: 10px;
-			outline: none;
-			width: 100%;
-			transition: border-color 0.25s, background 0.25s;
-			-webkit-appearance: none;
-			appearance: none;
-		}
-
-		.pricing-form input::placeholder {
-			color: rgba(255, 255, 255, 0.35);
-		}
-
-		.pricing-form input:focus,
-		.pricing-form select:focus {
-			border-color: rgba(201, 164, 94, 0.55);
-			background: rgba(255, 255, 255, 0.11);
-		}
-
-		.pricing-form select {
-			color: rgba(255, 255, 255, 0.35);
-			cursor: pointer;
-		}
-
-		.pricing-form select option {
-			background: #1a1a1a;
-			color: #fff;
-		}
-
-		.btn-gold {
-			display: block;
-			background: linear-gradient(105deg, #d4af6a, #a8833e, #c9a45e);
-			color: #fff;
-			font-size: 0.85rem;
-			letter-spacing: 0.12em;
-			text-transform: uppercase;
-			text-decoration: none;
-			padding: 1.2rem 2.5rem;
-			border-radius: 100px;
-			font-weight: 600;
-			text-align: center;
-			transition: opacity 0.25s, transform 0.2s, box-shadow 0.25s;
-			border: none;
-			cursor: pointer;
-			width: 100%;
-			font-family: var(--sans);
-			box-shadow: 0 4px 20px rgba(168, 131, 62, 0.4);
-		}
-
-		.btn-gold:hover {
-			opacity: 0.9;
-			transform: translateY(-1px);
-			box-shadow: 0 6px 24px rgba(168, 131, 62, 0.5);
-		}
-
-		.pricing-fine {
-			font-size: 0.78rem;
-			color: rgba(255, 255, 255, 0.2);
-			margin-top: 1rem;
-			text-align: center;
-		}
-
-		/* ── FAQ ── */
-		.faq-list {
-			margin-top: 1.8rem;
-		}
-
-		.faq-item {
-			border-top: 1px solid var(--gray-400);
-		}
-
-		.faq-item:last-child {
-			border-bottom: 1px solid var(--gray-400);
-		}
-
-		.faq-q {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			gap: 1rem;
-			padding: 1.7rem 0;
-			cursor: pointer;
-			font-family: var(--serif);
-			font-size: 1.15rem;
-			font-weight: 400;
-			list-style: none;
-			user-select: none;
-			color: var(--black);
-		}
-
-		.faq-q::-webkit-details-marker {
-			display: none;
-		}
-
-		.faq-icon {
-			flex-shrink: 0;
-			width: 24px;
-			height: 24px;
-			border: 1.5px solid var(--gray-400);
-			border-radius: 50%;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			font-size: 0.78rem;
-			color: var(--gray-500);
-			transition: all 0.3s;
-		}
-
-		details[open] .faq-icon {
-			background: var(--black);
-			border-color: var(--black);
-			color: #fff;
-			transform: rotate(45deg);
-		}
-
-		.faq-a {
-			padding: 0 0 1.7rem;
-			font-size: var(--body);
-			line-height: 1.82;
-			color: var(--text);
-			font-weight: 300;
-		}
-
-		/* ── FINAL CTA ── */
-		.final-cta {
-			background: var(--black);
-			padding: 7rem 2rem;
-			text-align: center;
-			position: relative;
-			overflow: hidden;
-		}
-
-		.final-cta::before {
-			content: '90';
-			position: absolute;
-			font-family: var(--serif);
-			font-size: 22rem;
-			font-weight: 400;
-			color: rgba(255, 255, 255, 0.018);
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			pointer-events: none;
-			user-select: none;
-		}
-
-		.final-cta .inner {
-			position: relative;
-		}
-
-		.final-h2 {
-			font-family: var(--serif);
-			font-size: clamp(2rem, 3.8vw, 3.2rem);
-			font-weight: 400;
-			color: #fff;
-			line-height: 1.2;
-			margin-bottom: 1.4rem;
-		}
-
-		.final-h2 em {
-			font-style: italic;
-			color: var(--gold);
-		}
-
-		.final-p {
-			font-size: var(--body);
-			color: rgba(255, 255, 255, 0.65);
-			line-height: 1.82;
-			font-weight: 300;
-			max-width: 560px;
-			margin: 0 auto 3rem;
-		}
-
 		.btn-gold-inline {
 			display: inline-block;
 			background: linear-gradient(105deg, #d4af6a, #a8833e, #c9a45e);
 			color: #fff;
-			font-size: 0.85rem;
-			letter-spacing: 0.12em;
+			font-size: 0.92rem;
+			letter-spacing: 0.1em;
 			text-transform: uppercase;
 			text-decoration: none;
-			padding: 1.2rem 3rem;
+			padding: 1.25rem 3rem;
 			border-radius: 100px;
-			font-weight: 600;
+			font-weight: 400;
 			text-align: center;
-			transition: opacity 0.25s, transform 0.2s;
+			transition: opacity 0.25s, transform 0.2s, box-shadow 0.25s;
 			box-shadow: 0 4px 20px rgba(168, 131, 62, 0.4);
+			margin-top: 0.5rem;
+			align-self: flex-start;
+		}
+
+		.btn-gold-inline.centered {
+			display: block;
+			width: fit-content;
+			margin-left: auto;
+			margin-right: auto;
+			align-self: center;
 		}
 
 		.btn-gold-inline:hover {
 			opacity: 0.9;
 			transform: translateY(-1px);
-		}
-
-		.final-vagas {
-			margin-top: 1.2rem;
-			font-size: 0.75rem;
-			color: rgba(255, 255, 255, 0.25);
-			letter-spacing: 0.1em;
 		}
 
 		/* ── FOOTER ── */
@@ -1462,29 +1038,16 @@
 				max-width: 100%;
 			}
 
-			.hero-badge {
-				justify-content: center;
-				font-size: 0.5rem;
-				letter-spacing: 0.06em;
-				white-space: nowrap;
-				text-align: center;
-			}
-
 			.hero-h1 {
 				font-size: clamp(1.7rem, 5.5vw, 2.2rem);
 			}
 
-			.hero-p,
-			.hero-strong {
+			.hero-p {
 				font-size: 0.95rem;
 			}
 
 			.btn-dark {
 				display: block;
-				text-align: center;
-			}
-
-			.hero-fine {
 				text-align: center;
 			}
 
@@ -1616,27 +1179,35 @@
 				padding: 2rem 1.5rem;
 			}
 
-			/* Solution */
-			.solution-grid {
-				display: flex;
+			.for-you-section {
+				padding: 4rem 1.1rem;
+			}
+
+			.for-you-title {
+				font-size: clamp(1.5rem, 5.5vw, 2rem);
+				margin-bottom: 2.5rem;
+			}
+
+			/* For you */
+			.for-you-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.for-you-card:nth-child(4),
+			.for-you-card:nth-child(5) {
+				grid-column: 1;
+			}
+
+			.for-you-last-row {
 				flex-direction: column;
-				gap: 1.8rem;
+				gap: 1.2rem;
 			}
 
-			.solution-left {
-				display: contents;
+			.for-you-last-row .for-you-card {
+				flex: 1 1 auto;
 			}
 
-			.solution-left .section-badge { order: 1; }
-			.solution-img                 { order: 2; min-height: 320px; }
-			.solution-left .h2            { order: 3; }
-			.solution-left .lead          { order: 4; }
-			.solution-left .btn-dark      { order: 5; }
 
-			.solution-img img {
-				height: 100%;
-				min-height: 320px;
-			}
 
 			/* Plan */
 			.plan-title {
@@ -1662,10 +1233,6 @@
 				height: 100%;
 			}
 
-			.mentor-img-overlay {
-				display: none;
-			}
-
 			.mentor-content {
 				padding: 3rem 1.8rem 4rem;
 				text-align: left;
@@ -1681,89 +1248,15 @@
 				justify-content: flex-start;
 			}
 
-			/* Mentor tags */
 			.mentor-tags-row {
 				justify-content: flex-start;
 			}
 
-			/* Curriculum */
-			.curr-item {
-				grid-template-columns: auto auto 1fr;
-				gap: 1rem;
-			}
-
-			.curr-val-badge {
-				grid-column: 1 / -1;
-				width: fit-content;
-				font-size: 0.9rem;
-			}
-
-			.curr-total-n {
-				font-size: 2.2rem;
-			}
-
-			.curr-title {
-				font-size: 1.1rem;
-			}
-
-			.curr-desc {
-				font-size: 1rem;
-			}
-
-			/* Pricing */
-			.pricing-card {
-				padding: 2.5rem 1.8rem;
-			}
-
-			.pricing-amount {
-				font-size: 4rem;
-			}
-
-			.pricing-features {
-				grid-template-columns: 1fr;
-				gap: 0.8rem;
-			}
-
-			.pf {
-				font-size: 1rem;
-			}
-
-			.pricing-form input,
-			.pricing-form select {
-				font-size: 1rem;
-				padding: 1rem;
-			}
-
-			/* FAQ */
-			.faq-q {
-				font-size: 1.05rem;
-				padding: 1.4rem 0;
-			}
-
-			.faq-a {
-				font-size: 1rem;
-			}
-
-			.form-card {
-				margin: 0 0.5rem;
-				padding: 1.5rem 1.2rem;
-			}
-
-			/* Final CTA */
-			.final-cta {
-				padding: 5rem 1.8rem;
-			}
-
-			.final-h2 {
-				font-size: clamp(1.8rem, 6vw, 2.6rem);
-			}
-
-			.final-p {
-				font-size: 1.05rem;
-			}
-
 			.btn-gold-inline {
 				display: block;
+				width: 100%;
+				text-align: center;
+				align-self: stretch;
 			}
 
 			/* Footer */
@@ -1796,10 +1289,6 @@
 			.hero-left {
 				height: 70vw;
 			}
-
-			.accordion-track {
-				height: clamp(240px, 65vw, 380px);
-			}
 		}
 	</style>
 </head>
@@ -1809,36 +1298,30 @@
 	<!-- NAV -->
 	<nav>
 		<div class="nav-logo">Yuri Palheiros</div>
-		<a href="#vaga" class="nav-cta">Quero minha vaga</a>
+		<a href="https://propostayuri.vercel.app/consultoria" class="nav-cta">Quero agendar</a>
 	</nav>
 
 	<!-- ══ 1. HERO ══ -->
 	<section class="hero">
 		<div class="hero-left">
-			<img id="heroImg" src="../img/img1.webp" alt="Yuri Palheiros em fazenda de mineração Bitcoin"
+			<img id="heroImg" src="../img/img1.webp" alt="Yuri Palheiros"
 				onerror="this.outerHTML='<div class=\'ph\' style=\'position:absolute;inset:0;min-height:0\'><span class=\'ph-n\'>img1.webp</span><span class=\'ph-l\'>Foto / Vídeo</span></div>'">
 		</div>
 		<div class="hero-right">
 			<div class="hero-content">
-				<div class="hero-badge reveal">
-					Apenas 5 vagas por mês. Mentoria 100% individual.
-				</div>
-				<h1 class="hero-h1 reveal d1">
-					<span class="grad">E se você pudesse parar de pagar imposto sobre o seu faturamento a partir de
-						amanhã?</span>
+				<h1 class="hero-h1 reveal">
+					<span class="grad">Receba um Plano Estratégico personalizado para estruturar seu patrimônio com
+						dólar digital e pagar menos imposto de forma 100% legal</span>
 				</h1>
-				<p class="hero-p reveal d2">Não estou falando de sonegação. Estou falando de usar criptomoedas para
-					fazer legalmente o que os maiores empresários do Brasil já fazem: dolarizar, blindar e multiplicar
-					seu patrimônio.</p>
-				<p class="hero-strong reveal d3">Você não precisa entender NADA de blockchain. Só precisa de 3 meses
-					comigo.</p>
-				<a href="#vaga" class="btn-dark reveal d4">Quero minha vaga →</a>
-				<p class="hero-fine reveal d4">Sem compromisso. Preencha o formulário e receba os detalhes.</p>
+				<p class="hero-p reveal d1">Caso você seja selecionado, nós vamos criar um plano individual completo
+					para você blindar, dolarizar e multiplicar seu patrimônio, sem precisar entender nada sobre esse
+					mercado.</p>
+				<a href="https://propostayuri.vercel.app/consultoria" class="btn-dark reveal d2">QUERO AGENDAR →</a>
 			</div>
 		</div>
 	</section>
 
-	<!-- ══ 2. STATS (parallax img2.png) ══ -->
+	<!-- ══ 2. STATS ══ -->
 	<div class="stats-bar">
 		<div class="stat">
 			<div class="stat-n-wrap"><span class="stat-n" data-to="500" data-prefix="US$" data-suffix="M+">US$0M+</span>
@@ -1859,53 +1342,51 @@
 		</div>
 	</div>
 
-	<!-- ══ 3. GALLERY (50/50 split) ══ -->
+	<!-- ══ 3. GALLERY (Cases de Sucesso) ══ -->
 	<section class="gallery-section">
 		<div class="gallery-text">
 			<div class="section-badge reveal">
-				Nos bastidores
+				Resultados reais
 			</div>
-			<h2 class="gallery-h2 reveal d1">Veja onde a <em>magia</em> acontece.</h2>
-			<p class="gallery-desc reveal d2">Bastidores reais de operações cripto, mineração Bitcoin e encontros
-				internacionais.</p>
-			<div class="gallery-hint reveal d3">
+			<h2 class="gallery-h2 reveal d1">Cases de <em>Sucesso</em></h2>
+			<div class="gallery-hint reveal d2">
 				<span class="gallery-hint-line"></span>Role ou clique para explorar
 			</div>
 		</div>
 		<div class="accordion-track" id="accordionTrack">
 			<div class="a-panel active" data-i="0">
-				<img src="../img/img1.jpg" alt="Fazenda de mineração Bitcoin"
-					onerror="this.outerHTML='<div class=\'ph\'><span class=\'ph-n\'>img1</span><span class=\'ph-l\'>Mineração</span></div>'">
+				<img src="../img/img1.jpg" alt="Case 1"
+					onerror="this.outerHTML='<div class=\'ph\'><span class=\'ph-n\'>img1</span><span class=\'ph-l\'>Case</span></div>'">
 			</div>
 			<div class="a-panel" data-i="1">
-				<img src="../img/img2.jpg" alt="Operações cripto"
-					onerror="this.outerHTML='<div class=\'ph\'><span class=\'ph-n\'>img2</span><span class=\'ph-l\'>Operações</span></div>'">
+				<img src="../img/img2.jpg" alt="Case 2"
+					onerror="this.outerHTML='<div class=\'ph\'><span class=\'ph-n\'>img2</span><span class=\'ph-l\'>Case</span></div>'">
 			</div>
 			<div class="a-panel" data-i="2">
-				<img src="../img/img3.jpg" alt="Mineração Bitcoin"
-					onerror="this.outerHTML='<div class=\'ph\'><span class=\'ph-n\'>img3</span><span class=\'ph-l\'>Bitcoin</span></div>'">
+				<img src="../img/img3.jpg" alt="Case 3"
+					onerror="this.outerHTML='<div class=\'ph\'><span class=\'ph-n\'>img3</span><span class=\'ph-l\'>Case</span></div>'">
 			</div>
 			<div class="a-panel" data-i="3">
-				<img src="../img/img4.jpg" alt="Bastidores cripto"
-					onerror="this.outerHTML='<div class=\'ph\'><span class=\'ph-n\'>img4</span><span class=\'ph-l\'>Bastidores</span></div>'">
+				<img src="../img/img4.jpg" alt="Case 4"
+					onerror="this.outerHTML='<div class=\'ph\'><span class=\'ph-n\'>img4</span><span class=\'ph-l\'>Case</span></div>'">
 			</div>
 			<div class="a-panel" data-i="4">
-				<img src="../img/img5.jpg" alt="Yuri Palheiros internacional"
-					onerror="this.outerHTML='<div class=\'ph\'><span class=\'ph-n\'>img5</span><span class=\'ph-l\'>Internacional</span></div>'">
+				<img src="../img/img5.jpg" alt="Case 5"
+					onerror="this.outerHTML='<div class=\'ph\'><span class=\'ph-n\'>img5</span><span class=\'ph-l\'>Case</span></div>'">
 			</div>
 		</div>
 		<div class="carousel-mobile">
 			<div class="carousel-mobile-track">
-				<img src="../img/img1.jpg" alt="Fazenda de mineração Bitcoin">
-				<img src="../img/img2.jpg" alt="Operações cripto">
-				<img src="../img/img3.jpg" alt="Mineração Bitcoin">
-				<img src="../img/img4.jpg" alt="Bastidores cripto">
-				<img src="../img/img5.jpg" alt="Yuri Palheiros internacional">
-				<img src="../img/img1.jpg" alt="Fazenda de mineração Bitcoin">
-				<img src="../img/img2.jpg" alt="Operações cripto">
-				<img src="../img/img3.jpg" alt="Mineração Bitcoin">
-				<img src="../img/img4.jpg" alt="Bastidores cripto">
-				<img src="../img/img5.jpg" alt="Yuri Palheiros internacional">
+				<img src="../img/img1.jpg" alt="Case 1">
+				<img src="../img/img2.jpg" alt="Case 2">
+				<img src="../img/img3.jpg" alt="Case 3">
+				<img src="../img/img4.jpg" alt="Case 4">
+				<img src="../img/img5.jpg" alt="Case 5">
+				<img src="../img/img1.jpg" alt="Case 1">
+				<img src="../img/img2.jpg" alt="Case 2">
+				<img src="../img/img3.jpg" alt="Case 3">
+				<img src="../img/img4.jpg" alt="Case 4">
+				<img src="../img/img5.jpg" alt="Case 5">
 			</div>
 		</div>
 	</section>
@@ -1959,90 +1440,48 @@
 			<div class="pain-total-box reveal d3">
 				<div class="pain-total-label">Se você fatura R$1 milhão por ano, está perdendo</div>
 				<div class="pain-total-n">R$175.000+</div>
-				<div class="pain-total-sub">em impostos, taxas e IOF que poderiam ser drasticamente reduzidos com cripto
-				</div>
+				<div class="pain-total-sub">em impostos, taxas e IOF que poderiam ser drasticamente reduzidos com dólar
+					digital</div>
+			</div>
+			<div style="margin-top:2.5rem;text-align:center" class="reveal d4">
+				<a href="https://propostayuri.vercel.app/consultoria" class="btn-gold-inline centered">QUERO AGENDAR
+					→</a>
 			</div>
 		</div>
 	</section>
 
-	<!-- ══ 5. SOLUTION ══ -->
-	<section class="section" style="padding-top:1rem">
+	<!-- ══ 5. FOR YOU ══ -->
+	<section class="for-you-section">
 		<div class="inner-wide">
-			<div class="solution-grid">
-				<div class="solution-left">
-					<div class="section-badge reveal" style="margin-bottom:1.2rem">
-						A solução
+			<h2 class="for-you-title reveal">ESSA <span>CONSULTORIA</span> É PARA VOCÊ QUE:</h2>
+			<div class="for-you-grid">
+				<div class="for-you-card reveal d1">
+					<p>Investe em tráfego pago e quer parar de perder 12,15% de cada real anunciado em impostos, sem
+						mudar nada na sua operação.</p>
+				</div>
+				<div class="for-you-card reveal d2">
+					<p>Quer guardar e gastar em dólar no dia a dia sem pagar IOF em cada transação, sem entender de
+						dólar digital e sem burocracia nenhuma.</p>
+				</div>
+				<div class="for-you-card reveal d3">
+					<p>Quer pagar menos imposto sobre o seu faturamento de forma 100% legal e documentada (e finalmente
+						ficar com o que é seu).</p>
+				</div>
+				<div class="for-you-last-row">
+					<div class="for-you-card reveal d1">
+						<p>Quer proteger o patrimônio que construiu contra bloqueios judiciais, antes que um processo
+							apareça e seja tarde demais.</p>
 					</div>
-					<h2 class="h2 reveal d1">Tudo que você faz com o real, você faz com cripto. <mark class="highlight-sol">Só que sem imposto, sem IOF e sem bloqueio.</mark></h2>
-					<p class="lead reveal d2">Você não precisa virar trader. Não precisa estudar blockchain. Não precisa
-						entender gráficos. Você só precisa saber 3 coisas: onde comprar, como usar e onde guardar. É
-						isso que eu te ensino em 3 meses.</p>
-					<a href="#vaga" class="btn-dark reveal d3">Quero minha vaga →</a>
-				</div>
-				<div class="solution-img reveal d2">
-					<img src="../img/ftexpert2.png" alt="Yuri Palheiros"
-						onerror="this.outerHTML='<div class=\'ph\' style=\'height:100%;min-height:500px\'><span class=\'ph-n\'>ftexpert2</span><span class=\'ph-l\'>Foto solução</span></div>'">
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<!-- ══ 6. QUOTE ══ -->
-	<div class="quote-block">
-		<div class="quote-inner">
-			<p class="quote-text reveal">"Você sabe o que é uma nota de R$100? Sabe onde gastar? Onde guardar? Mas você
-				sabe qual máquina imprime essa nota? Que tinta é usada? Não, né? Então você também não precisa saber
-				nada sobre blockchain. Só precisa saber usar."</p>
-			<cite class="quote-cite reveal d1">— Yuri Palheiros</cite>
-		</div>
-	</div>
-
-	<!-- ══ 7. PLAN ══ -->
-	<section class="section">
-		<div class="inner-wide">
-			<div class="section-badge reveal">
-				Sua vida depois da mentoria
-			</div>
-			<h2 class="h2 reveal d1">Em 90 dias, você vai:</h2>
-			<div class="plan-list">
-				<div class="plan-item reveal">
-					<div class="plan-check">✓</div>
-					<div>
-						<div class="plan-title">Receber PIX e cair em dólar digital</div>
-						<div class="plan-desc">Todo PIX que você recebe pode ser convertido automaticamente em USDT
-							(dólar digital). Não passa pelo seu CNPJ, não gera imposto, não aparece em lugar nenhum.
-						</div>
-					</div>
-				</div>
-				<div class="plan-item reveal d1">
-					<div class="plan-check">✓</div>
-					<div>
-						<div class="plan-title">Pagar tudo com cartão cripto</div>
-						<div class="plan-desc">Uber, iFood, Apple Pay, supermercado, restaurante. Tudo no cartão cripto
-							com cashback, sem IOF, sem declaração. Seu dinheiro é seu.</div>
-					</div>
-				</div>
-				<div class="plan-item reveal d2">
-					<div class="plan-check">✓</div>
-					<div>
-						<div class="plan-title">Blindar seu patrimônio de vez</div>
-						<div class="plan-desc">Nenhum juiz pode bloquear cripto que está na sua carteira. Seu patrimônio
-							fica protegido e acessível 24h, de qualquer lugar do mundo.</div>
-					</div>
-				</div>
-				<div class="plan-item reveal d3">
-					<div class="plan-check">✓</div>
-					<div>
-						<div class="plan-title">Pagar tráfego pago sem IOF</div>
-						<div class="plan-desc">Google, Meta, TikTok. Pague em cripto e elimine o IOF de cada campanha.
-							Se você gasta R$50k/mês, isso são <strong>R$24.000/ano no seu bolso.</strong></div>
+					<div class="for-you-card reveal d2">
+						<p>Quer estruturar sua operação fora do Brasil (seja numa LLC americana, numa residência em
+							Dubai ou numa holding internacional) e não sabe por onde começar.</p>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
 
-	<!-- ══ 8. MENTOR ══ -->
+	<!-- ══ 6. MENTOR ══ -->
 	<section class="mentor-section">
 		<div class="mentor-img">
 			<img src="../img/ftexpert.jpg" alt="Yuri Palheiros"
@@ -2054,18 +1493,18 @@
 				Seu mentor
 			</div>
 			<h2 class="mentor-name reveal d1">Yuri<br>Palheiros</h2>
-			<p class="mentor-bio reveal d2">Autor best seller. Vivo de cripto há mais de 9 anos. Já movimentei mais de
-				US$500 milhões no mercado. Especialista em mineração de Bitcoin, estruturação financeira internacional e
-				blindagem patrimonial.</p>
+			<p class="mentor-bio reveal d2">Autor best seller. Vivo de dólar digital há mais de 9 anos. Já movimentei
+				mais de US$500 milhões no mercado. Especialista em estruturação financeira internacional e blindagem
+				patrimonial.</p>
 			<p class="mentor-bio reveal d2">Viajei para mais de 45 países estudando, usando e desenvolvendo novas
-				tecnologias. Vivo 100% só de criptomoedas: cartão, Uber, iFood, Apple Pay, tudo em dólar digital. Mais
+				tecnologias. Vivo 100% só de dólar digital: cartão, Uber, iFood, Apple Pay, tudo em dólar digital. Mais
 				de 300 mentorados formados.</p>
-			<p class="mentor-bio reveal d2">Não sou influencer de trade. Sou o cara que os maiores empresários e traders
-				do Brasil procuram quando precisam resolver.</p>
+			<p class="mentor-bio reveal d2">Não sou influencer de trade. Sou o cara que os maiores empresários do Brasil
+				procuram quando precisam resolver.</p>
 			<div class="mentor-tags reveal d3">
 				<div class="mentor-tags-row">
 					<span class="mentor-tag">Best Seller</span>
-					<span class="mentor-tag">9+ anos em cripto</span>
+					<span class="mentor-tag">9+ anos em dólar digital</span>
 					<span class="mentor-tag">US$500M+ movimentados</span>
 				</div>
 				<div class="mentor-tags-row">
@@ -2073,246 +1512,15 @@
 					<span class="mentor-tag">300+ mentorados</span>
 				</div>
 			</div>
-		</div>
-	</section>
-
-	<!-- ══ 9. CURRICULUM ══ -->
-	<section class="section">
-		<div class="inner">
-			<div class="section-badge reveal">
-				O que você recebe
-			</div>
-			<h2 class="h2 reveal d1">Não é um curso. É uma transformação completa em 90 dias.</h2>
-			<div class="curr-list">
-				<!-- 01 -->
-				<div class="curr-item reveal">
-					<div class="curr-num">01</div>
-					<div class="curr-icon" style="color:var(--gold)">
-						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-							stroke-linecap="round" stroke-linejoin="round">
-							<path
-								d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.63 19.79 19.79 0 01.04 1a2 2 0 012-1.78h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.34 1.85.574 2.81.7A2 2 0 0122 16.92z" />
-						</svg>
-					</div>
-					<div>
-						<div class="curr-title">4 Sessões Individuais de 1 Hora</div>
-						<div class="curr-desc">Encontros ao vivo, 1 a 1, comigo. Nada de grupo, nada de gravação. Cada
-							sessão tem um objetivo claro e você sai fazendo, não assistindo.</div>
-					</div>
-					<div class="curr-val-badge">R$20.000</div>
-				</div>
-				<!-- 02 -->
-				<div class="curr-item reveal d1">
-					<div class="curr-num">02</div>
-					<div class="curr-icon">
-						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-							stroke-linecap="round" stroke-linejoin="round">
-							<path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
-						</svg>
-					</div>
-					<div>
-						<div class="curr-title">Meu WhatsApp Pessoal por 90 Dias</div>
-						<div class="curr-desc">Acesso direto ao meu número. Qualquer dúvida, qualquer operação, qualquer
-							emergência. Resposta em até 24h. Não é bot, não é equipe. Sou eu.</div>
-					</div>
-					<div class="curr-val-badge">R$15.000</div>
-				</div>
-				<!-- 03 -->
-				<div class="curr-item reveal d1">
-					<div class="curr-num">03</div>
-					<div class="curr-icon">
-						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-							stroke-linecap="round" stroke-linejoin="round">
-							<rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
-							<line x1="1" y1="10" x2="23" y2="10" />
-						</svg>
-					</div>
-					<div>
-						<div class="curr-title">Setup Completo do Ecossistema Cripto</div>
-						<div class="curr-desc">Carteira configurada, cartão internacional ativo (sem IOF, com cashback),
-							PIX para cripto funcionando. Você sai da primeira sessão já usando.</div>
-					</div>
-					<div class="curr-val-badge">R$8.000</div>
-				</div>
-				<!-- 04 -->
-				<div class="curr-item reveal d2">
-					<div class="curr-num">04</div>
-					<div class="curr-icon">
-						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-							stroke-linecap="round" stroke-linejoin="round">
-							<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-						</svg>
-					</div>
-					<div>
-						<div class="curr-title">Plano de Blindagem Patrimonial</div>
-						<div class="curr-desc">Estratégia personalizada para proteger seu patrimônio contra bloqueios
-							judiciais. Montada com base no seu faturamento e estrutura societária.</div>
-					</div>
-					<div class="curr-val-badge">R$12.000</div>
-				</div>
-				<!-- 05 -->
-				<div class="curr-item reveal d2">
-					<div class="curr-num">05</div>
-					<div class="curr-icon">
-						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-							stroke-linecap="round" stroke-linejoin="round">
-							<circle cx="12" cy="12" r="10" />
-							<line x1="2" y1="12" x2="22" y2="12" />
-							<path
-								d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
-						</svg>
-					</div>
-					<div>
-						<div class="curr-title">Operações Internacionais sem Taxas</div>
-						<div class="curr-desc">Pagar fornecedores, receber de clientes, rodar tráfego pago
-							internacional. Tudo sem IOF, sem taxa bancária, sem burocracia.</div>
-					</div>
-					<div class="curr-val-badge">R$10.000</div>
-				</div>
-				<!-- 06 -->
-				<div class="curr-item reveal d3">
-					<div class="curr-num">06</div>
-					<div class="curr-icon">
-						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-							stroke-linecap="round" stroke-linejoin="round">
-							<path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
-							<circle cx="9" cy="7" r="4" />
-							<path d="M23 21v-2a4 4 0 00-3-3.87" />
-							<path d="M16 3.13a4 4 0 010 7.75" />
-						</svg>
-					</div>
-					<div>
-						<div class="curr-title">Acesso ao Network de Empresários</div>
-						<div class="curr-desc">Você entra no meu círculo. Empresários, executivos, jogadores,
-							profissionais que já operam em cripto. Conexões que geram negócios reais.</div>
-					</div>
-					<div class="curr-val-badge">Inestimável</div>
-				</div>
-				<!-- 07 -->
-				<div class="curr-item reveal d3">
-					<div class="curr-num">07</div>
-					<div class="curr-icon">
-						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-							stroke-linecap="round" stroke-linejoin="round">
-							<path
-								d="M18.178 8c5.096 0 5.096 8 0 8-5.095 0-7.133-8-12.739-8-4.585 0-4.585 8 0 8 5.606 0 7.644-8 12.74-8z" />
-						</svg>
-					</div>
-					<div>
-						<div class="curr-title">Cliente P2P Preferencial Vitalício</div>
-						<div class="curr-desc">Depois da mentoria, qualquer operação de cripto que você precisar pro
-							resto da vida, sou eu que resolvo. Taxa preferencial, prioridade total.</div>
-					</div>
-					<div class="curr-val-badge">Inestimável</div>
-				</div>
-			</div>
-			<div class="curr-total reveal">
-				<span class="curr-total-l">Valor total se contratado separadamente:</span>
-				<span class="curr-total-n">R$65.000+</span>
-			</div>
-		</div>
-	</section>
-
-	<!-- ══ 10. PRICING ══ -->
-	<section class="section" id="vaga" style="padding-top:1rem">
-		<div class="inner">
-			<div class="pricing-wrap reveal">
-				<div class="pricing-card">
-					<div class="pricing-badge-inside">Seu investimento</div>
-					<span class="pricing-label">Mentoria 100% individual</span>
-					<div class="pricing-amount">R$40.000</div>
-					<div class="pricing-period">3 meses de acompanhamento 100% individual</div>
-					<div class="pricing-vagas">⚡ Apenas 5 vagas por mês</div>
-					<div class="pricing-div"></div>
-					<p class="pricing-section-label">Tudo que está incluso:</p>
-					<div class="pricing-features">
-						<div class="pf">4 sessões individuais de 1 hora (ao vivo, 1 a 1)</div>
-						<div class="pf">WhatsApp direto do Yuri por 90 dias</div>
-						<div class="pf">Setup completo: carteira, cartão sem IOF, PIX para cripto</div>
-						<div class="pf">Plano de blindagem patrimonial personalizado</div>
-						<div class="pf">Operações internacionais sem taxas bancárias</div>
-						<div class="pf">Network exclusivo de empresários</div>
-						<div class="pf">Cliente P2P preferencial vitalício</div>
-					</div>
-					<div class="pricing-div"></div>
-					<div class="form-card">
-						<p class="pricing-section-label">Preencha para garantir sua vaga</p>
-						<div class="pricing-form">
-							<input type="text" placeholder="Seu nome completo">
-							<input type="tel" placeholder="Seu WhatsApp com DDD (ex: 11999999999)">
-							<input type="email" placeholder="Seu melhor email">
-							<select>
-								<option value="" disabled selected>Qual seu faturamento mensal?</option>
-								<option>Até R$15.000</option>
-								<option>R$15.000 – R$50.000</option>
-								<option>R$50.000 – R$150.000</option>
-								<option>R$150.000 – R$500.000</option>
-								<option>Acima de R$500.000</option>
-							</select>
-						</div>
-						<button class="btn-gold">QUERO MINHA VAGA →</button>
-						<p class="pricing-fine">Você será direcionado para o WhatsApp da equipe. Sem compromisso.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<!-- ══ 11. FAQ ══ -->
-	<section class="section" style="padding-top:1rem">
-		<div class="inner">
-			<h2 class="h2 reveal">Perguntas frequentes</h2>
-			<div class="faq-list reveal d1">
-				<details class="faq-item">
-					<summary class="faq-q">Preciso saber algo de cripto antes?<span class="faq-icon">+</span></summary>
-					<p class="faq-a">Não. A mentoria começa do zero. Você não precisa entender blockchain, carteiras ou
-						exchanges. Só precisa querer aprender a usar.</p>
-				</details>
-				<details class="faq-item">
-					<summary class="faq-q">É legal reduzir imposto usando cripto?<span class="faq-icon">+</span>
-					</summary>
-					<p class="faq-a">Sim. Tudo que ensinamos é legal. Não é sonegação — é planejamento financeiro. As
-						mesmas estratégias usadas pelos maiores empresários do Brasil.</p>
-				</details>
-				<details class="faq-item">
-					<summary class="faq-q">Quanto tempo por semana preciso dedicar?<span class="faq-icon">+</span>
-					</summary>
-					<p class="faq-a">Cerca de 2-3 horas por semana. Uma sessão ao vivo e implementação guiada. Não
-						precisa estudar — precisa fazer.</p>
-				</details>
-				<details class="faq-item">
-					<summary class="faq-q">Posso parcelar o investimento?<span class="faq-icon">+</span></summary>
-					<p class="faq-a">Sim. Os detalhes do parcelamento são apresentados após o preenchimento do
-						formulário. Entre em contato com a equipe.</p>
-				</details>
-				<details class="faq-item">
-					<summary class="faq-q">Por que apenas 5 vagas por mês?<span class="faq-icon">+</span></summary>
-					<p class="faq-a">Porque a mentoria é 100% individual. Cada cliente tem acesso direto ao Yuri —
-						WhatsApp pessoal, sessões 1 a 1, estratégia sob medida. Não dá pra manter isso com mais vagas.
-					</p>
-				</details>
-			</div>
-		</div>
-	</section>
-
-	<!-- ══ 12. FINAL CTA ══ -->
-	<section class="final-cta">
-		<div class="inner">
-			<div class="section-badge reveal" style="margin:0 auto 2rem;">
-				Última chamada
-			</div>
-			<h2 class="final-h2 reveal d1">A cada mês que passa, você está deixando <em>R$15.000+ na mesa.</em></h2>
-			<p class="final-p reveal d2">A pergunta não é se você pode pagar R$40 mil pela mentoria. A pergunta é quanto
-				está custando NÃO ter esse conhecimento.</p>
-			<a href="#vaga" class="btn-gold-inline reveal d3">Garantir minha vaga →</a>
-			<p class="final-vagas reveal d4">5 vagas por mês. Mentoria 100% individual.</p>
+			<a href="https://propostayuri.vercel.app/consultoria" class="btn-gold-inline reveal d4">QUERO AGENDAR →</a>
 		</div>
 	</section>
 
 	<!-- FOOTER -->
 	<footer>
 		<div class="footer-logo">Yuri Palheiros</div>
-		<div class="footer-fine">Concierge Cripto • Yuri Palheiros • 2026 — Este site não constitui aconselhamento financeiro. Resultados podem variar.</div>
+		<div class="footer-fine">Concierge Cripto • Yuri Palheiros • 2026 — Este site não constitui aconselhamento
+			financeiro. Resultados podem variar.</div>
 	</footer>
 
 	<script>
@@ -2354,7 +1562,6 @@
 		}, { threshold: 0.1 });
 		statObs.observe(statsBar);
 
-		// Fallback: se o observer nunca disparar, dispara após 3s
 		setTimeout(() => {
 			if (!statsFired) {
 				statsFired = true;
@@ -2366,7 +1573,7 @@
 		const track = document.getElementById('accordionTrack');
 		const panels = Array.from(track.querySelectorAll('.a-panel'));
 		const gallerySection = document.querySelector('.gallery-section');
-		let current = 0, galleryReady = false, wheelAccum = 0;
+		let current = 0, galleryReady = false;
 
 		function setPanel(idx) {
 			if (idx < 0 || idx >= panels.length || idx === current) return;
@@ -2386,9 +1593,8 @@
 			if (!galleryReady) return;
 			const r = gallerySection.getBoundingClientRect();
 			const goingDown = e.deltaY > 0;
-			const goingUp   = e.deltaY < 0;
+			const goingUp = e.deltaY < 0;
 
-			// Descida: trava quando galeria quase inteira visível (220px de margem)
 			if (goingDown && current < panels.length - 1) {
 				if (r.top > 220 || r.bottom < window.innerHeight * 0.35) return;
 				e.preventDefault();
@@ -2399,7 +1605,6 @@
 				}
 				return;
 			}
-			// Subida: só trava quando galeria está bem no topo (margem menor = trava mais tarde)
 			if (goingUp && current > 0) {
 				if (r.top > 40 || r.bottom < window.innerHeight * 0.35) return;
 				e.preventDefault();
